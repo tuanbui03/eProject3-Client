@@ -13,6 +13,11 @@ namespace ABCD_Client.Controllers
             return View();
         }
 
+        public ActionResult Shop()
+        {
+            return View();
+        }
+
         public ActionResult Test()
         {
             return View();
