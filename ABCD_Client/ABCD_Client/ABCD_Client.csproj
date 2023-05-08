@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -47,15 +46,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -131,6 +132,81 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customers.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employees.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Feedbacks.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Functions.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Groups.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Movies.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderDetails.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Orders.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PaymentMethods.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductImages.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Products.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rooms.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RoomSeats.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Screening.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seats.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shops.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tickets.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserFunctions.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserGroups.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -275,6 +351,16 @@
     <Content Include="js\demo.js" />
     <Content Include="js\front.js" />
     <Content Include="js\js-cookie.js" />
+    <Content Include="Models\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="js\countries.json" />
@@ -292,6 +378,13 @@
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\OpenSans-Regular.ttf" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -303,85 +396,71 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="storage\brands\July2022\Szpoy6ZGq7kw5aStPDrx.jpg" />
-    <Content Include="storage\brands\July2022\w9tuxvR1me3mrL3a2Yw4.png" />
-    <Content Include="storage\brands\July2022\WKIg3xCf0xevcbJ1aufs.jpg" />
-    <Content Include="storage\brands\June2021\gucci.png" />
-    <Content Include="storage\brands\June2021\2erJo0l4UKvdkxjjNUjS.png" />
-    <Content Include="storage\brands\June2021\4QwMHlxxbn0cH9SIM5qW.png" />
-    <Content Include="storage\brands\June2021\5drqjkha19U0USefGnOX.png" />
-    <Content Include="storage\brands\June2021\5sFt0zkhNJhALUqOTqsS.png" />
-    <Content Include="storage\brands\June2021\8WeO3B2RASN204UKLAIn.png" />
-    <Content Include="storage\brands\June2021\b2weutighDyylHPCbqF1.png" />
-    <Content Include="storage\brands\June2021\e1tzzVmEToiUC6aclZDa.png" />
-    <Content Include="storage\brands\June2021\f19HyANqzW6PPHLApRVH.png" />
-    <Content Include="storage\brands\June2021\faE49l3ojxFMyX5L5EZB.png" />
-    <Content Include="storage\brands\June2021\G7Z5uF20ysngAejtPLHt.png" />
-    <Content Include="storage\brands\June2021\hXP23ADNKH0EY8do5LiX.png" />
-    <Content Include="storage\brands\June2021\K4wEC8gezw2ViMDzRCBP.png" />
-    <Content Include="storage\brands\June2021\MttDDAbGmDTGBoYdbgKz.png" />
-    <Content Include="storage\brands\June2021\MyyEgxsTfsUFsjReuZV3.png" />
-    <Content Include="storage\brands\June2021\nvuax9JvinUQzVXOeQ9v.png" />
-    <Content Include="storage\brands\June2021\PD4EN9AYcCKC97a0BibN.png" />
-    <Content Include="storage\brands\June2021\RX3XaTyVpbuGlNc9erWv.png" />
-    <Content Include="storage\brands\June2021\TBx4dDEyUoP2GGULhIgV.png" />
-    <Content Include="storage\brands\June2021\VroA1UPqtP3L34T8ETgn.png" />
-    <Content Include="storage\brands\June2021\WMyzwLrcGfQzHDydjXqE.png" />
-    <Content Include="storage\brands\June2021\xj4TybKJB0nFLtZ2sAdQ.png" />
-    <Content Include="storage\brands\June2021\y1rFWeAwL59mGW9fKHwl.png" />
-    <Content Include="storage\brands\June2021\z94Zv31I6TgWg2okqIeC.png" />
-    <Content Include="storage\brands\March2023\1JuWGiJQRipNNyq5GGn2.jpg" />
-    <Content Include="storage\brands\March2023\nzaDpy6GBxuGVekD0GLO.jpg" />
-    <Content Include="storage\brands\March2023\XreSL49DeDH6QpyF7jjz.jpg" />
-    <Content Include="storage\brands\May2021\2tLr6mGFpoVdYhNA2vFp.png" />
-    <Content Include="storage\brands\May2021\6GCyVinoc49HODtxjjay.png" />
-    <Content Include="storage\brands\May2021\AkIKcEgLz4L6lcAANd1v.png" />
-    <Content Include="storage\brands\May2021\ALLRjxmY9ixuDQfIGdrd.png" />
-    <Content Include="storage\brands\May2021\cDlb4ZLyzIqepFkfGCdR.png" />
-    <Content Include="storage\brands\May2021\gs6B0cLwlJNSaHHsxyYs.png" />
-    <Content Include="storage\brands\May2021\gS6YNGcwr7Fl9PlLsmF8.png" />
-    <Content Include="storage\brands\May2021\GT86PoQNsOw834seiUuX.png" />
-    <Content Include="storage\brands\May2021\iOaIJ0ToCUYFDNElJUBW.png" />
-    <Content Include="storage\brands\May2021\jTPe4iI3QdAtVzlF7D7X.png" />
-    <Content Include="storage\brands\May2021\MYrevisoA50MVF4aMfqu.png" />
-    <Content Include="storage\brands\May2021\nHxHCNHySTPzPRCrKruA.png" />
-    <Content Include="storage\brands\May2021\NKFGYvPcVSgybWs9Aqvj.png" />
-    <Content Include="storage\brands\May2021\tdpg0TitaHNUfaMK8ODZ.png" />
-    <Content Include="storage\brands\May2021\u3zjgvJl3hBILvTDhU3x.png" />
-    <Content Include="storage\brands\May2021\U7o31iwYjgXvGw1MyJmr.png" />
-    <Content Include="storage\brands\May2021\vKIsEQJnoHmBgUkq7gjq.png" />
-    <Content Include="storage\brands\May2021\VWQVhXBMSz3lqmNAb0cA.png" />
-    <Content Include="storage\brands\May2021\YkIVMLKROCDcSEoSTUEa.png" />
-    <Content Include="storage\category\April2022\rghlAOX4mDyqrhigFjUz.jpg" />
-    <Content Include="storage\category\December2021\1st0zHLJntY92Uu06tqQ.png" />
-    <Content Include="storage\category\December2021\91PkvkgckU8sgl94CBDV.png" />
-    <Content Include="storage\category\December2021\J3GEV9SDpjxcAR4aDydm.png" />
-    <Content Include="storage\gallery\July2021\cZIOJTqpv7fG1sJi3km1.jpg" />
-    <Content Include="storage\gallery\July2022\k5qaUb6khsJFGJHkmPqj.jpg" />
-    <Content Include="storage\gallery\July2022\PlgUNhDXwiEUdJWI8Vb2.jpeg" />
-    <Content Include="storage\gallery\June2021\QEja0qJB1LMLzY0IYfoH.jpeg" />
-    <Content Include="storage\gallery\November2022\9k4XyxxVwsm6TZhIS9mP.jpg" />
-    <Content Include="storage\gallery\November2022\gC4wIwh5Ou0pVHfxwqSJ.jpg" />
-    <Content Include="storage\gallery\November2022\gqSDwcbkvGzbyh0aJ57x.jpg" />
-    <Content Include="storage\gallery\November2022\lucsToKG9xydGKHyh8c9.jpg" />
-    <Content Include="storage\gallery\November2022\sfg7khuS1JtJT1hFvhHH.jpg" />
-    <Content Include="storage\gallery\November2022\v83thLrXCtCZfBzl4dy5.jpg" />
-    <Content Include="storage\gallery\October2021\uc3mbIq7MiSZ9ACQAN12.jpeg" />
-    <Content Include="storage\gallery\September2022\3iMXwg0OuB9DgtQd9EH9.jpg" />
-    <Content Include="storage\post\April2023\fbYZbOhPfanc9m5ZMRGV.jpg" />
-    <Content Include="storage\post\April2023\t25zTGT1tPvbM2gD2VqC.jpg" />
-    <Content Include="storage\post\December2022\QeeZCt98be6gUbPpHO6T.jpg" />
-    <Content Include="storage\post\February2023\aOZEjCE5RGTx989NDIMM.jpg" />
-    <Content Include="storage\post\February2023\FYoFEkvhtNPXnsqlyJZm.jpg" />
-    <Content Include="storage\post\February2023\mDRK9OsneqFskLf7NIzU.jpg" />
-    <Content Include="storage\post\February2023\ngHdNi3DB3lylzesn83w.jpg" />
-    <Content Include="storage\post\January2023\5ySP9qb1sYS0FeNl8auu.jpg" />
-    <Content Include="storage\post\March2023\3fbh6nIO4ttrquLg5rpf.jpg" />
-    <Content Include="storage\post\March2023\sFMtTeVk8frBA8FewYDB.jpg" />
-    <Content Include="storage\post\May2023\ZrjsTuVyOe2avvmD964Q.jpg" />
-    <Content Include="storage\settings\June2021\logo23.png" />
-    <Content Include="storage\settings\October2021\DdUf8jEiyS5MfVP1r1uQ.png" />
-    <Content Include="storage\settings\September2021\0lYKpPJeiSs31ZQXcqnd.svg" />
+    <Content Include="img\brands\July2022\Szpoy6ZGq7kw5aStPDrx.jpg" />
+    <Content Include="img\brands\July2022\w9tuxvR1me3mrL3a2Yw4.png" />
+    <Content Include="img\brands\July2022\WKIg3xCf0xevcbJ1aufs.jpg" />
+    <Content Include="img\brands\June2021\gucci.png" />
+    <Content Include="img\brands\June2021\valentiocreations.png" />
+    <Content Include="img\brands\June2021\san-kelloff.png" />
+    <Content Include="img\brands\June2021\versace-jeans-couture.png" />
+    <Content Include="img\brands\June2021\tiffany-co.png" />
+    <Content Include="img\brands\June2021\pleats-kora.png" />
+    <Content Include="img\brands\June2021\sabina.png" />
+    <Content Include="img\brands\June2021\whoo.png" />
+    <Content Include="img\brands\June2021\jaguar.png" />
+    <Content Include="img\brands\June2021\mcm.png" />
+    <Content Include="img\brands\June2021\triumph.png" />
+    <Content Include="img\brands\June2021\conbo.png" />
+    <Content Include="img\brands\June2021\amara-home.png" />
+    <Content Include="img\brands\June2021\dolce.png" />
+    <Content Include="img\brands\June2021\cuulong.png" />
+    <Content Include="img\brands\June2021\vn-delights.png" />
+    <Content Include="img\brands\June2021\samsonite.png" />
+    <Content Include="img\brands\June2021\banana-republic.png" />
+    <Content Include="img\brands\June2021\troll-beads.png" />
+    <Content Include="img\brands\June2021\origani.png" />
+    <Content Include="img\brands\June2021\lare-boss.png" />
+    <Content Include="img\brands\June2021\gap.png" />
+    <Content Include="img\brands\June2021\sanaa.png" />
+    <Content Include="img\brands\June2021\ermenegildo-zegna.png" />
+    <Content Include="img\brands\March2023\1JuWGiJQRipNNyq5GGn2.jpg" />
+    <Content Include="img\brands\March2023\nzaDpy6GBxuGVekD0GLO.jpg" />
+    <Content Include="img\brands\March2023\XreSL49DeDH6QpyF7jjz.jpg" />
+    <Content Include="img\brands\May2021\2tLr6mGFpoVdYhNA2vFp.png" />
+    <Content Include="img\brands\May2021\6GCyVinoc49HODtxjjay.png" />
+    <Content Include="img\brands\May2021\AkIKcEgLz4L6lcAANd1v.png" />
+    <Content Include="img\brands\May2021\ALLRjxmY9ixuDQfIGdrd.png" />
+    <Content Include="img\brands\May2021\cDlb4ZLyzIqepFkfGCdR.png" />
+    <Content Include="img\brands\May2021\gs6B0cLwlJNSaHHsxyYs.png" />
+    <Content Include="img\brands\May2021\gS6YNGcwr7Fl9PlLsmF8.png" />
+    <Content Include="img\brands\May2021\GT86PoQNsOw834seiUuX.png" />
+    <Content Include="img\brands\May2021\iOaIJ0ToCUYFDNElJUBW.png" />
+    <Content Include="img\brands\May2021\jTPe4iI3QdAtVzlF7D7X.png" />
+    <Content Include="img\brands\May2021\MYrevisoA50MVF4aMfqu.png" />
+    <Content Include="img\brands\May2021\nHxHCNHySTPzPRCrKruA.png" />
+    <Content Include="img\brands\May2021\NKFGYvPcVSgybWs9Aqvj.png" />
+    <Content Include="img\brands\May2021\tdpg0TitaHNUfaMK8ODZ.png" />
+    <Content Include="img\brands\May2021\u3zjgvJl3hBILvTDhU3x.png" />
+    <Content Include="img\brands\May2021\U7o31iwYjgXvGw1MyJmr.png" />
+    <Content Include="img\brands\May2021\vKIsEQJnoHmBgUkq7gjq.png" />
+    <Content Include="img\brands\May2021\VWQVhXBMSz3lqmNAb0cA.png" />
+    <Content Include="img\brands\May2021\YkIVMLKROCDcSEoSTUEa.png" />
+    <Content Include="img\category\April2022\rghlAOX4mDyqrhigFjUz.jpg" />
+    <Content Include="img\category\December2021\1st0zHLJntY92Uu06tqQ.png" />
+    <Content Include="img\category\December2021\91PkvkgckU8sgl94CBDV.png" />
+    <Content Include="img\category\December2021\J3GEV9SDpjxcAR4aDydm.png" />
+    <Content Include="img\gallery\July2021\cZIOJTqpv7fG1sJi3km1.jpg" />
+    <Content Include="img\gallery\July2022\k5qaUb6khsJFGJHkmPqj.jpg" />
+    <Content Include="img\gallery\July2022\PlgUNhDXwiEUdJWI8Vb2.jpeg" />
+    <Content Include="img\gallery\June2021\QEja0qJB1LMLzY0IYfoH.jpeg" />
+    <Content Include="img\gallery\November2022\9k4XyxxVwsm6TZhIS9mP.jpg" />
+    <Content Include="img\gallery\November2022\gC4wIwh5Ou0pVHfxwqSJ.jpg" />
+    <Content Include="img\gallery\November2022\gqSDwcbkvGzbyh0aJ57x.jpg" />
+    <Content Include="img\gallery\November2022\lucsToKG9xydGKHyh8c9.jpg" />
+    <Content Include="img\gallery\November2022\sfg7khuS1JtJT1hFvhHH.jpg" />
+    <Content Include="img\gallery\November2022\v83thLrXCtCZfBzl4dy5.jpg" />
+    <Content Include="img\gallery\October2021\uc3mbIq7MiSZ9ACQAN12.jpeg" />
+    <Content Include="img\gallery\September2022\3iMXwg0OuB9DgtQd9EH9.jpg" />
     <Content Include="vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="vendor\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="vendor\bootstrap\css\bootstrap-grid.rtl.css" />
@@ -613,7 +692,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="vendor\choices.js\src\" />
     <Folder Include="vendor\choices.js\types\" />
     <Folder Include="vendor\swiper\angular\angular\src\" />
@@ -632,6 +710,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -666,10 +747,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
