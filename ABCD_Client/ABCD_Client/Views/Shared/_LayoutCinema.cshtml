@@ -121,6 +121,8 @@
                         }
                     });
                 });
+
+
         </script>
         <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
             <div class="container-fluid">
@@ -165,22 +167,45 @@
 
                         <li class="nav-item">
                             <select name="categories" class="form-select bg-light" required="">
-                                <option value="">All Categories</option>
-                                <option>Movie</option>
-                                <option>Video</option>
-                                <option>Tv-Show</option>
-                                <option>Music</option>
+                                <option value="">Movie</option>
                             </select>
 
                             <div class="input-group">
-                                <input type="text" class="form-control border-start-0" placeholder="Search Movie">
+                                <input type="text" class="form-control border-start-0" id="search-movie" placeholder="Search Movie">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-primary bg_yell" type="button">
+                                    <button class="btn btn-primary bg_yell search" type="button">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
                             </div>
+
                         </li>
+                        <!-- handle search bar -->
+                        <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                          var searchBtn = document.querySelector('.search');
+                          var moviesSection = document.querySelector('#movies');
+
+                          searchBtn.addEventListener('click', function() {
+                            var query = document.querySelector('#search-movie').value;
+                            var xhr = new XMLHttpRequest();
+
+                            xhr.onreadystatechange = function() {
+                              if (xhr.readyState === 4 && xhr.status === 200) {
+                                if (xhr.responseText.trim().length > 0) {
+                                    document.querySelector('#movie-list').innerHTML = xhr.responseText;
+                                    moviesSection.style.display = 'block';
+                                } else {
+                                    moviesSection.style.display = 'none';
+                                }
+                              }
+                            };
+                            xhr.open('POST', '/Cinema/SearchMovies');
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                            xhr.send('query=' + query);
+                          });
+                        });
+                        </script>
 
                         <li class="nav-item ms-3">
                             @if (Session["customerId"] == null)
@@ -200,6 +225,33 @@
             </div>
         </nav>
     </section>
+
+
+    <style>
+        #movies {
+            position: relative;
+        }
+
+        #movie-list {
+            position: absolute;
+            top: calc(100% + 60px); /* add the height of the navbar */
+            right: 0;
+            width: 300px; /* adjust this to your preference */
+            height: 400px; /* adjust this to your preference */
+            overflow-y: scroll;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 10px;
+            z-index: 9999; /* set a high z-index value */
+        }
+    </style>
+    <section id="movies" style="display:none">
+        <div class="container">
+            <div id="movie-list"></div> <!-- load movie list -->
+        </div>
+    </section>
+
 
     @RenderBody()
 

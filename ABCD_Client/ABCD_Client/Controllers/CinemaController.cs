@@ -37,6 +37,25 @@ namespace ABCD_Client.Controllers
             return View(movie);
         }
 
+        [HttpPost]
+        public ActionResult SearchMovies(string query)
+        {
+            var movies = db.Movies.Where(m => m.movieTitle.Contains(query)).ToList();
+            string html = "";
+
+            foreach (var movie in movies)
+            {
+                html += "<div>";
+                html += $"<a href='{Url.Action("BookingTickets", "Cinema", new { id = movie.movieId })}'><img src='{Url.Content("~/img/movie/" + movie.imagePath)}' class='w-100' alt='{movie.movieTitle}'></a>";
+                html += $"<h4>{movie.movieTitle}</h4>";
+                html += "</div>";
+            }
+
+            return Content(html);
+        }
+
+
+
 
 
 
