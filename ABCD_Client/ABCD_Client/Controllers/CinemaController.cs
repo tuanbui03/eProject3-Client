@@ -20,6 +20,15 @@ namespace ABCD_Client.Controllers
         }
 
 
+        // Define a class to hold the data for each screening
+        public class ScreeningData
+        {
+            public int ScreeningId { get; set; }
+            public int RoomId { get; set; }
+            public decimal Price { get; set; }
+            public DateTime ReservedTime { get; set; }
+            public List<RoomSeats> AvailableSeats { get; set; }
+        }
 
         public ActionResult BookingTickets(int id)
         {
@@ -37,7 +46,7 @@ namespace ABCD_Client.Controllers
             ViewBag.Screenings = screenings;
 
             // Get all available seats for each screening
-            var availableSeatsByScreening = new Dictionary<Screening, List<RoomSeats>>();
+            var availableSeatsByScreening = new Dictionary<int, ScreeningData>();
             foreach (var screening in screenings)
             {
                 var roomSeats = db.RoomSeats
@@ -51,13 +60,23 @@ namespace ABCD_Client.Controllers
 
                 var availableSeats = roomSeats.Where(rs => !bookedSeatIds.Contains(rs.seatId)).ToList();
 
-                availableSeatsByScreening[screening] = availableSeats;
+                var screeningData = new ScreeningData
+                {
+                    ScreeningId = screening.screeningId,
+                    RoomId = screening.roomId,
+                    Price = screening.price,
+                    ReservedTime = screening.reservedTime,
+                    AvailableSeats = availableSeats
+                };
+
+                availableSeatsByScreening[screening.screeningId] = screeningData;
             }
 
             ViewBag.AvailableSeatsByScreening = availableSeatsByScreening;
 
             return View(movie);
         }
+
 
 
 
