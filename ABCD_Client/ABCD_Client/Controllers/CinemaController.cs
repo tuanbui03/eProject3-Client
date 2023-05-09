@@ -21,11 +21,24 @@ namespace ABCD_Client.Controllers
 
 
 
-        // Bùi Anh Tuấn test layout book vé
-        public ActionResult BookingTickets()
+        public ActionResult BookingTickets(int id)
         {
-            return View();
+            var movie = db.Movies.Find(id);
+            if (movie == null)
+            {
+                return HttpNotFound();
+            }
+
+            var screenings = db.Screening
+                .Where(s => s.movieId == id && s.reservedTime >= DateTime.Now)
+                .OrderBy(s => s.reservedTime)
+                .ToList();
+
+            ViewBag.Screenings = screenings;
+
+            return View(movie);
         }
+
 
         // GET: Cinema/Details/5
         public ActionResult Details(int id)
