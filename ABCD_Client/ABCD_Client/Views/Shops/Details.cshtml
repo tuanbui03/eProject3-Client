@@ -1,0 +1,59 @@
+﻿@model ABCD_Client.Models.Shops
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Shops</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.shopName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.shopName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.shopAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.shopAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.phoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imagePath)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.shopId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
