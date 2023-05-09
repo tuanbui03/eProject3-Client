@@ -36,8 +36,29 @@ namespace ABCD_Client.Controllers
 
             ViewBag.Screenings = screenings;
 
+            // Get all available seats for each screening
+            var availableSeatsByScreening = new Dictionary<Screening, List<RoomSeats>>();
+            foreach (var screening in screenings)
+            {
+                var roomSeats = db.RoomSeats
+                    .Where(rs => rs.roomId == screening.roomId)
+                    .ToList();
+
+                var bookedSeatIds = db.Tickets
+                    .Where(t => t.screeningId == screening.screeningId)
+                    .Select(t => t.seatId)
+                    .ToList();
+
+                var availableSeats = roomSeats.Where(rs => !bookedSeatIds.Contains(rs.seatId)).ToList();
+
+                availableSeatsByScreening[screening] = availableSeats;
+            }
+
+            ViewBag.AvailableSeatsByScreening = availableSeatsByScreening;
+
             return View(movie);
         }
+
 
 
         // GET: Cinema/Details/5

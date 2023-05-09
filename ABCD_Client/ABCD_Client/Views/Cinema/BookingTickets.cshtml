@@ -56,6 +56,53 @@
     tr:nth-child(even) {
         background-color: #f2f2f2;
     }
+
+    .seat-picker {
+        margin-top: 20px;
+    }
+
+        .seat-picker label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .seat-picker select {
+            width: 200px;
+        }
+
+        .seat-picker button {
+            margin-left: 10px;
+        }
+
+    .available-seats {
+        margin-top: 10px;
+    }
+
+        .available-seats span {
+            margin-right: 10px;
+        }
+
+        .available-seats .seat {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            margin-right: 5px;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+        }
+
+            .available-seats .seat.disabled {
+                background-color: #ccc;
+                cursor: not-allowed;
+            }
+
+        .available-seats .selected {
+            background-color: #007bff;
+            color: #fff;
+        }
 </style>
 
 <h2>@Model.movieTitle</h2>
@@ -76,27 +123,74 @@
 
 @if (ViewBag.Screenings != null)
 {
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Room</th>
-                <th>Price</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var screening in ViewBag.Screenings)
-            {
+    @foreach (var screening in ViewBag.Screenings)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Room</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
                 <tr>
                     <td>@screening.reservedTime.ToShortDateString()</td>
                     <td>@screening.reservedTime.ToShortTimeString()</td>
                     <td>@screening.roomId</td>
                     <td>@screening.price</td>
-                    <td><a href=""><button>Order Ticket</button></a></td>
+                    <td>
+                        <button class="order-ticket-btn">Order Ticket</button>
+
+                        <div class="seat-picker" style="display: none;">
+                            <label for="seat-select-@screening.screeningId">Select a seat:</label>
+                            <select id="seat-select-@screening.screeningId"></select>
+                            <button class="confirm-seat-btn" data-screening-id="@screening.screeningId">Confirm</button>
+                            <div class="available-seats"></div>
+                        </div>
+                    </td>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    }
+}
+@section scripts {
+    <script>
+        $(document).ready(function() {
+            $('.order-ticket-btn').click(function() {
+                var screeningId = $(this).data('screening-id');
+                var availableSeats = @Html.Raw(Json.Encode(ViewBag.AvailableSeatsByScreening));
+
+                // Find the selected screening in the dictionary
+                var screening = null;
+                for (var key in availableSeats) {
+                    if (availableSeats.hasOwnProperty(key)) {
+                        if (availableSeats[key].filter(s => s.screeningId === screeningId).length > 0) {
+                            screening = availableSeats[key].find(s => s.screeningId === screeningId);
+                            break;
+                        }
+                    }
+                }
+
+                if (screening != null) {
+                    // Show the seat picker
+                    var seatPicker = $('#seat-select-' + screeningId);
+                    seatPicker.empty();
+                    $.each(screening.availableSeats, function(index, seat) {
+                        seatPicker.append($('<option>').text(seat.seatNumber));
+                    });
+
+                    $('.available-seats').text('Available seats: ' + screening.availableSeats.length);
+                    $('.seat-picker').hide();
+                    $(this).siblings('.seat-picker').show();
+                }
+            });
+
+            $('.confirm-seat-btn').click(function() {
+                // Handle the seat selection and ticket ordering here
+            });
+        });
+    </script>
 }
