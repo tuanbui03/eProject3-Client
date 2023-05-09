@@ -1,8 +1,102 @@
-﻿
+﻿@model ABCD_Client.Models.Movies
+
 @{
-    ViewBag.Title = "BookingTickets";
+    ViewBag.Title = "Booking Tickets";
     Layout = "~/Views/Shared/_LayoutCinema.cshtml";
 }
 
-<h2>BookingTickets</h2>
-Đạt ngu vãi cả đái
+<style>
+    h2 {
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .movie-details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        .movie-details p {
+            margin-bottom: 10px;
+        }
+
+    img {
+        max-width: 300px;
+        margin-left: 50px;
+    }
+
+    button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<h2>@Model.movieTitle</h2>
+
+<div class="movie-details">
+    <div>
+        <img src="@Url.Content("~/img/movie/" + Model.imagePath)" alt="Alternate Text" />
+        <p>@Model.movieDescription</p>
+        <p><strong>Release Date:</strong> @Model.releaseDate.ToShortDateString()</p>
+        <p><strong>Duration:</strong> @Model.duration minutes</p>
+        <p><strong>Rating:</strong> @Model.rating out of 5</p>
+        <a href="@Model.trailerLink" target="_blank"><button>Watch Trailer</button></a>
+    </div>
+    <img src="@Model.imagePath" alt="@Model.movieTitle" />
+</div>
+
+<h3>Screenings</h3>
+
+@if (ViewBag.Screenings != null)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Room</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var screening in ViewBag.Screenings)
+            {
+                <tr>
+                    <td>@screening.reservedTime.ToShortDateString()</td>
+                    <td>@screening.reservedTime.ToShortTimeString()</td>
+                    <td>@screening.roomId</td>
+                    <td>@screening.price</td>
+                    <td><a href="@Url.Action("OrderTicket", "Movies", new { screeningId = screening.screeningId })"><button>Order Ticket</button></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
