@@ -68,6 +68,9 @@
     <Property Name="status" Type="Byte" Nullable="false" />
     <NavigationProperty Name="Screening" Relationship="Self.FK__Screening__movie__6383C8BA" FromRole="Movies" ToRole="Screening" />
     <NavigationProperty Name="Tickets" Relationship="Self.FK__Tickets__movieId__6754599E" FromRole="Movies" ToRole="Tickets" />
+    <Property Name="imagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="trailerLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="rating" Type="Int32" />
   </EntityType>
   <EntityType Name="Orders">
     <Key>

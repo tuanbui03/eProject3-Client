@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Carts">
           <Key>
             <PropertyRef Name="customerId" />
@@ -76,6 +76,9 @@
           <Property Name="releaseDate" Type="datetime" Nullable="false" />
           <Property Name="duration" Type="int" Nullable="false" />
           <Property Name="status" Type="tinyint" Nullable="false" />
+          <Property Name="imagePath" Type="nvarchar" MaxLength="50" />
+          <Property Name="trailerLink" Type="nvarchar(max)" />
+          <Property Name="rating" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -209,7 +212,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
           <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="employeeId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Feedbacks__custo__403A8C7D">
+        <Association Name="FK__Feedbacks__custo__5165187F">
           <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
           <End Role="Feedbacks" Type="Self.Feedbacks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -221,7 +224,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Feedbacks__shopI__412EB0B6">
+        <Association Name="FK__Feedbacks__shopI__52593CB8">
           <End Role="Shops" Type="Self.Shops" Multiplicity="1" />
           <End Role="Feedbacks" Type="Self.Feedbacks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -233,7 +236,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__GroupFunc__funct__31EC6D26">
+        <Association Name="FK__GroupFunc__funct__44FF419A">
           <End Role="Functions" Type="Self.Functions" Multiplicity="1" />
           <End Role="GroupFunctions" Type="Self.GroupFunctions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -245,7 +248,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__GroupFunc__group__30F848ED">
+        <Association Name="FK__GroupFunc__group__440B1D61">
           <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
           <End Role="GroupFunctions" Type="Self.GroupFunctions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -257,7 +260,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__order__6EF57B66">
+        <Association Name="FK__OrderDeta__order__03F0984C">
           <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
@@ -269,7 +272,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__ticke__6FE99F9F">
+        <Association Name="FK__OrderDeta__ticke__04E4BC85">
           <End Role="Tickets" Type="Self.Tickets" Multiplicity="1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
@@ -281,7 +284,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__customer__5AEE82B9">
+        <Association Name="FK__Orders__customer__6FE99F9F">
           <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -293,7 +296,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__employee__5BE2A6F2">
+        <Association Name="FK__Orders__employee__70DDC3D8">
           <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -305,7 +308,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__paymentI__5CD6CB2B">
+        <Association Name="FK__Orders__paymentI__71D1E811">
           <End Role="PaymentMethods" Type="Self.PaymentMethods" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -317,7 +320,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProductIm__produ__47DBAE45">
+        <Association Name="FK__ProductIm__produ__5CD6CB2B">
           <End Role="Products" Type="Self.Products" Multiplicity="1" />
           <End Role="ProductImages" Type="Self.ProductImages" Multiplicity="*" />
           <ReferentialConstraint>
@@ -329,7 +332,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Products__shopId__440B1D61">
+        <Association Name="FK__Products__shopId__5535A963">
           <End Role="Shops" Type="Self.Shops" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
@@ -341,7 +344,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RoomSeats__roomI__5535A963">
+        <Association Name="FK__RoomSeats__roomI__6A30C649">
           <End Role="Rooms" Type="Self.Rooms" Multiplicity="1" />
           <End Role="RoomSeats" Type="Self.RoomSeats" Multiplicity="*" />
           <ReferentialConstraint>
@@ -353,7 +356,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RoomSeats__seatI__5629CD9C">
+        <Association Name="FK__RoomSeats__seatI__6B24EA82">
           <End Role="Seats" Type="Self.Seats" Multiplicity="1" />
           <End Role="RoomSeats" Type="Self.RoomSeats" Multiplicity="*" />
           <ReferentialConstraint>
@@ -365,7 +368,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Screening__movie__6383C8BA">
+        <Association Name="FK__Screening__movie__787EE5A0">
           <End Role="Movies" Type="Self.Movies" Multiplicity="1" />
           <End Role="Screening" Type="Self.Screening" Multiplicity="*" />
           <ReferentialConstraint>
@@ -377,7 +380,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Screening__roomI__6477ECF3">
+        <Association Name="FK__Screening__roomI__797309D9">
           <End Role="Rooms" Type="Self.Rooms" Multiplicity="1" />
           <End Role="Screening" Type="Self.Screening" Multiplicity="*" />
           <ReferentialConstraint>
@@ -389,7 +392,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tickets__693CA210">
+        <Association Name="FK__Tickets__7E37BEF6">
           <End Role="RoomSeats" Type="Self.RoomSeats" Multiplicity="1" />
           <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
           <ReferentialConstraint>
@@ -403,7 +406,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tickets__movieId__6754599E">
+        <Association Name="FK__Tickets__movieId__7C4F7684">
           <End Role="Movies" Type="Self.Movies" Multiplicity="1" />
           <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
           <ReferentialConstraint>
@@ -415,7 +418,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tickets__screeni__68487DD7">
+        <Association Name="FK__Tickets__screeni__7D439ABD">
           <End Role="Screening" Type="Self.Screening" Multiplicity="1" />
           <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
           <ReferentialConstraint>
@@ -427,7 +430,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserFunct__funct__35BCFE0A">
+        <Association Name="FK__UserFunct__funct__48CFD27E">
           <End Role="Functions" Type="Self.Functions" Multiplicity="1" />
           <End Role="UserFunctions" Type="Self.UserFunctions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -436,18 +439,6 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Principal>
             <Dependent Role="UserFunctions">
               <PropertyRef Name="functionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserFunct__userI__34C8D9D1">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="UserFunctions" Type="Self.UserFunctions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="userId" />
-            </Principal>
-            <Dependent Role="UserFunctions">
-              <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -465,7 +456,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserGroup__group__398D8EEE">
+        <Association Name="FK__UserGroup__group__4CA06362">
           <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
           <End Role="UserGroups" Type="Self.UserGroups" Multiplicity="*" />
           <ReferentialConstraint>
@@ -474,18 +465,6 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Principal>
             <Dependent Role="UserGroups">
               <PropertyRef Name="groupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserGroup__userI__38996AB5">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="UserGroups" Type="Self.UserGroups" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="userId" />
-            </Principal>
-            <Dependent Role="UserGroups">
-              <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -503,7 +482,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users__employeeI__267ABA7A">
+        <Association Name="FK__Users__employeeI__398D8EEE">
           <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
@@ -568,103 +547,95 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
     [OrderDetails].[ticketPrice] AS [ticketPrice]
     FROM [dbo].[OrderDetails] AS [OrderDetails]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__Feedbacks__custo__403A8C7D" Association="Self.FK__Feedbacks__custo__403A8C7D">
+          <AssociationSet Name="FK__Feedbacks__custo__5165187F" Association="Self.FK__Feedbacks__custo__5165187F">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Feedbacks" EntitySet="Feedbacks" />
           </AssociationSet>
-          <AssociationSet Name="FK__Feedbacks__shopI__412EB0B6" Association="Self.FK__Feedbacks__shopI__412EB0B6">
+          <AssociationSet Name="FK__Feedbacks__shopI__52593CB8" Association="Self.FK__Feedbacks__shopI__52593CB8">
             <End Role="Shops" EntitySet="Shops" />
             <End Role="Feedbacks" EntitySet="Feedbacks" />
           </AssociationSet>
-          <AssociationSet Name="FK__GroupFunc__funct__31EC6D26" Association="Self.FK__GroupFunc__funct__31EC6D26">
+          <AssociationSet Name="FK__GroupFunc__funct__44FF419A" Association="Self.FK__GroupFunc__funct__44FF419A">
             <End Role="Functions" EntitySet="Functions" />
             <End Role="GroupFunctions" EntitySet="GroupFunctions" />
           </AssociationSet>
-          <AssociationSet Name="FK__GroupFunc__group__30F848ED" Association="Self.FK__GroupFunc__group__30F848ED">
+          <AssociationSet Name="FK__GroupFunc__group__440B1D61" Association="Self.FK__GroupFunc__group__440B1D61">
             <End Role="Groups" EntitySet="Groups" />
             <End Role="GroupFunctions" EntitySet="GroupFunctions" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__order__6EF57B66" Association="Self.FK__OrderDeta__order__6EF57B66">
+          <AssociationSet Name="FK__OrderDeta__order__03F0984C" Association="Self.FK__OrderDeta__order__03F0984C">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__ticke__6FE99F9F" Association="Self.FK__OrderDeta__ticke__6FE99F9F">
+          <AssociationSet Name="FK__OrderDeta__ticke__04E4BC85" Association="Self.FK__OrderDeta__ticke__04E4BC85">
             <End Role="Tickets" EntitySet="Tickets" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__customer__5AEE82B9" Association="Self.FK__Orders__customer__5AEE82B9">
+          <AssociationSet Name="FK__Orders__customer__6FE99F9F" Association="Self.FK__Orders__customer__6FE99F9F">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__employee__5BE2A6F2" Association="Self.FK__Orders__employee__5BE2A6F2">
+          <AssociationSet Name="FK__Orders__employee__70DDC3D8" Association="Self.FK__Orders__employee__70DDC3D8">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__paymentI__5CD6CB2B" Association="Self.FK__Orders__paymentI__5CD6CB2B">
+          <AssociationSet Name="FK__Orders__paymentI__71D1E811" Association="Self.FK__Orders__paymentI__71D1E811">
             <End Role="PaymentMethods" EntitySet="PaymentMethods" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProductIm__produ__47DBAE45" Association="Self.FK__ProductIm__produ__47DBAE45">
+          <AssociationSet Name="FK__ProductIm__produ__5CD6CB2B" Association="Self.FK__ProductIm__produ__5CD6CB2B">
             <End Role="Products" EntitySet="Products" />
             <End Role="ProductImages" EntitySet="ProductImages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Products__shopId__440B1D61" Association="Self.FK__Products__shopId__440B1D61">
+          <AssociationSet Name="FK__Products__shopId__5535A963" Association="Self.FK__Products__shopId__5535A963">
             <End Role="Shops" EntitySet="Shops" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoomSeats__roomI__5535A963" Association="Self.FK__RoomSeats__roomI__5535A963">
+          <AssociationSet Name="FK__RoomSeats__roomI__6A30C649" Association="Self.FK__RoomSeats__roomI__6A30C649">
             <End Role="Rooms" EntitySet="Rooms" />
             <End Role="RoomSeats" EntitySet="RoomSeats" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoomSeats__seatI__5629CD9C" Association="Self.FK__RoomSeats__seatI__5629CD9C">
+          <AssociationSet Name="FK__RoomSeats__seatI__6B24EA82" Association="Self.FK__RoomSeats__seatI__6B24EA82">
             <End Role="Seats" EntitySet="Seats" />
             <End Role="RoomSeats" EntitySet="RoomSeats" />
           </AssociationSet>
-          <AssociationSet Name="FK__Screening__movie__6383C8BA" Association="Self.FK__Screening__movie__6383C8BA">
+          <AssociationSet Name="FK__Screening__movie__787EE5A0" Association="Self.FK__Screening__movie__787EE5A0">
             <End Role="Movies" EntitySet="Movies" />
             <End Role="Screening" EntitySet="Screening" />
           </AssociationSet>
-          <AssociationSet Name="FK__Screening__roomI__6477ECF3" Association="Self.FK__Screening__roomI__6477ECF3">
+          <AssociationSet Name="FK__Screening__roomI__797309D9" Association="Self.FK__Screening__roomI__797309D9">
             <End Role="Rooms" EntitySet="Rooms" />
             <End Role="Screening" EntitySet="Screening" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tickets__693CA210" Association="Self.FK__Tickets__693CA210">
+          <AssociationSet Name="FK__Tickets__7E37BEF6" Association="Self.FK__Tickets__7E37BEF6">
             <End Role="RoomSeats" EntitySet="RoomSeats" />
             <End Role="Tickets" EntitySet="Tickets" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tickets__movieId__6754599E" Association="Self.FK__Tickets__movieId__6754599E">
+          <AssociationSet Name="FK__Tickets__movieId__7C4F7684" Association="Self.FK__Tickets__movieId__7C4F7684">
             <End Role="Movies" EntitySet="Movies" />
             <End Role="Tickets" EntitySet="Tickets" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tickets__screeni__68487DD7" Association="Self.FK__Tickets__screeni__68487DD7">
+          <AssociationSet Name="FK__Tickets__screeni__7D439ABD" Association="Self.FK__Tickets__screeni__7D439ABD">
             <End Role="Screening" EntitySet="Screening" />
             <End Role="Tickets" EntitySet="Tickets" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserFunct__funct__35BCFE0A" Association="Self.FK__UserFunct__funct__35BCFE0A">
+          <AssociationSet Name="FK__UserFunct__funct__48CFD27E" Association="Self.FK__UserFunct__funct__48CFD27E">
             <End Role="Functions" EntitySet="Functions" />
-            <End Role="UserFunctions" EntitySet="UserFunctions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserFunct__userI__34C8D9D1" Association="Self.FK__UserFunct__userI__34C8D9D1">
-            <End Role="Users" EntitySet="Users" />
             <End Role="UserFunctions" EntitySet="UserFunctions" />
           </AssociationSet>
           <AssociationSet Name="FK__UserFunct__userI__47DBAE45" Association="Self.FK__UserFunct__userI__47DBAE45">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserFunctions" EntitySet="UserFunctions" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserGroup__group__398D8EEE" Association="Self.FK__UserGroup__group__398D8EEE">
+          <AssociationSet Name="FK__UserGroup__group__4CA06362" Association="Self.FK__UserGroup__group__4CA06362">
             <End Role="Groups" EntitySet="Groups" />
-            <End Role="UserGroups" EntitySet="UserGroups" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserGroup__userI__38996AB5" Association="Self.FK__UserGroup__userI__38996AB5">
-            <End Role="Users" EntitySet="Users" />
             <End Role="UserGroups" EntitySet="UserGroups" />
           </AssociationSet>
           <AssociationSet Name="FK__UserGroup__userI__4BAC3F29" Association="Self.FK__UserGroup__userI__4BAC3F29">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserGroups" EntitySet="UserGroups" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users__employeeI__267ABA7A" Association="Self.FK__Users__employeeI__267ABA7A">
+          <AssociationSet Name="FK__Users__employeeI__398D8EEE" Association="Self.FK__Users__employeeI__398D8EEE">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
@@ -677,8 +648,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
             <End Role="Carts" EntitySet="Carts" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -750,6 +720,9 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
           <Property Name="status" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Screening" Relationship="Self.FK__Screening__movie__6383C8BA" FromRole="Movies" ToRole="Screening" />
           <NavigationProperty Name="Tickets" Relationship="Self.FK__Tickets__movieId__6754599E" FromRole="Movies" ToRole="Tickets" />
+          <Property Name="imagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="trailerLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="rating" Type="Int32" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -1389,6 +1362,9 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
           <EntitySetMapping Name="Movies">
             <EntityTypeMapping TypeName="Model.Movies">
               <MappingFragment StoreEntitySet="Movies">
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="trailerLink" ColumnName="trailerLink" />
+                <ScalarProperty Name="imagePath" ColumnName="imagePath" />
                 <ScalarProperty Name="movieId" ColumnName="movieId" />
                 <ScalarProperty Name="movieTitle" ColumnName="movieTitle" />
                 <ScalarProperty Name="movieDescription" ColumnName="movieDescription" />

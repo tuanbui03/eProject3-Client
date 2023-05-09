@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ABCD_Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,11 +9,17 @@ namespace ABCD_Client.Controllers
 {
     public class CinemaController : Controller
     {
+        private Entities db = new Entities();
         // GET: Cinema
         public ActionResult Index()
         {
-            return View();
+            var movies = db.Movies.ToList();
+
+
+            return View(movies);
         }
+
+
 
         // Bùi Anh Tuấn test layout book vé
         public ActionResult BookingTickets()
