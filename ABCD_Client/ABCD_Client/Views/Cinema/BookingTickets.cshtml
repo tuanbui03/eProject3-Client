@@ -62,7 +62,7 @@
 
 <div class="movie-details">
     <div>
-        <img src="@Url.Content("~/img/movie/" + Model.imagePath)" alt="Alternate Text" />
+        <img src="@Url.Content("~/img/movie/" + Model.imagePath)" alt="@Model.movieTitle" />
         <p>@Model.movieDescription</p>
         <p><strong>Release Date:</strong> @Model.releaseDate.ToShortDateString()</p>
         <p><strong>Duration:</strong> @Model.duration minutes</p>
@@ -94,7 +94,7 @@
                     <td>@screening.reservedTime.ToShortTimeString()</td>
                     <td>@screening.roomId</td>
                     <td>@screening.price</td>
-                    <td><a href="@Url.Action("OrderTicket", "Movies", new { screeningId = screening.screeningId })"><button>Order Ticket</button></a></td>
+                    <td><a href=""><button>Order Ticket</button></a></td>
                 </tr>
             }
         </tbody>
