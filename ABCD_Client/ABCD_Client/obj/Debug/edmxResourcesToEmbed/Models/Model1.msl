@@ -54,6 +54,9 @@
     <EntitySetMapping Name="Movies">
       <EntityTypeMapping TypeName="Model.Movies">
         <MappingFragment StoreEntitySet="Movies">
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="trailerLink" ColumnName="trailerLink" />
+          <ScalarProperty Name="imagePath" ColumnName="imagePath" />
           <ScalarProperty Name="movieId" ColumnName="movieId" />
           <ScalarProperty Name="movieTitle" ColumnName="movieTitle" />
           <ScalarProperty Name="movieDescription" ColumnName="movieDescription" />

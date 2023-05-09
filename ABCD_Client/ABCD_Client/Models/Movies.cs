@@ -27,6 +27,9 @@ namespace ABCD_Client.Models
         public System.DateTime releaseDate { get; set; }
         public int duration { get; set; }
         public byte status { get; set; }
+        public string imagePath { get; set; }
+        public string trailerLink { get; set; }
+        public Nullable<int> rating { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Screening> Screening { get; set; }
