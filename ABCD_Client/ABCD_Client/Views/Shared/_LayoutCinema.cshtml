@@ -18,47 +18,110 @@
 <body>
     <section id="header">
         <div id="signup-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">SIGN UP</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
+            @using (Html.BeginForm("Create", "Customers", FormMethod.Post, new { id = "signupForm" }))
+            {
+                @Html.AntiForgeryToken()
 
-                        <form class="ps-3 pe-3" action="#">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Name</label>
-                                <input class="form-control" type="email" id="username" required="" placeholder="Eget Nulla">
-                            </div>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">SIGN UP</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="ps-3 pe-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" name="userName" id="userNameInput" required="required" placeholder="Enter your username" />
 
-                            <div class="mb-3">
-                                <label for="emailaddress" class="form-label">Email address</label>
-                                <input class="form-control" type="email" id="emailaddress" required="" placeholder="info@gmail.com">
-                            </div>
+                                <span id="userNameValidationMessage"></span>
+                                <style>
+                                    #userNameValidationMessage {
+                                        color: red;
+                                    }
+                                </style>
+                                <label class="form-label">Birth Date</label>
+                                <input type="date" class="form-control" name="birthDate" required="required" placeholder="Select your birthdate" />
 
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input class="form-control" type="password" required="" id="password" placeholder="Enter your password">
-                            </div>
+                                <label class="form-label">Card Number</label>
+                                <input type="text" class="form-control" name="cardNumber" required="required" placeholder="Enter your card number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
 
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="customCheck1">
-                                    <label class="form-check-label" for="customCheck1">I accept <a href="#">Terms and Conditions</a></label>
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" name="fullName" required="required" placeholder="Enter your Full name" />
+
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" name="email" required="required" placeholder="Enter your email address" />
+
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password" required="required" placeholder="Enter your password" />
+
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="acceptTerms" required>
+                                        <label class="form-check-label" for="acceptTerms">I accept <a href="#">Terms and Conditions</a></label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 text-center">
+                                    <button type="submit" class="button_1 d-block" id="signupButton">SIGN UP</button>
                                 </div>
                             </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            }
 
-                            <div class="mb-3 text-center">
-                                <h6><a class="button_1 d-block" href="#">LOG IN</a></h6>
-                            </div>
-
-                        </form>
-
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
         </div>
+        <script>
+                var userNameInput = document.getElementById("userNameInput");
+                var userNameValidationMessage = document.getElementById("userNameValidationMessage");
+                var acceptTermsCheckbox = document.getElementById("acceptTerms");
+                var signupButton = document.getElementById("signupButton");
+
+                function updateSignupButtonState() {
+                    if (acceptTermsCheckbox.checked && userNameValidationMessage.textContent === "") {
+                        signupButton.removeAttribute("disabled");
+                    } else {
+                        signupButton.setAttribute("disabled", "disabled");
+                    }
+                }
+
+                userNameInput.addEventListener("input", function() {
+                    var userName = userNameInput.value;
+
+                    fetch(`/Customers/CheckUserName?userName=${userName}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.exists) {
+                                userNameValidationMessage.textContent = "Username already exists.";
+                                userNameValidationMessage.insertAdjacentHTML('beforeend', '<br>');
+                            } else {
+                                userNameValidationMessage.textContent = "";
+                            }
+
+                            // Update the state of the signup button
+                            updateSignupButtonState();
+                        })
+                        .catch(error => console.error(error));
+                });
+
+                acceptTermsCheckbox.addEventListener("change", function() {
+                    updateSignupButtonState();
+                });
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    var signupForm = document.getElementById("signupForm");
+
+                    signupForm.addEventListener("submit", function(event) {
+                        if (!acceptTermsCheckbox.checked) {
+                            event.preventDefault();
+                            alert("Please accept the terms and conditions to continue.");
+                        } else if (userNameValidationMessage.textContent !== "") {
+                            event.preventDefault();
+                            alert("Username already exists. Please choose a different username.");
+                        }
+                    });
+                });
+        </script>
         <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
             <div class="container-fluid">
                 <a class="navbar-brand fs-4 p-0 fw-bold text-white text-uppercase" href="index.html"><i class="fa fa-video-camera me-1 col_light fs-1 align-middle"></i> Entertain Pro</a>
@@ -120,7 +183,15 @@
                         </li>
 
                         <li class="nav-item ms-3">
-                            <a class="nav-link button" data-bs-toggle="modal" data-bs-target="#signup-modal" href="#">SIGN UP</a>
+                            @if (Session["customerId"] == null)
+                            {
+                                <a class="nav-link button" data-bs-toggle="modal" data-bs-target="#signup-modal" href="#">SIGN UP</a>
+                                <a class="nav-link button" href="@Url.Action("Login", "Customers")">LOG IN</a>
+                            }
+                            else
+                            {
+                                <p>Welcome @Session["customerName"]</p>
+                            }
                         </li>
                         <!-- /.modal -->
 
@@ -131,7 +202,7 @@
     </section>
 
     @RenderBody()
-    
+
 
     <section id="footer" class="p_3">
         <div class="container-xl">

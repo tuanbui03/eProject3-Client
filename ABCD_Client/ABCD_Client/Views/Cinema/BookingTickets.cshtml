@@ -116,14 +116,13 @@
         <p><strong>Rating:</strong> @Model.rating out of 5</p>
         <a href="@Model.trailerLink" target="_blank"><button>Watch Trailer</button></a>
     </div>
-    <img src="@Model.imagePath" alt="@Model.movieTitle" />
 </div>
 
 <h3>Screenings</h3>
 
 @if (ViewBag.Screenings != null)
 {
-    @foreach (var screening in ViewBag.Screenings)
+    foreach (var screening in ViewBag.Screenings)
     {
         <table>
             <thead>
@@ -156,41 +155,6 @@
         </table>
     }
 }
-@section scripts {
-    <script>
-        $(document).ready(function() {
-            $('.order-ticket-btn').click(function() {
-                var screeningId = $(this).data('screening-id');
-                var availableSeats = @Html.Raw(Json.Encode(ViewBag.AvailableSeatsByScreening));
 
-                // Find the selected screening in the dictionary
-                var screening = null;
-                for (var key in availableSeats) {
-                    if (availableSeats.hasOwnProperty(key)) {
-                        if (availableSeats[key].filter(s => s.screeningId === screeningId).length > 0) {
-                            screening = availableSeats[key].find(s => s.screeningId === screeningId);
-                            break;
-                        }
-                    }
-                }
 
-                if (screening != null) {
-                    // Show the seat picker
-                    var seatPicker = $('#seat-select-' + screeningId);
-                    seatPicker.empty();
-                    $.each(screening.availableSeats, function(index, seat) {
-                        seatPicker.append($('<option>').text(seat.seatNumber));
-                    });
 
-                    $('.available-seats').text('Available seats: ' + screening.availableSeats.length);
-                    $('.seat-picker').hide();
-                    $(this).siblings('.seat-picker').show();
-                }
-            });
-
-            $('.confirm-seat-btn').click(function() {
-                // Handle the seat selection and ticket ordering here
-            });
-        });
-    </script>
-}

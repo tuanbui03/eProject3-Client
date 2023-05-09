@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ABCD_Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace ABCD_Client.Controllers
 {
     public class HomeController : Controller
     {
+        private Entities db = new Entities();
         public ActionResult Index()
         {
             return View();
@@ -15,7 +17,8 @@ namespace ABCD_Client.Controllers
 
         public ActionResult Shop()
         {
-            return View();
+            var shops = db.Shops.ToList();
+            return View(shops);
         }
 
         public ActionResult Test()
