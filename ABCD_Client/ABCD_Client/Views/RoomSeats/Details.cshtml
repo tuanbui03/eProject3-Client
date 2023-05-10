@@ -1,0 +1,124 @@
+﻿@model ABCD_Client.Models.RoomSeats
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div>
+
+    <h4>RoomSeats</h4>
+    <hr />
+
+
+    <table class="seat-picker">
+        <div class="legend-container">
+            <div class="seat-square available"></div><span>Normal Seat</span>
+            <div class="seat-square vip"></div><span>VIP Seat</span>
+            <div class="seat-square selected"></div><span>Selected Seat</span>
+        </div>
+        @for (int i = 0; i < 10; i++) // loop over the rows (assuming there are 10 rows)
+        {
+            <tr>
+                <td class="row-label">@((char)(i + 65))</td>
+                @for (int j = i * 13; j < (i + 1) * 13 && j < ViewBag.RoomSeats.Count; j++) // loop over the RoomSeats list until the end of the row or the end of the list
+                {
+                    var roomSeat = ViewBag.RoomSeats[j]; // get the corresponding RoomSeats object
+                    bool isAvailable = roomSeat.isAvailable; // determine whether the seat is available or not
+
+                    <td>
+                        <div class="seat-square @(isAvailable ? "available" : "unavailable") @(roomSeat.Seats.isVipSeat ? "vip" : "")" data-seatname="@roomSeat.Seats.seatName" onclick="toggleSeat(this)">
+                            <span>@roomSeat.Seats.seatName</span>
+                        </div>
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+
+</div>
+
+<style>
+    .seat-picker {
+        border-collapse: collapse;
+        margin: 20px auto;
+    }
+
+        .seat-picker td {
+            padding: 5px;
+            vertical-align: middle;
+        }
+
+            .seat-picker td:nth-child(-n+6) {
+                padding-left: 20px;
+            }
+
+        .seat-picker .row-label {
+            font-weight: bold;
+            width: 30px;
+            padding-left: 20px;
+        }
+
+    .seat-square {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border: 1px solid black;
+        margin: 1px;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+        .seat-square span {
+            font-size: smaller;
+        }
+
+        .seat-square.available {
+            background-color: green;
+            color: white;
+        }
+
+        .seat-square.unavailable {
+            background-color: red;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .seat-square.selected {
+            background-color: purple;
+            color: white;
+        }
+
+        .seat-square.vip {
+            background-color: red;
+            color: white;
+        }
+
+
+    .legend-container {
+        display: flex;
+        justify-content: center;
+    }
+
+</style>
+
+<script>
+  function toggleSeat(seat) {
+    if (seat.classList.contains("unavailable")) {
+        return; // do nothing if the seat is unavailable
+    }
+    if (seat.classList.contains("selected")) {
+        seat.classList.remove("selected"); // deselect the seat if it's already selected
+        if (seat.classList.contains("vip")) {
+            seat.style.backgroundColor = "red"; // set the background color to red for VIP seats
+        } else {
+            seat.style.backgroundColor = ""; // reset the background color for normal seats
+        }
+    } else {
+        seat.classList.add("selected"); // select the seat if it's not already selected
+        seat.style.backgroundColor = "purple"; // set the background color to purple for selected seats
+    }
+}
+
+</script>

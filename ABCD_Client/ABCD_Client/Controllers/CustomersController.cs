@@ -74,17 +74,10 @@ namespace ABCD_Client.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "userName,password,email,fullName,birthDate,cardNumber")] Customers customers)
+        public ActionResult Create([Bind(Include = "userName,password,email,fullName,birthDate")] Customers customers)
         {
             if (ModelState.IsValid)
-            {
-                // Check if username already exists
-                var existingCustomer = db.Customers.FirstOrDefault(c => c.userName == customers.userName);
-                if (existingCustomer != null)
-                {
-                    ModelState.AddModelError("userName", "Username already exists.");
-                    return View(customers);
-                }
+            { 
 
                 db.Customers.Add(customers);
                 db.SaveChanges();
