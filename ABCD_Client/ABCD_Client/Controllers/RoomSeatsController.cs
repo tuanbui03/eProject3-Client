@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ABCD_Client.Models;
 
@@ -22,7 +20,7 @@ namespace ABCD_Client.Controllers
         }
 
         // GET: RoomSeats/Details/5
-        public ActionResult TicketBooking(int? roomId, int? screeningId)
+        public ActionResult Details(int? roomId, int? screeningId)
         {
             if (roomId == null || screeningId == null)
             {
@@ -33,7 +31,7 @@ namespace ABCD_Client.Controllers
             List<RoomSeats> roomSeats = db.RoomSeats.Include(s => s.Seats).Where(rs => rs.roomId == roomId).ToList();
 
             // Retrieve the Screening object with the specified ID
-            Screening screening = db.Screening.FirstOrDefault(s => s.screeningId == screeningId);
+            Screening screening = db.Screening.Include(m => m.Movies).FirstOrDefault(s => s.screeningId == screeningId);
 
             if (screening == null)
             {

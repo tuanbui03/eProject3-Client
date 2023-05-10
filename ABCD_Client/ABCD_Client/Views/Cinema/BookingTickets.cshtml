@@ -141,14 +141,7 @@
                     <td>@screening.roomId</td>
                     <td>@screening.price</td>
                     <td>
-                        <button class="order-ticket-btn">Order Ticket</button>
-
-                        <div class="seat-picker" style="display: none;">
-                            <label for="seat-select-@screening.screeningId">Select a seat:</label>
-                            <select id="seat-select-@screening.screeningId"></select>
-                            <button class="confirm-seat-btn" data-screening-id="@screening.screeningId">Confirm</button>
-                            <div class="available-seats"></div>
-                        </div>
+                        @Html.ActionLink("Order Ticket", "AddToCart", "Cinema", new { roomId = screening.roomId, screeningId = screening.screeningId }, new { @class = "order-ticket-link" })
                     </td>
                 </tr>
             </tbody>

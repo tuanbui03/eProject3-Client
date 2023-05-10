@@ -1,8 +1,7 @@
-﻿@model ABCD_Client.Models.RoomSeats
-
+﻿
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    ViewBag.Title = "AddToCart";
+    Layout = "~/Views/Shared/_LayoutCinema.cshtml";
 }
 
 <div>
@@ -44,15 +43,10 @@
     <thead>
         <tr>
             <th>Seat</th>
-            @*this is the seat name field*@
             <th>Room</th>
-            @*this from @ViewBag.Screening.roomId *@
             <th>Movie Name</th>
-            @*this from @ViewBag.Screening.Movies.movieTitle*@
             <th>Reserved Time</th>
-            @*this from @ViewBag.Screening.reservedTime*@
             <th>Price</th>
-            @*this from @ViewBag.Screening.price if the seat is vip + 20000 to the price  *@
         </tr>
     </thead>
     <tbody id="cart-items"></tbody>
@@ -128,7 +122,6 @@
         display: flex;
         justify-content: center;
     }
-
 </style>
 
 <script>

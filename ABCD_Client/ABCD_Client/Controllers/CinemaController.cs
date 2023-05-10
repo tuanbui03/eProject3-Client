@@ -1,9 +1,11 @@
-﻿using ABCD_Client.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Web;
+using System.Net;
 using System.Web.Mvc;
+using ABCD_Client.Models;
 
 namespace ABCD_Client.Controllers
 {
@@ -36,6 +38,34 @@ namespace ABCD_Client.Controllers
 
             return View(movie);
         }
+
+
+        public ActionResult AddToCart(int? roomId, int? screeningId)
+        {
+            if (roomId == null || screeningId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // Retrieve all RoomSeat objects associated with the Room
+            List<RoomSeats> roomSeats = db.RoomSeats.Include(s => s.Seats).Where(rs => rs.roomId == roomId).ToList();
+
+            // Retrieve the Screening object with the specified ID
+            Screening screening = db.Screening.Include(m => m.Movies).FirstOrDefault(s => s.screeningId == screeningId);
+
+            if (screening == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Pass the RoomSeats and Screening objects to the view using ViewBag
+            ViewBag.RoomSeats = roomSeats;
+            ViewBag.Screening = screening;
+
+            return View();
+        }
+
+
 
         [HttpPost]
         public ActionResult SearchMovies(string query)
