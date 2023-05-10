@@ -1,14 +1,11 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "AddToCart";
     Layout = "~/Views/Shared/_LayoutCinema.cshtml";
 }
 
 <div>
-
     <h4>RoomSeats</h4>
     <hr />
-
 
     <table class="seat-picker">
         <tr>
@@ -36,7 +33,6 @@
             </tr>
         }
     </table>
-
 </div>
 
 <table class="cart-table">
@@ -52,7 +48,11 @@
     <tbody id="cart-items"></tbody>
     <tfoot>
         <tr>
-            <td colspan="4" style="text-align: right;">
+            <td colspan="4" style="text-align: right;">Total:</td>
+            <td id="total-price">0</td>
+        </tr>
+        <tr>
+            <td colspan="5" style="text-align: right;">
                 <button onclick="clearCart()">Clear Cart</button>
                 <button onclick="submitOrder()">Submit Order</button>
             </td>
@@ -117,79 +117,113 @@
             color: white;
         }
 
-
     .legend-container {
         display: flex;
         justify-content: center;
     }
+
+    .cart-table {
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+        .cart-table th,
+        .cart-table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid black;
+        }
+
+        .cart-table thead th {
+            background-color: lightgray;
+            font-weight: bold;
+        }
+
+    #total-price {
+        font-weight: bold;
+    }
 </style>
 
 <script>
-
-function toggleSeat(seat) {
-    if (seat.classList.contains("unavailable")) {
-        return; // do nothing if the seat is unavailable
-    }
-    if (seat.classList.contains("selected")) {
-        seat.classList.remove("selected"); // deselect the seat if it's already selected
-        if (seat.classList.contains("vip")) {
-            seat.style.backgroundColor = "red"; // set the background color to red for VIP seats
+    function toggleSeat(seat) {
+        if (seat.classList.contains("unavailable")) {
+            return; // do nothing if the seat is unavailable
+        }
+        if (seat.classList.contains("selected")) {
+            seat.classList.remove("selected"); // deselect the seat if it's already selected
+            if (seat.classList.contains("vip")) {
+                seat.style.backgroundColor = "red"; // set the background color to red for VIP seats
+            } else {
+                seat.style.backgroundColor = ""; // reset the background color for normal seats
+            }
+            removeItemFromCart(seat.getAttribute("data-seatname")); // remove the corresponding item from the cart
         } else {
-            seat.style.backgroundColor = ""; // reset the background color for normal seats
+            seat.classList.add("selected"); // select the seat if it's not already selected
+            seat.style.backgroundColor = "purple"; // set the background color to purple for selected seats
+            var isVipSeat = seat.classList.contains("vip"); // determine whether the seat is a VIP seat or not
+            addItemToCart(seat.getAttribute("data-seatname"), "@ViewBag.Screening.roomId", "@ViewBag.Screening.Movies.movieTitle", "@ViewBag.Screening.reservedTime", isVipSeat); // add the corresponding item to the cart
         }
-        removeItemFromCart(seat.getAttribute("data-seatname")); // remove the corresponding item from the cart
-    } else {
-        seat.classList.add("selected"); // select the seat if it's not already selected
-        seat.style.backgroundColor = "purple"; // set the background color to purple for selected seats
-        var isVipSeat = seat.classList.contains("vip"); // determine whether the seat is a VIP seat or not
-        addItemToCart(seat.getAttribute("data-seatname"), "@ViewBag.Screening.roomId", "@ViewBag.Screening.Movies.movieTitle", "@ViewBag.Screening.reservedTime", isVipSeat); // add the corresponding item to the cart
+        updateTotalPrice(); // update the total price displayed at the bottom of the cart table
     }
-}
 
-function addItemToCart(seatName, roomId, movieTitle, reservedTime, isVipSeat) {
-    var price = isVipSeat ? @ViewBag.Screening.price + 20000 : @ViewBag.Screening.price; // calculate the price based on whether the seat is a VIP seat or not
-    var cartItems = document.getElementById("cart-items");
-    var newRow = document.createElement("tr");
-    newRow.innerHTML = "<td>" + seatName + "</td><td>" + roomId + "</td><td>" + movieTitle + "</td><td>" + reservedTime + "</td><td>" + price + "</td>";
-    cartItems.appendChild(newRow);
-}
+    function addItemToCart(seatName, roomId, movieTitle, reservedTime, isVipSeat) {
+        var price = isVipSeat ? @ViewBag.Screening.price + 20000 : @ViewBag.Screening.price; // calculate the price based on whether the seat is a VIP seat or not
+        var cartItems = document.getElementById("cart-items");
+        var newRow = document.createElement("tr");
+        newRow.innerHTML = "<td>" + seatName + "</td><td>" + roomId + "</td><td>" + movieTitle + "</td><td>" + reservedTime + "</td><td>" + price + "</td>";
+        cartItems.appendChild(newRow);
+    }
 
-function removeItemFromCart(seatName) {
-    var cartItems = document.getElementById("cart-items");
-    var rows = cartItems.getElementsByTagName("tr");
-    for (var i = 0; i < rows.length; i++) {
-        var cells = rows[i].getElementsByTagName("td");
-        if (cells[0].innerHTML === seatName) { // check if the seat name matches
-            cartItems.removeChild(rows[i]); // remove the row from the cart
-            break;
+    function removeItemFromCart(seatName) {
+        var cartItems = document.getElementById("cart-items");
+        var rows = cartItems.getElementsByTagName("tr");
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName("td");
+            if (cells[0].innerHTML === seatName) { // check if the seat name matches
+                cartItems.removeChild(rows[i]); // remove the row from the cart
+                break;
+            }
         }
     }
-}
 
-function clearCart() {
-    var cartItems = document.getElementById("cart-items");
-    cartItems.innerHTML = ""; // remove all items from the cart
+    function clearCart() {
+        var cartItems = document.getElementById("cart-items");
+        cartItems.innerHTML = ""; // remove all items from the cart
 
-    // deselect all selected seats
-    var selectedSeats = document.querySelectorAll(".selected");
-    for (var i = 0; i < selectedSeats.length; i++) {
-        var seat = selectedSeats[i];
-        seat.classList.remove("selected");
-        if (seat.classList.contains("vip")) {
-            seat.style.backgroundColor = "red"; // set the background color to red for VIP seats
+        // deselect all selected seats
+        var selectedSeats = document.querySelectorAll(".selected");
+        for (var i = 0; i < selectedSeats.length; i++) {
+            var seat = selectedSeats[i];
+            seat.classList.remove("selected");
+            if (seat.classList.contains("vip")) {
+                seat.style.backgroundColor = "red"; // set the background color to red for VIP seats
+            } else {
+                seat.style.backgroundColor = ""; // reset the background color for normal seats
+            }
+        }
+
+        updateTotalPrice(); // update the total price displayed at the bottom of the cart table
+    }
+
+    function submitOrder() {
+        var cartItems = document.getElementById("cart-items");
+        if (cartItems.getElementsByTagName("tr").length == 0) { // check if there are any items in the cart
+            alert("Your cart is empty!"); // show an alert message if the cart is empty
         } else {
-            seat.style.backgroundColor = ""; // reset the background color for normal seats
+            // TODO: implement order submission logic
         }
     }
-}
 
-function submitOrder() {
-    var cartItems = document.getElementById("cart-items");
-    if (cartItems.getElementsByTagName("tr").length == 0) { // check if there are any items in the cart
-        alert("Your cart is empty!"); // show an alert message if the cart is empty
-    } else {
-        // TODO: implement order submission logic
+    function updateTotalPrice() {
+        var cartItems = document.getElementById("cart-items");
+        var totalPrice = 0;
+        var rows = cartItems.getElementsByTagName("tr");
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName("td");
+            var price = parseInt(cells[4].innerHTML); // get the price from the last column of the row
+            totalPrice += price;
+        }
+        document.getElementById("total-price").innerHTML = totalPrice; // update the total price displayed at the bottom of the cart table
     }
-}
 
 </script>
