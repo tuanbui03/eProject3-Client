@@ -54,6 +54,10 @@ namespace ABCD_Client.Controllers
             return Content(html);
         }
 
+        public ActionResult Cart()
+        {
+            return View();
+        }
 
 
 
