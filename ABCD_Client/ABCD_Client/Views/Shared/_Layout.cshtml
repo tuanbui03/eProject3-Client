@@ -50,7 +50,12 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                <div class="dropdown-menu mt-3 shadow-sm" aria-labelledby="pagesDropdown"><a class="dropdown-item border-0 transition-link" href="index.html">Homepage</a><a class="dropdown-item border-0 transition-link" href="shop.html">Category</a><a class="dropdown-item border-0 transition-link" href="detail.html">Product detail</a><a class="dropdown-item border-0 transition-link" href="cart.html">Shopping cart</a><a class="dropdown-item border-0 transition-link" href="checkout.html">Checkout</a></div>
+                                <div class="dropdown-menu mt-3 shadow-sm" aria-labelledby="pagesDropdown">
+                                    <a class="dropdown-item border-0 transition-link" href="index.html">Homepage</a>
+                                <a class="dropdown-item border-0 transition-link" href="@Url.Action("About", "Home")">About</a>
+                                <a class="dropdown-item border-0 transition-link" href="@Url.Action("Contact", "Home")">Contact</a>
+                                
+                                </div>
                             </li>
                         </ul>
                         <ul class="navbar-nav ms-auto">
@@ -72,7 +77,6 @@
                         <h6 class="text-uppercase mb-3">Customer services</h6>
                         <ul class="list-unstyled mb-0">
                             <li><a class="footer-link" href="#!">Help &amp; Contact Us</a></li>
-                            <li><a class="footer-link" href="#!">Returns &amp; Refunds</a></li>
                             <li><a class="footer-link" href="#!">Online Stores</a></li>
                             <li><a class="footer-link" href="#!">Terms &amp; Conditions</a></li>
                         </ul>
