@@ -352,6 +352,7 @@
     <Content Include="img\product-detail-3.jpg" />
     <Content Include="img\product-detail-4.jpg" />
     <Content Include="img\template-mac.png" />
+    <Content Include="img\tttm.jpg" />
     <Content Include="js\demo.js" />
     <Content Include="js\front.js" />
     <Content Include="js\js-cookie.js" />
