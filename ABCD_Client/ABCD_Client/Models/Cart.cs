@@ -12,12 +12,13 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductImages
+    public partial class Cart
     {
-        public int id { get; set; }
-        public int productId { get; set; }
-        public string imagePath { get; set; }
+        public int customerId { get; set; }
+        public int ticketId { get; set; }
+        public decimal price { get; set; }
     
-        public virtual Products Products { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Ticket Ticket { get; set; }
     }
 }

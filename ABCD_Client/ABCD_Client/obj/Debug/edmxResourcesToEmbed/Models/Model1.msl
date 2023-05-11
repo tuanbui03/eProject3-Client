@@ -1,8 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities1">
+    <EntitySetMapping Name="Carts">
+      <EntityTypeMapping TypeName="Model.Cart">
+        <MappingFragment StoreEntitySet="Carts">
+          <ScalarProperty Name="customerId" ColumnName="customerId" />
+          <ScalarProperty Name="ticketId" ColumnName="ticketId" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Customers">
-      <EntityTypeMapping TypeName="Model.Customers">
+      <EntityTypeMapping TypeName="Model.Customer">
         <MappingFragment StoreEntitySet="Customers">
           <ScalarProperty Name="customerId" ColumnName="customerId" />
           <ScalarProperty Name="userName" ColumnName="userName" />
@@ -15,7 +24,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Employees">
-      <EntityTypeMapping TypeName="Model.Employees">
+      <EntityTypeMapping TypeName="Model.Employee">
         <MappingFragment StoreEntitySet="Employees">
           <ScalarProperty Name="employeeId" ColumnName="employeeId" />
           <ScalarProperty Name="email" ColumnName="email" />
@@ -25,7 +34,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Feedbacks">
-      <EntityTypeMapping TypeName="Model.Feedbacks">
+      <EntityTypeMapping TypeName="Model.Feedback">
         <MappingFragment StoreEntitySet="Feedbacks">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="customerId" ColumnName="customerId" />
@@ -36,7 +45,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Functions">
-      <EntityTypeMapping TypeName="Model.Functions">
+      <EntityTypeMapping TypeName="Model.Function">
         <MappingFragment StoreEntitySet="Functions">
           <ScalarProperty Name="functionId" ColumnName="functionId" />
           <ScalarProperty Name="functionName" ColumnName="functionName" />
@@ -44,7 +53,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Groups">
-      <EntityTypeMapping TypeName="Model.Groups">
+      <EntityTypeMapping TypeName="Model.Group">
         <MappingFragment StoreEntitySet="Groups">
           <ScalarProperty Name="groupId" ColumnName="groupId" />
           <ScalarProperty Name="groupName" ColumnName="groupName" />
@@ -52,22 +61,22 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Movies">
-      <EntityTypeMapping TypeName="Model.Movies">
+      <EntityTypeMapping TypeName="Model.Movy">
         <MappingFragment StoreEntitySet="Movies">
-          <ScalarProperty Name="rating" ColumnName="rating" />
-          <ScalarProperty Name="trailerLink" ColumnName="trailerLink" />
-          <ScalarProperty Name="imagePath" ColumnName="imagePath" />
           <ScalarProperty Name="movieId" ColumnName="movieId" />
           <ScalarProperty Name="movieTitle" ColumnName="movieTitle" />
           <ScalarProperty Name="movieDescription" ColumnName="movieDescription" />
           <ScalarProperty Name="releaseDate" ColumnName="releaseDate" />
           <ScalarProperty Name="duration" ColumnName="duration" />
           <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="imagePath" ColumnName="imagePath" />
+          <ScalarProperty Name="trailerLink" ColumnName="trailerLink" />
+          <ScalarProperty Name="rating" ColumnName="rating" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="Model.Orders">
+      <EntityTypeMapping TypeName="Model.Order">
         <MappingFragment StoreEntitySet="Orders">
           <ScalarProperty Name="orderId" ColumnName="orderId" />
           <ScalarProperty Name="customerId" ColumnName="customerId" />
@@ -81,7 +90,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="PaymentMethods">
-      <EntityTypeMapping TypeName="Model.PaymentMethods">
+      <EntityTypeMapping TypeName="Model.PaymentMethod">
         <MappingFragment StoreEntitySet="PaymentMethods">
           <ScalarProperty Name="paymentId" ColumnName="paymentId" />
           <ScalarProperty Name="paymentName" ColumnName="paymentName" />
@@ -89,7 +98,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ProductImages">
-      <EntityTypeMapping TypeName="Model.ProductImages">
+      <EntityTypeMapping TypeName="Model.ProductImage">
         <MappingFragment StoreEntitySet="ProductImages">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="productId" ColumnName="productId" />
@@ -98,7 +107,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Products">
-      <EntityTypeMapping TypeName="Model.Products">
+      <EntityTypeMapping TypeName="Model.Product">
         <MappingFragment StoreEntitySet="Products">
           <ScalarProperty Name="productId" ColumnName="productId" />
           <ScalarProperty Name="productName" ColumnName="productName" />
@@ -109,7 +118,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Rooms">
-      <EntityTypeMapping TypeName="Model.Rooms">
+      <EntityTypeMapping TypeName="Model.Room">
         <MappingFragment StoreEntitySet="Rooms">
           <ScalarProperty Name="roomId" ColumnName="roomId" />
           <ScalarProperty Name="numberOfSeats" ColumnName="numberOfSeats" />
@@ -118,7 +127,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="RoomSeats">
-      <EntityTypeMapping TypeName="Model.RoomSeats">
+      <EntityTypeMapping TypeName="Model.RoomSeat">
         <MappingFragment StoreEntitySet="RoomSeats">
           <ScalarProperty Name="roomId" ColumnName="roomId" />
           <ScalarProperty Name="seatId" ColumnName="seatId" />
@@ -126,7 +135,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Screening">
+    <EntitySetMapping Name="Screenings">
       <EntityTypeMapping TypeName="Model.Screening">
         <MappingFragment StoreEntitySet="Screening">
           <ScalarProperty Name="screeningId" ColumnName="screeningId" />
@@ -138,7 +147,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Seats">
-      <EntityTypeMapping TypeName="Model.Seats">
+      <EntityTypeMapping TypeName="Model.Seat">
         <MappingFragment StoreEntitySet="Seats">
           <ScalarProperty Name="seatId" ColumnName="seatId" />
           <ScalarProperty Name="seatName" ColumnName="seatName" />
@@ -147,7 +156,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Shops">
-      <EntityTypeMapping TypeName="Model.Shops">
+      <EntityTypeMapping TypeName="Model.Shop">
         <MappingFragment StoreEntitySet="Shops">
           <ScalarProperty Name="shopId" ColumnName="shopId" />
           <ScalarProperty Name="shopName" ColumnName="shopName" />
@@ -158,8 +167,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Model.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Tickets">
-      <EntityTypeMapping TypeName="Model.Tickets">
+      <EntityTypeMapping TypeName="Model.Ticket">
         <MappingFragment StoreEntitySet="Tickets">
           <ScalarProperty Name="ticketId" ColumnName="ticketId" />
           <ScalarProperty Name="roomId" ColumnName="roomId" />
@@ -171,24 +191,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UserFunctions">
-      <EntityTypeMapping TypeName="Model.UserFunctions">
-        <MappingFragment StoreEntitySet="UserFunctions">
-          <ScalarProperty Name="userId" ColumnName="userId" />
-          <ScalarProperty Name="functionId" ColumnName="functionId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserGroups">
-      <EntityTypeMapping TypeName="Model.UserGroups">
-        <MappingFragment StoreEntitySet="UserGroups">
-          <ScalarProperty Name="userId" ColumnName="userId" />
-          <ScalarProperty Name="groupId" ColumnName="groupId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="Model.Users">
+      <EntityTypeMapping TypeName="Model.User">
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="userId" ColumnName="userId" />
           <ScalarProperty Name="userName" ColumnName="userName" />
@@ -198,7 +202,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="OrderDetails">
-      <EntityTypeMapping TypeName="Model.OrderDetails">
+      <EntityTypeMapping TypeName="Model.OrderDetail">
         <MappingFragment StoreEntitySet="OrderDetails">
           <ScalarProperty Name="orderId" ColumnName="orderId" />
           <ScalarProperty Name="ticketId" ColumnName="ticketId" />
@@ -206,20 +210,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="Carts" TypeName="Model.Carts" StoreEntitySet="Carts">
-      <EndProperty Name="Customers">
-        <ScalarProperty Name="customerId" ColumnName="customerId" />
-      </EndProperty>
-      <EndProperty Name="Tickets">
-        <ScalarProperty Name="ticketId" ColumnName="ticketId" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="GroupFunctions" TypeName="Model.GroupFunctions" StoreEntitySet="GroupFunctions">
       <EndProperty Name="Functions">
         <ScalarProperty Name="functionId" ColumnName="functionId" />
       </EndProperty>
       <EndProperty Name="Groups">
         <ScalarProperty Name="groupId" ColumnName="groupId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserFunctions" TypeName="Model.UserFunctions" StoreEntitySet="UserFunctions">
+      <EndProperty Name="Functions">
+        <ScalarProperty Name="functionId" ColumnName="functionId" />
+      </EndProperty>
+      <EndProperty Name="Users">
+        <ScalarProperty Name="userId" ColumnName="userId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserGroups" TypeName="Model.UserGroups" StoreEntitySet="UserGroups">
+      <EndProperty Name="Groups">
+        <ScalarProperty Name="groupId" ColumnName="groupId" />
+      </EndProperty>
+      <EndProperty Name="Users">
+        <ScalarProperty Name="userId" ColumnName="userId" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

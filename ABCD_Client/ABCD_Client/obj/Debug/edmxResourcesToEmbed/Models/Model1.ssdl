@@ -7,6 +7,7 @@
     </Key>
     <Property Name="customerId" Type="int" Nullable="false" />
     <Property Name="ticketId" Type="int" Nullable="false" />
+    <Property Name="price" Type="money" Nullable="false" />
   </EntityType>
   <EntityType Name="Customers">
     <Key>
@@ -169,6 +170,16 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
     <Property Name="phoneNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="email" Type="nvarchar" MaxLength="50" />
     <Property Name="imagePath" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Tickets">
     <Key>
@@ -531,6 +542,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
     <EntitySet Name="Screening" EntityType="Self.Screening" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Seats" EntityType="Self.Seats" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Shops" EntityType="Self.Shops" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserFunctions" EntityType="Self.UserFunctions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserGroups" EntityType="Self.UserGroups" Schema="dbo" store:Type="Tables" />

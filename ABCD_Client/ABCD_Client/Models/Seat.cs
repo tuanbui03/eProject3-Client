@@ -12,21 +12,19 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RoomSeats
+    public partial class Seat
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RoomSeats()
+        public Seat()
         {
-            this.Tickets = new HashSet<Tickets>();
+            this.RoomSeats = new HashSet<RoomSeat>();
         }
     
-        public int roomId { get; set; }
         public int seatId { get; set; }
-        public bool isAvailable { get; set; }
+        public string seatName { get; set; }
+        public bool isVipSeat { get; set; }
     
-        public virtual Rooms Rooms { get; set; }
-        public virtual Seats Seats { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tickets> Tickets { get; set; }
+        public virtual ICollection<RoomSeat> RoomSeats { get; set; }
     }
 }

@@ -12,21 +12,21 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Groups
+    public partial class Function
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Groups()
+        public Function()
         {
-            this.UserGroups = new HashSet<UserGroups>();
-            this.Functions = new HashSet<Functions>();
+            this.Groups = new HashSet<Group>();
+            this.Users = new HashSet<User>();
         }
     
-        public int groupId { get; set; }
-        public string groupName { get; set; }
+        public int functionId { get; set; }
+        public string functionName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserGroups> UserGroups { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Functions> Functions { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

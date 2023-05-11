@@ -9,7 +9,7 @@ namespace ABCD_Client.Controllers
 {
     public class HomeController : Controller
     {
-        private Entities db = new Entities();
+        private Entities1 db = new Entities1();
         public ActionResult Index()
         {
             return View();

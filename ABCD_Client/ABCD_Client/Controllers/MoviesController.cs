@@ -12,7 +12,7 @@ namespace ABCD_Client.Controllers
 {
     public class MoviesController : Controller
     {
-        private Entities db = new Entities();
+        private Entities1 db = new Entities1();
 
         // GET: Movies
         public ActionResult Index()
@@ -27,7 +27,7 @@ namespace ABCD_Client.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movies movies = db.Movies.Find(id);
+            Movy movies = db.Movies.Find(id);
             if (movies == null)
             {
                 return HttpNotFound();

@@ -12,7 +12,7 @@ namespace ABCD_Client.Controllers
 {
     public class ShopsController : Controller
     {
-        private Entities db = new Entities();
+        private Entities1 db = new Entities1();
 
         // GET: Shops
         public ActionResult Index()
@@ -27,7 +27,7 @@ namespace ABCD_Client.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Shops shops = db.Shops.Find(id);
+            Shop shops = db.Shops.Find(id);
             if (shops == null)
             {
                 return HttpNotFound();

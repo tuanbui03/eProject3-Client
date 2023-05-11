@@ -12,13 +12,12 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserFunctions
+    public partial class ProductImage
     {
-        public int userId { get; set; }
-        public int functionId { get; set; }
+        public int id { get; set; }
+        public int productId { get; set; }
+        public string imagePath { get; set; }
     
-        public virtual Functions Functions { get; set; }
-        public virtual Users Users { get; set; }
-        public virtual Users Users1 { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

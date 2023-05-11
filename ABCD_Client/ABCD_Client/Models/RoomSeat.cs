@@ -12,22 +12,21 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Products
+    public partial class RoomSeat
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Products()
+        public RoomSeat()
         {
-            this.ProductImages = new HashSet<ProductImages>();
+            this.Tickets = new HashSet<Ticket>();
         }
     
-        public int productId { get; set; }
-        public string productName { get; set; }
-        public string productDescription { get; set; }
-        public decimal price { get; set; }
-        public int shopId { get; set; }
+        public int roomId { get; set; }
+        public int seatId { get; set; }
+        public bool isAvailable { get; set; }
     
+        public virtual Room Room { get; set; }
+        public virtual Seat Seat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductImages> ProductImages { get; set; }
-        public virtual Shops Shops { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

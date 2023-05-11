@@ -12,13 +12,13 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Movies
+    public partial class Movy
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Movies()
+        public Movy()
         {
-            this.Screening = new HashSet<Screening>();
-            this.Tickets = new HashSet<Tickets>();
+            this.Screenings = new HashSet<Screening>();
+            this.Tickets = new HashSet<Ticket>();
         }
     
         public int movieId { get; set; }
@@ -32,8 +32,8 @@ namespace ABCD_Client.Models
         public Nullable<int> rating { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Screening> Screening { get; set; }
+        public virtual ICollection<Screening> Screenings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tickets> Tickets { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

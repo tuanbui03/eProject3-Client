@@ -12,18 +12,25 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PaymentMethods
+    public partial class Shop
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PaymentMethods()
+        public Shop()
         {
-            this.Orders = new HashSet<Orders>();
+            this.Feedbacks = new HashSet<Feedback>();
+            this.Products = new HashSet<Product>();
         }
     
-        public int paymentId { get; set; }
-        public string paymentName { get; set; }
+        public int shopId { get; set; }
+        public string shopName { get; set; }
+        public string shopAddress { get; set; }
+        public string phoneNumber { get; set; }
+        public string email { get; set; }
+        public string imagePath { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

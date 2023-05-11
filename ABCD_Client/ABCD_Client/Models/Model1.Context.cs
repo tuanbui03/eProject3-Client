@@ -13,10 +13,10 @@ namespace ABCD_Client.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class Entities1 : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public Entities1()
+            : base("name=Entities1")
         {
         }
     
@@ -25,25 +25,25 @@ namespace ABCD_Client.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Customers> Customers { get; set; }
-        public virtual DbSet<Employees> Employees { get; set; }
-        public virtual DbSet<Feedbacks> Feedbacks { get; set; }
-        public virtual DbSet<Functions> Functions { get; set; }
-        public virtual DbSet<Groups> Groups { get; set; }
-        public virtual DbSet<Movies> Movies { get; set; }
-        public virtual DbSet<Orders> Orders { get; set; }
-        public virtual DbSet<PaymentMethods> PaymentMethods { get; set; }
-        public virtual DbSet<ProductImages> ProductImages { get; set; }
-        public virtual DbSet<Products> Products { get; set; }
-        public virtual DbSet<Rooms> Rooms { get; set; }
-        public virtual DbSet<RoomSeats> RoomSeats { get; set; }
-        public virtual DbSet<Screening> Screening { get; set; }
-        public virtual DbSet<Seats> Seats { get; set; }
-        public virtual DbSet<Shops> Shops { get; set; }
-        public virtual DbSet<Tickets> Tickets { get; set; }
-        public virtual DbSet<UserFunctions> UserFunctions { get; set; }
-        public virtual DbSet<UserGroups> UserGroups { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<OrderDetails> OrderDetails { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
+        public virtual DbSet<Function> Functions { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<Movy> Movies { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public virtual DbSet<ProductImage> ProductImages { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<RoomSeat> RoomSeats { get; set; }
+        public virtual DbSet<Screening> Screenings { get; set; }
+        public virtual DbSet<Seat> Seats { get; set; }
+        public virtual DbSet<Shop> Shops { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Ticket> Tickets { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
     }
 }

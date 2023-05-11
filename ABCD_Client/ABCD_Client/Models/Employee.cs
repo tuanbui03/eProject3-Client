@@ -12,29 +12,23 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Customers
+    public partial class Employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customers()
+        public Employee()
         {
-            this.Feedbacks = new HashSet<Feedbacks>();
-            this.Orders = new HashSet<Orders>();
-            this.Tickets = new HashSet<Tickets>();
+            this.Orders = new HashSet<Order>();
+            this.Users = new HashSet<User>();
         }
     
-        public int customerId { get; set; }
-        public string userName { get; set; }
-        public string password { get; set; }
+        public int employeeId { get; set; }
         public string email { get; set; }
         public string fullName { get; set; }
         public System.DateTime birthDate { get; set; }
-        public string cardNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Feedbacks> Feedbacks { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Orders> Orders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tickets> Tickets { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

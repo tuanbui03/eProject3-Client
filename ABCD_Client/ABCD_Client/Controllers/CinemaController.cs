@@ -11,7 +11,7 @@ namespace ABCD_Client.Controllers
 {
     public class CinemaController : Controller
     {
-        private Entities db = new Entities();
+        private Entities1 db = new Entities1();
         // GET: Cinema
         public ActionResult Index()
         {
@@ -29,7 +29,7 @@ namespace ABCD_Client.Controllers
                 return HttpNotFound();
             }
 
-            var screenings = db.Screening
+            var screenings = db.Screenings
                 .Where(s => s.movieId == id && s.reservedTime >= DateTime.Now)
                 .OrderBy(s => s.reservedTime)
                 .ToList();
@@ -47,11 +47,16 @@ namespace ABCD_Client.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            if (Session["customerId"] == null)
+            {
+                return RedirectToAction("Login", "Customers");
+            }
+
             // Retrieve all RoomSeat objects associated with the Room
-            List<RoomSeats> roomSeats = db.RoomSeats.Include(s => s.Seats).Where(rs => rs.roomId == roomId).ToList();
+            List<RoomSeat> roomSeats = db.RoomSeats.Include(s => s.Seat).Where(rs => rs.roomId == roomId).ToList();
 
             // Retrieve the Screening object with the specified ID
-            Screening screening = db.Screening.Include(m => m.Movies).FirstOrDefault(s => s.screeningId == screeningId);
+            Screening screening = db.Screenings.Include(m => m.Movy).FirstOrDefault(s => s.screeningId == screeningId);
 
             if (screening == null)
             {
@@ -78,15 +83,17 @@ namespace ABCD_Client.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateMultipleTickets(List<Tickets> tickets)
+        public ActionResult CreateMultipleTickets(List<Ticket> tickets, List<Cart> carts)
         {
             if (ModelState.IsValid)
             {
+                int customerId = (int)Session["customerId"];
+
                 foreach (var ticket in tickets)
                 {
                     db.Tickets.Add(ticket);
                 }
+
                 db.SaveChanges();
 
                 return new HttpStatusCodeResult(HttpStatusCode.OK);

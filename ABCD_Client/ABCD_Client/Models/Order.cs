@@ -12,12 +12,12 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Orders
+    public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Orders()
+        public Order()
         {
-            this.OrderDetails = new HashSet<OrderDetails>();
+            this.OrderDetails = new HashSet<OrderDetail>();
         }
     
         public int orderId { get; set; }
@@ -29,10 +29,10 @@ namespace ABCD_Client.Models
         public bool isPurchased { get; set; }
         public System.DateTime bookingDate { get; set; }
     
-        public virtual Customers Customers { get; set; }
-        public virtual Employees Employees { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
-        public virtual PaymentMethods PaymentMethods { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual PaymentMethod PaymentMethod { get; set; }
     }
 }

@@ -12,25 +12,24 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Shops
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Shops()
+        public User()
         {
-            this.Feedbacks = new HashSet<Feedbacks>();
-            this.Products = new HashSet<Products>();
+            this.Functions = new HashSet<Function>();
+            this.Groups = new HashSet<Group>();
         }
     
-        public int shopId { get; set; }
-        public string shopName { get; set; }
-        public string shopAddress { get; set; }
-        public string phoneNumber { get; set; }
-        public string email { get; set; }
-        public string imagePath { get; set; }
+        public int userId { get; set; }
+        public string userName { get; set; }
+        public string password { get; set; }
+        public int employeeId { get; set; }
     
+        public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Feedbacks> Feedbacks { get; set; }
+        public virtual ICollection<Function> Functions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Products> Products { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
     }
 }

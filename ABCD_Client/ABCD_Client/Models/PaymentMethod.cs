@@ -12,22 +12,18 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Rooms
+    public partial class PaymentMethod
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Rooms()
+        public PaymentMethod()
         {
-            this.RoomSeats = new HashSet<RoomSeats>();
-            this.Screening = new HashSet<Screening>();
+            this.Orders = new HashSet<Order>();
         }
     
-        public int roomId { get; set; }
-        public int numberOfSeats { get; set; }
-        public bool isAvailable { get; set; }
+        public int paymentId { get; set; }
+        public string paymentName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RoomSeats> RoomSeats { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Screening> Screening { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

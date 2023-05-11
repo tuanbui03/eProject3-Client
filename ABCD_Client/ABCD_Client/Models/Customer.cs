@@ -12,30 +12,29 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Users()
+        public Customer()
         {
-            this.UserFunctions = new HashSet<UserFunctions>();
-            this.UserFunctions1 = new HashSet<UserFunctions>();
-            this.UserGroups = new HashSet<UserGroups>();
-            this.UserGroups1 = new HashSet<UserGroups>();
+            this.Carts = new HashSet<Cart>();
+            this.Feedbacks = new HashSet<Feedback>();
+            this.Orders = new HashSet<Order>();
         }
     
-        public int userId { get; set; }
+        public int customerId { get; set; }
         public string userName { get; set; }
         public string password { get; set; }
-        public int employeeId { get; set; }
+        public string email { get; set; }
+        public string fullName { get; set; }
+        public System.DateTime birthDate { get; set; }
+        public string cardNumber { get; set; }
     
-        public virtual Employees Employees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserFunctions> UserFunctions { get; set; }
+        public virtual ICollection<Cart> Carts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserFunctions> UserFunctions1 { get; set; }
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserGroups> UserGroups { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserGroups> UserGroups1 { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

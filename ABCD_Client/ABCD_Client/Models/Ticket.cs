@@ -12,21 +12,29 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Functions
+    public partial class Ticket
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Functions()
+        public Ticket()
         {
-            this.UserFunctions = new HashSet<UserFunctions>();
-            this.Groups = new HashSet<Groups>();
+            this.Carts = new HashSet<Cart>();
+            this.OrderDetails = new HashSet<OrderDetail>();
         }
     
-        public int functionId { get; set; }
-        public string functionName { get; set; }
+        public int ticketId { get; set; }
+        public int roomId { get; set; }
+        public int seatId { get; set; }
+        public string seatName { get; set; }
+        public int movieId { get; set; }
+        public int screeningId { get; set; }
+        public string TicketCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserFunctions> UserFunctions { get; set; }
+        public virtual ICollection<Cart> Carts { get; set; }
+        public virtual Movy Movy { get; set; }
+        public virtual RoomSeat RoomSeat { get; set; }
+        public virtual Screening Screening { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Groups> Groups { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

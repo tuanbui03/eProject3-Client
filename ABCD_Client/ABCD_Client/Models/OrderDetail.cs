@@ -12,15 +12,13 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Feedbacks
+    public partial class OrderDetail
     {
-        public int id { get; set; }
-        public int customerId { get; set; }
-        public int shopId { get; set; }
-        public string message { get; set; }
-        public System.DateTime feedbackDate { get; set; }
+        public Nullable<int> orderId { get; set; }
+        public int ticketId { get; set; }
+        public int ticketPrice { get; set; }
     
-        public virtual Customers Customers { get; set; }
-        public virtual Shops Shops { get; set; }
+        public virtual Order Order { get; set; }
+        public virtual Ticket Ticket { get; set; }
     }
 }

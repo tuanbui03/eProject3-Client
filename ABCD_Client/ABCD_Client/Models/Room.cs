@@ -12,29 +12,22 @@ namespace ABCD_Client.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tickets
+    public partial class Room
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tickets()
+        public Room()
         {
-            this.OrderDetails = new HashSet<OrderDetails>();
-            this.Customers = new HashSet<Customers>();
+            this.RoomSeats = new HashSet<RoomSeat>();
+            this.Screenings = new HashSet<Screening>();
         }
     
-        public int ticketId { get; set; }
         public int roomId { get; set; }
-        public int seatId { get; set; }
-        public string seatName { get; set; }
-        public int movieId { get; set; }
-        public int screeningId { get; set; }
-        public string TicketCode { get; set; }
+        public int numberOfSeats { get; set; }
+        public bool isAvailable { get; set; }
     
-        public virtual Movies Movies { get; set; }
-        public virtual RoomSeats RoomSeats { get; set; }
-        public virtual Screening Screening { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        public virtual ICollection<RoomSeat> RoomSeats { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customers> Customers { get; set; }
+        public virtual ICollection<Screening> Screenings { get; set; }
     }
 }

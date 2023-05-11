@@ -17,7 +17,7 @@ namespace ABCD_Client.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Screening()
         {
-            this.Tickets = new HashSet<Tickets>();
+            this.Tickets = new HashSet<Ticket>();
         }
     
         public int screeningId { get; set; }
@@ -26,9 +26,9 @@ namespace ABCD_Client.Models
         public System.DateTime reservedTime { get; set; }
         public int price { get; set; }
     
-        public virtual Movies Movies { get; set; }
-        public virtual Rooms Rooms { get; set; }
+        public virtual Movy Movy { get; set; }
+        public virtual Room Room { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tickets> Tickets { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }
