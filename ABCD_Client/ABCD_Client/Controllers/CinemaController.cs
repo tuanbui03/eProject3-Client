@@ -58,12 +58,44 @@ namespace ABCD_Client.Controllers
                 return HttpNotFound();
             }
 
+            // Query the Tickets by the given screeningId and get the seatIds that have already been reserved
+            var reservedSeats = db.Tickets.Where(t => t.screeningId == screeningId).Select(t => t.seatId).ToList();
+
+            // Disable the seats that have already been reserved
+            foreach (var roomSeat in roomSeats)
+            {
+                if (reservedSeats.Contains(roomSeat.seatId))
+                {
+                    roomSeat.isAvailable = false;
+                }
+            }
+
             // Pass the RoomSeats and Screening objects to the view using ViewBag
             ViewBag.RoomSeats = roomSeats;
             ViewBag.Screening = screening;
 
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateMultipleTickets(List<Tickets> tickets)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var ticket in tickets)
+                {
+                    db.Tickets.Add(ticket);
+                }
+                db.SaveChanges();
+
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+
 
 
 

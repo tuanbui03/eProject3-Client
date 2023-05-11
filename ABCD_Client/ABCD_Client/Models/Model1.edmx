@@ -23,7 +23,7 @@
           <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="fullName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="birthDate" Type="datetime" Nullable="false" />
-          <Property Name="cardNumber" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="cardNumber" Type="varchar" MaxLength="16" />
         </EntityType>
         <EntityType Name="Employees">
           <Key>
@@ -662,7 +662,7 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="birthDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="cardNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cardNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Feedbacks" Relationship="Self.FK__Feedbacks__custo__403A8C7D" FromRole="Customers" ToRole="Feedbacks" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__customer__5AEE82B9" FromRole="Customers" ToRole="Orders" />
           <NavigationProperty Name="Tickets" Relationship="Self.Carts" FromRole="Customers" ToRole="Tickets" />

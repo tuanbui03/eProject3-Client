@@ -133,8 +133,8 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
-    <Compile Include="Controllers\RoomSeatsController.cs" />
     <Compile Include="Controllers\ShopsController.cs" />
+    <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -696,12 +696,12 @@
     <Content Include="Views\Customers\Login.cshtml" />
     <Content Include="Views\Cinema\Cart.cshtml" />
     <Content Include="Views\Shared\_UserLayout.cshtml" />
-    <Content Include="Views\RoomSeats\Create.cshtml" />
-    <Content Include="Views\RoomSeats\Delete.cshtml" />
-    <Content Include="Views\RoomSeats\Details.cshtml" />
-    <Content Include="Views\RoomSeats\Edit.cshtml" />
-    <Content Include="Views\RoomSeats\Index.cshtml" />
     <Content Include="Views\Cinema\AddToCart.cshtml" />
+    <Content Include="Views\Tickets\Create.cshtml" />
+    <Content Include="Views\Tickets\Delete.cshtml" />
+    <Content Include="Views\Tickets\Details.cshtml" />
+    <Content Include="Views\Tickets\Edit.cshtml" />
+    <Content Include="Views\Tickets\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

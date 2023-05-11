@@ -18,7 +18,7 @@
     <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="fullName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="birthDate" Type="datetime" Nullable="false" />
-    <Property Name="cardNumber" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="cardNumber" Type="varchar" MaxLength="16" />
   </EntityType>
   <EntityType Name="Employees">
     <Key>

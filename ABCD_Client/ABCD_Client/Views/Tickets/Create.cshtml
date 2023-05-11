@@ -1,8 +1,8 @@
-﻿@model ABCD_Client.Models.RoomSeats
+﻿@model ABCD_Client.Models.Tickets
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    Layout = "~/Views/Shared/_LayoutCinema.cshtml";
 }
 
 <h2>Create</h2>
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>RoomSeats</h4>
+        <h4>Tickets</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -32,12 +32,26 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.isAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.seatName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.isAvailable)
-                    @Html.ValidationMessageFor(model => model.isAvailable, "", new { @class = "text-danger" })
-                </div>
+                @Html.EditorFor(model => model.seatName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.seatName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.movieId, "movieId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("movieId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.movieId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.screeningId, "screeningId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("screeningId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.screeningId, "", new { @class = "text-danger" })
             </div>
         </div>
 

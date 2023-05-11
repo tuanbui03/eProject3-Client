@@ -11,8 +11,7 @@ namespace ABCD_Client.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Customers
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,10 +23,7 @@ namespace ABCD_Client.Models
         }
     
         public int customerId { get; set; }
-        [Required(ErrorMessage = "Please enter your username or email")]
         public string userName { get; set; }
-        [Required(ErrorMessage = "Please enter your password")]
-        [DataType(DataType.Password)]
         public string password { get; set; }
         public string email { get; set; }
         public string fullName { get; set; }
