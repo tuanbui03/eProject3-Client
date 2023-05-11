@@ -136,6 +136,10 @@ namespace ABCD_Client.Controllers
 
         public ActionResult Cart()
         {
+            if (Session["customerId"] == null)
+            { 
+                return RedirectToAction("Login", "Customers");
+            }
             int customerId = (int)Session["customerId"];
             var carts = db.Carts.Include(t => t.Ticket)
                                  .Include(m => m.Ticket.Movy)
@@ -165,82 +169,5 @@ namespace ABCD_Client.Controllers
             return RedirectToAction("Cart");
         }
 
-
-
-
-
-
-
-        // GET: Cinema/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Cinema/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Cinema/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Cinema/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Cinema/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Cinema/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Cinema/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
