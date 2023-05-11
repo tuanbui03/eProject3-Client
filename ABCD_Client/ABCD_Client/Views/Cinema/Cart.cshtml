@@ -13,48 +13,50 @@
                 <table class="table text-nowrap">
                     <thead class="bg-light">
                         <tr>
-                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Product</strong></th>
-                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Price</strong></th>
-                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Quantity</strong></th>
-                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Total</strong></th>
+                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Seat Name</strong></th>
+                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Room</strong></th>
+                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Reserved Time</strong></th>
+                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Movie Title</strong></th>
+                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Price </strong></th>
                             <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase"></strong></th>
                         </tr>
                     </thead>
                     <tbody class="border-0">
-                        <tr>
-                            <th class="ps-0 py-3 border-light" scope="row">
-                                <div class="d-flex align-items-center">
-                                    <a class="reset-anchor d-block animsition-link" href="detail.html"><img src="img/product-detail-3.jpg" alt="..." width="70" /></a>
-                                    <div class="ms-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">Red digital smartwatch</a></strong></div>
-                                </div>
-                            </th>
-                            <td class="p-3 align-middle border-light">
-                                <p class="mb-0 small">$250</p>
-                            </td>
-                            <td class="p-3 align-middle border-light">
-                                <div class="border d-flex align-items-center justify-content-between px-3">
-                                    <span class="small text-uppercase text-gray headings-font-family">Quantity</span>
-                                    <div class="quantity">
-                                        <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                                        <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value="1" />
-                                        <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="p-3 align-middle border-light">
-                                <p class="mb-0 small">$250</p>
-                            </td>
-                            <td class="p-3 align-middle border-light"><a class="reset-anchor" href="#!"><i class="fas fa-trash-alt small text-muted"></i></a></td>
-                        </tr>
-                        
+                        @foreach (var cart in ViewBag.carts)
+                        {
+                            <tr>
+                                <td class="p-3 align-middle border-light">
+                                    <p class="mb-0 small">@cart.Ticket.seatName</p>
+                                </td>
+                                <td class="p-3 align-middle border-light">
+                                    <p class="mb-0 small">@cart.Ticket.roomId</p>
+                                </td>
+                                <td class="p-3 align-middle border-light">
+                                    <p class="mb-0 small">@cart.Ticket.Screening.reservedTime</p>
+                                </td>
+                                <td class="p-3 align-middle border-light">
+                                    <p class="mb-0 small">@cart.Ticket.Movy.movieTitle</p>
+                                </td>
+                                <td class="p-3 align-middle border-light">
+                                    <p class="mb-0 small">@string.Format("{0:#,##0;(#,##0)}", cart.price) vnđ</p>
+                                </td>
+
+                                <td class="p-3 align-middle border-light">
+                                    <a class="reset-anchor" href="@Url.Action("RemoveFromCart", "Cinema", new { customerId = cart.customerId, ticketId = cart.ticketId })">
+                                        <i class="fas fa-trash-alt small text-muted"></i>
+                                    </a>
+
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
             <!-- CART NAV-->
             <div class="bg-light px-4 py-3">
                 <div class="row align-items-center text-center">
-                    <div class="col-md-6 mb-3 mb-md-0 text-md-start"><a class="btn btn-link p-0 text-dark btn-sm" href="shop.html"><i class="fas fa-long-arrow-alt-left me-2"> </i>Continue shopping</a></div>
-                    <div class="col-md-6 text-md-end"><a class="btn btn-outline-dark btn-sm" href="checkout.html">Procceed to checkout<i class="fas fa-long-arrow-alt-right ms-2"></i></a></div>
+                    <div class="col-md-6 mb-3 mb-md-0 text-md-start"><a class="btn btn-link p-0 text-dark btn-sm" href="@Url.Action("Index", "Cinema")"><i class="fas fa-long-arrow-alt-left me-2"> </i>Continue shopping</a></div>
+                    <div class="col-md-6 text-md-end"><a class="btn btn-outline-dark btn-sm" href="@Url.Action("Checkout", "Cart")">Proceed to checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></a></div>
                 </div>
             </div>
         </div>
@@ -64,17 +66,23 @@
                 <div class="card-body">
                     <h5 class="text-uppercase mb-4">Cart total</h5>
                     <ul class="list-unstyled mb-0">
-                        <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small">$250</span></li>
-                        <li class="border-bottom my-2"></li>
-                        <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>$250</span></li>
-                        <li>
-                            <form action="#">
-                                <div class="input-group mb-0">
-                                    <input class="form-control" type="text" placeholder="Enter your coupon">
-                                    <button class="btn btn-dark btn-sm w-100" type="submit"> <i class="fas fa-gift me-2"></i>Apply coupon</button>
-                                </div>
-                            </form>
-                        </li>
+                        @if (ViewBag.carts.Count > 0)
+                        {
+                            decimal total = 0;
+                            if (ViewBag.carts != null)
+                            {
+                                foreach (var cart in ViewBag.carts)
+                                {
+                                    total += cart.price;
+                                }
+                            }
+
+                            <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>@string.Format("{0:#,##0;(#,##0)}", total) vnd</span></li>
+                        }
+                        else
+                        {
+                            <li class="d-flex align-items-center justify-content-between mb-4"><p class="small text-muted">Your cart is empty</p></li>
+                        }
                     </ul>
                 </div>
             </div>

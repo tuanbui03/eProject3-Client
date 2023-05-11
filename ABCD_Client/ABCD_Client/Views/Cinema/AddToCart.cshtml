@@ -168,11 +168,11 @@
         for (var i = 0; i < rows.length; i++) {
             var seatName = rows[i].getElementsByTagName("td")[0].innerHTML;
             var price = parseInt(rows[i].getElementsByTagName("td")[4].innerHTML.replaceAll(",", ""));
-            var cartItem = {
+            var cart = {
                 customerId: "@Session["customerId"]",
                 price: price
             };
-            cartItemsToSubmit.push(cartItem);
+            cartItemsToSubmit.push(cart);
         }
 
         // Send a POST request to the server
@@ -181,7 +181,7 @@
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ tickets: ticketsToSubmit, cartItems: cartItemsToSubmit })
+            body: JSON.stringify({ tickets: ticketsToSubmit, carts: cartItemsToSubmit })
         })
         .then(response => {
             if (response.ok) {

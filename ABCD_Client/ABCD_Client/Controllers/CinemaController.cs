@@ -88,19 +88,30 @@ namespace ABCD_Client.Controllers
             if (ModelState.IsValid)
             {
                 int customerId = (int)Session["customerId"];
-
+                var i = 0;
                 foreach (var ticket in tickets)
-                {
-                    db.Tickets.Add(ticket);
-                }
+                {   
+                    var cart = carts[i];
+                        db.Tickets.Add(ticket);
+                        db.SaveChanges(); // Save changes after adding each Ticket object
 
-                db.SaveChanges();
+                        // Get the generated Id value
+                        int generatedId = db.Tickets.Local.Last().ticketId;
+
+                        // Add a corresponding Cart object to the database
+                        cart.ticketId = generatedId;
+
+                        db.Carts.Add(cart);
+                        db.SaveChanges(); // Save changes after adding the Cart object
+                    i++;
+                }
 
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
+
 
 
 
@@ -125,8 +136,36 @@ namespace ABCD_Client.Controllers
 
         public ActionResult Cart()
         {
+            int customerId = (int)Session["customerId"];
+            var carts = db.Carts.Include(t => t.Ticket)
+                                 .Include(m => m.Ticket.Movy)
+                                 .Include(m => m.Ticket.Screening)
+                                 .Where(c => c.customerId == customerId)
+                                 .ToList();
+            ViewBag.carts = carts;
             return View();
         }
+
+        public ActionResult RemoveFromCart(int customerId, int ticketId)
+        {
+            var cartItem = db.Carts.SingleOrDefault(c => c.customerId == customerId && c.ticketId == ticketId);
+            if (cartItem != null)
+            {
+                db.Carts.Remove(cartItem);
+                db.SaveChanges();
+            }
+
+            var ticketItem = db.Tickets.SingleOrDefault(t => t.ticketId == ticketId);
+            if (ticketItem != null)
+            {
+                db.Tickets.Remove(ticketItem);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Cart");
+        }
+
+
 
 
 
