@@ -169,5 +169,81 @@ namespace ABCD_Client.Controllers
             return RedirectToAction("Cart");
         }
 
+        public ActionResult PaymentCheckOut()
+        {
+            if (Session["customerId"] == null)
+            {
+                return RedirectToAction("Login", "Customers");
+            }
+
+            var payments = db.PaymentMethods.ToList();
+            var paymentSelectList = new SelectList(payments, "paymentId", "paymentName");
+
+            ViewBag.PaymentMethods = paymentSelectList;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PlaceOrder(int paymentId)
+        {
+            if (Session["customerId"] == null)
+            {
+                return RedirectToAction("Login", "Customers");
+            }
+
+            int customerId = (int)Session["customerId"];
+
+            var cartItems = db.Carts
+                            .Where(c => c.customerId == customerId)
+                            .Join(db.Tickets,
+                                  cart => cart.ticketId,
+                                  ticket => ticket.ticketId,
+                                  (cart, ticket) => new { TicketId = ticket.ticketId, Price = cart.price })
+                            .ToList();
+            if (cartItems.Count == 0)
+            {
+                return RedirectToAction("Cart", "Cinema");
+            }
+            decimal totalPrice = cartItems.Sum(c => c.Price);
+
+            // Create a new order object and populate its properties
+            Order order = new Order();
+            order.customerId = customerId;
+            order.paymentId = paymentId;
+            order.totalPrice = (int)totalPrice;
+            order.isConfirm = false;
+            order.isPurchased = true;
+            order.bookingDate = DateTime.Now;
+
+            // Save the new order to the database and get its ID
+            db.Orders.Add(order);
+            db.SaveChanges();
+            int orderId = order.orderId;
+
+            // Create order details for each ticket in the cart
+            foreach (var cartItem in cartItems)
+            {
+                int ticketId = cartItem.TicketId;
+                int ticketPrice = (int)cartItem.Price;
+                db.InsertOrderDetail(orderId, ticketId, ticketPrice);
+            }
+
+
+            // Remove all cart items for the customer
+            var cartItemsToRemove = db.Carts.Where(c => c.customerId == customerId).ToList();
+            foreach (var cartItem in cartItemsToRemove)
+            {
+                db.Carts.Remove(cartItem);
+            }
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Cinema");
+        }
+
+
+
+
     }
 }

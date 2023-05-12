@@ -56,7 +56,15 @@
             <div class="bg-light px-4 py-3">
                 <div class="row align-items-center text-center">
                     <div class="col-md-6 mb-3 mb-md-0 text-md-start"><a class="btn btn-link p-0 text-dark btn-sm" href="@Url.Action("Index", "Cinema")"><i class="fas fa-long-arrow-alt-left me-2"> </i>Continue shopping</a></div>
-                    <div class="col-md-6 text-md-end"><a class="btn btn-outline-dark btn-sm" href="@Url.Action("Checkout", "Cart")">Proceed to checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></a></div>
+                    @if (ViewBag.carts.Count > 0)
+                    {
+                        <div class="col-md-6 text-md-end"><a class="btn btn-outline-dark btn-sm" href="@Url.Action("PaymentCheckOut", "Cinema")">Proceed to checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></a></div>
+                    }
+                    else
+                    {
+                        <div class="col-md-6 text-md-end"><button class="btn btn-outline-dark btn-sm" disabled>Proceed to checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></button></div>
+                    }
+
                 </div>
             </div>
         </div>

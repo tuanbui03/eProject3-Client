@@ -125,7 +125,7 @@
         </script>
         <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
             <div class="container-fluid">
-                <a class="navbar-brand fs-4 p-0 fw-bold text-white text-uppercase" href="index.html"><i class="fa fa-video-camera me-1 col_light fs-1 align-middle"></i>Home</a>
+                <a class="navbar-brand fs-4 p-0 fw-bold text-white text-uppercase" href="@Url.Action("Index", "Cinema")"><i class="fa fa-video-camera me-1 col_light fs-1 align-middle"></i>Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -157,10 +157,6 @@
                             <a class="nav-link" href="team.html">team</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Cart", "Cinema")">Cart</a>
-                        </li>
-
                     </ul>
                     <ul class="navbar-nav mb-0 ms-auto">
 
@@ -179,6 +175,13 @@
                             </div>
 
                         </li>
+
+                        <li class="nav-item ms-3">
+                            <a class="nav-link cart-link" href="@Url.Action("Cart", "Cinema")">
+                                <i class="fas fa-shopping-cart fa-3x" style="color: black;"></i>
+                            </a>
+                        </li>
+
 
                         <!-- handle search bar -->
                         <script>
@@ -215,7 +218,32 @@
                             }
                             else
                             {
-                                <p>Welcome @Session["customerName"]</p>
+                                <div class="dropdown">
+                                    <a class="nav-link dropdown-toggle button" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Welcome @Session["customerName"]
+                                    </a>
+
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <i class="fas fa-user"></i> Profile
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Orders", "Customers")">
+                                                <i class="fas fa-shopping-basket"></i> Orders
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Logout", "Customers")">
+                                                <i class="fas fa-sign-out-alt"></i> Sign out
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
                             }
                         </li>
                         <!-- /.modal -->
@@ -228,6 +256,11 @@
 
 
     <style>
+
+        .cart-link:hover i {
+            color: red;
+            transform: scale(1.2);
+        }
         #movies {
             position: relative;
         }

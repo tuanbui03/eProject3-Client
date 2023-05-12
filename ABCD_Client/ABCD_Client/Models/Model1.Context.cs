@@ -12,6 +12,8 @@ namespace ABCD_Client.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Entities1 : DbContext
     {
@@ -45,5 +47,22 @@ namespace ABCD_Client.Models
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+    
+        public virtual int InsertOrderDetail(Nullable<int> orderId, Nullable<int> ticketId, Nullable<int> ticketPrice)
+        {
+            var orderIdParameter = orderId.HasValue ?
+                new ObjectParameter("OrderId", orderId) :
+                new ObjectParameter("OrderId", typeof(int));
+    
+            var ticketIdParameter = ticketId.HasValue ?
+                new ObjectParameter("TicketId", ticketId) :
+                new ObjectParameter("TicketId", typeof(int));
+    
+            var ticketPriceParameter = ticketPrice.HasValue ?
+                new ObjectParameter("TicketPrice", ticketPrice) :
+                new ObjectParameter("TicketPrice", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertOrderDetail", orderIdParameter, ticketIdParameter, ticketPriceParameter);
+        }
     }
 }

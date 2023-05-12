@@ -587,5 +587,10 @@
       <End Role="Groups" EntitySet="Groups" />
       <End Role="Users" EntitySet="Users" />
     </AssociationSet>
+    <FunctionImport Name="InsertOrderDetail">
+      <Parameter Name="OrderId" Mode="In" Type="Int32" />
+      <Parameter Name="TicketId" Mode="In" Type="Int32" />
+      <Parameter Name="TicketPrice" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
 </Schema>

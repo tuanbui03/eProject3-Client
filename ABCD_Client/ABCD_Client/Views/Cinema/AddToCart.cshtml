@@ -13,6 +13,7 @@
                 <div class="seat-square" style="background-color: green; color: white;">N</div><span>Normal Seat</span>
                 <div class="seat-square" style="background-color: red; color: white;">V</div><span>VIP Seat</span>
                 <div class="seat-square" style="background-color: purple; color: white;">S</div><span>Selected Seat</span>
+                <div class="seat-square" style="background-color: gray; color: white;">B</div><span>Booked Seat</span>
             </td>
         </tr>
         @for (int i = 0; i < 10; i++) // loop over the rows (assuming there are 10 rows)
@@ -25,10 +26,11 @@
                     bool isAvailable = roomSeat.isAvailable; // determine whether the seat is available or not
 
                     <td>
-                        <div class="seat-square @(isAvailable ? "available" : "unavailable") @(roomSeat.Seat.isVipSeat ? "vip" : "")" data-seatname="@roomSeat.Seat.seatName" data-seatid="@roomSeat.Seat.seatId" onclick="toggleSeat(this)">
+                        <div class="seat-square @(roomSeat.Seat.isVipSeat ? (isAvailable ? "available vip" : "unavailable vip") : (isAvailable ? "available" : "unavailable"))" data-seatname="@roomSeat.Seat.seatName" data-seatid="@roomSeat.Seat.seatId" onclick="toggleSeat(this)">
                             <span>@roomSeat.Seat.seatName</span>
                         </div>
                     </td>
+
                 }
             </tr>
         }
@@ -72,7 +74,11 @@
             seat.classList.remove("selected"); // deselect the seat if it's already selected
             console.log(seat)
             if (seat.classList.contains("vip")) {
-                seat.style.backgroundColor = "red"; // set the background color to red for VIP seats
+                if (seat.classList.contains("available")) {
+                    seat.style.backgroundColor = "red"; // set the background color to red for available VIP seats
+                } else {
+                    seat.style.backgroundColor = "gray"; // set the background color to gray for unavailable VIP seats
+                }
             } else {
                 seat.style.backgroundColor = ""; // reset the background color for normal seats
             }
@@ -255,6 +261,9 @@
         .seat-square.vip {
             background-color: red;
             color: white;
+        }
+        .seat-square.vip.unavailable {
+            background-color: gray !important; /* Override the background color of VIP seats with the unavailable class */
         }
 
     .legend-container {

@@ -11,7 +11,8 @@ namespace ABCD_Client.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Room
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +21,7 @@ namespace ABCD_Client.Models
             this.RoomSeats = new HashSet<RoomSeat>();
             this.Screenings = new HashSet<Screening>();
         }
-    
+        [DisplayName("Room Number")]
         public int roomId { get; set; }
         public int numberOfSeats { get; set; }
         public bool isAvailable { get; set; }

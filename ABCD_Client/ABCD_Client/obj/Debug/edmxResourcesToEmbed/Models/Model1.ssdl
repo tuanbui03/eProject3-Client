@@ -524,6 +524,11 @@ warning 6002: The table/view 'ABCD-Mall.dbo.OrderDetails' does not have a primar
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="InsertOrderDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OrderId" Type="int" Mode="In" />
+    <Parameter Name="TicketId" Type="int" Mode="In" />
+    <Parameter Name="TicketPrice" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="ModelStoreContainer">
     <EntitySet Name="Carts" EntityType="Self.Carts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />

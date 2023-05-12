@@ -234,5 +234,6 @@
         <ScalarProperty Name="userId" ColumnName="userId" />
       </EndProperty>
     </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="InsertOrderDetail" FunctionName="Model.Store.InsertOrderDetail" />
   </EntityContainerMapping>
 </Mapping>

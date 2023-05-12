@@ -685,6 +685,9 @@
     <Content Include="Views\Cinema\Cart.cshtml" />
     <Content Include="Views\Shared\_UserLayout.cshtml" />
     <Content Include="Views\Cinema\AddToCart.cshtml" />
+    <Content Include="Views\Cinema\PaymentCheckOut.cshtml" />
+    <Content Include="Views\Customers\Orders.cshtml" />
+    <Content Include="Views\Customers\OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
