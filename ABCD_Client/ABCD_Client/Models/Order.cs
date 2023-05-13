@@ -11,7 +11,8 @@ namespace ABCD_Client.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,7 +26,9 @@ namespace ABCD_Client.Models
         public Nullable<int> employeeId { get; set; }
         public Nullable<int> paymentId { get; set; }
         public int totalPrice { get; set; }
+        [DisplayName("Confirm By Employee")]
         public bool isConfirm { get; set; }
+        [DisplayName("Purchased")]
         public bool isPurchased { get; set; }
         public System.DateTime bookingDate { get; set; }
     

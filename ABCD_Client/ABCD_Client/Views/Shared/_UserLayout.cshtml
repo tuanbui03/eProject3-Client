@@ -22,6 +22,7 @@
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </head>
+
 <body>
     <section id="header">
         <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
@@ -117,7 +118,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="@Url.Action("CustomerProfile", "Customers")">
                                             <i class="fas fa-user"></i> Profile
                                         </a>
                                     </li>
@@ -143,7 +144,6 @@
             </div>
         </nav>
     </section>
-
 
     <style>
         .cart-link:hover i {
@@ -175,7 +175,6 @@
             <div id="movie-list"></div> <!-- load movie list -->
         </div>
     </section>
-
 
     @RenderBody()
 

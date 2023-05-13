@@ -11,7 +11,8 @@ namespace ABCD_Client.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,6 +28,7 @@ namespace ABCD_Client.Models
         public string password { get; set; }
         public string email { get; set; }
         public string fullName { get; set; }
+        [DisplayName("Date Of Birth")]
         public System.DateTime birthDate { get; set; }
         public string cardNumber { get; set; }
     

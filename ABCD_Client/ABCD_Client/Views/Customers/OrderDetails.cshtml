@@ -30,24 +30,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.seatName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TicketCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Movy.movieTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoomSeat.roomId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Screening.reservedTime)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.seatName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movy.movieTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomSeat.roomId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Screening.reservedTime)
+            </td>
+            <td>
+                @Html.ActionLink("Export PDF", "ExportPdf", new { ticketId = item.ticketId })
+            </td>
+        </tr>
+    }
+
+
 
 </table>

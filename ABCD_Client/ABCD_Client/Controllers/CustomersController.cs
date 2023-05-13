@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using ABCD_Client.Models;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace ABCD_Client.Controllers
 {
@@ -40,6 +44,56 @@ namespace ABCD_Client.Controllers
             Session.Clear();
             return RedirectToAction("Index", "Cinema");
         }
+
+        
+
+
+        public ActionResult CustomerProfile()
+        {
+            if (Session["customerId"] == null)
+            {
+                return RedirectToAction("Login", "Customers");
+            }
+            int customerId = (int)Session["customerId"];
+            Customer customer = db.Customers.Find(customerId);
+            return View(customer);
+        }
+
+
+        [HttpPost]
+        public ActionResult CustomerProfile(FormCollection form)
+        {
+            if (Session["customerId"] == null)
+            {
+                return RedirectToAction("Login", "Customers");
+            }
+
+            int customerId = (int)Session["customerId"];
+            Customer customer = db.Customers.Find(customerId);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+
+            string oldPassword = form["OldPassword"];
+            string newPassword = form["NewPassword"];
+
+            if (customer.password != oldPassword)
+            {
+                ModelState.AddModelError(nameof(oldPassword), "Incorrect old password.");
+                return View(customer);
+            }
+
+            customer.password = newPassword;
+            db.SaveChanges();
+
+            TempData["SuccessMessage"] = "Your password has been successfully changed.";
+
+            return RedirectToAction("CustomerProfile", "Customers");
+        }
+
+
+
 
 
 
@@ -87,6 +141,36 @@ namespace ABCD_Client.Controllers
             //ViewBag.Tickets = tickets;
 
             return View(tickets);
+        }
+
+        public FileResult ExportPdf(int ticketId)
+        {
+            var ticket = db.Tickets.FirstOrDefault(t => t.ticketId == ticketId);
+
+            // Create a new PDF document with a custom page size
+            var document = new Document(new Rectangle(250f, 150f));
+            var ms = new MemoryStream();
+            PdfWriter.GetInstance(document, ms);
+            document.Open();
+
+            // Add some content to the document
+            var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
+            var fieldFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var padding = new Paragraph(" ");
+
+            document.Add(padding);
+            document.Add(new Paragraph($"Movie Title: {ticket.Movy.movieTitle}", titleFont));
+            document.Add(padding);
+            document.Add(new Paragraph($"Room ID: {ticket.RoomSeat.roomId}   Seat: {ticket.seatName}", fieldFont));
+            document.Add(new Paragraph($"Reserved Time: {ticket.Screening.reservedTime}", fieldFont));
+            document.Add(padding);
+            document.Add(new Paragraph($"Ticket Code: {ticket.TicketCode}", titleFont));
+
+            // Close the document
+            document.Close();
+
+            // Return the PDF data as a FileResult
+            return File(ms.ToArray(), "application/pdf", $"{ticket.TicketCode}.pdf");
         }
 
 
