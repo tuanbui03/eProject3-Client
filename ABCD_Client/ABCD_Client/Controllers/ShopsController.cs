@@ -37,6 +37,14 @@ namespace ABCD_Client.Controllers
             var feedBacks = db.Feedbacks.Where(f => f.shopId == id).Include(c => c.Customer).ToList();
             ViewBag.Feedbacks = feedBacks;
             ViewBag.position = "Shops";
+            var products = shops.Products.ToList();
+            ViewBag.Products = products;
+            var imagePathsList = new List<string>();
+            foreach (var product in products)
+            {
+                imagePathsList.Add(product.ProductImages.First().imagePath);
+            }
+            ViewBag.ImagePaths = imagePathsList;
             return View(shops);
         }
 
