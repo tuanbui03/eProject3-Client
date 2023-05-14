@@ -21,8 +21,13 @@ namespace ABCD_Client.Models
         }
     
         public int productId { get; set; }
+        [DisplayName("Product Name")]
         public string productName { get; set; }
+
+        [DisplayName("Product Description")]
         public string productDescription { get; set; }
+
+        [DisplayName("Price")]
         public decimal price { get; set; }
         public int shopId { get; set; }
     

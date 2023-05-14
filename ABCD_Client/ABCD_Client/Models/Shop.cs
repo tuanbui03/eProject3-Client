@@ -22,9 +22,16 @@ namespace ABCD_Client.Models
         }
     
         public int shopId { get; set; }
+        [DisplayName("Shop Name")]
         public string shopName { get; set; }
+
+        [DisplayName("Shop Address")]
         public string shopAddress { get; set; }
+
+        [DisplayName("Phone Number")]
         public string phoneNumber { get; set; }
+
+        [DisplayName("Email")]
         public string email { get; set; }
         public string imagePath { get; set; }
     

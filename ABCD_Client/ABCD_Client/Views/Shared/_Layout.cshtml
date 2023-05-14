@@ -148,26 +148,25 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto">
                                 <li class="nav-item">
-                                    <!-- Link--><a class="nav-link active" href="@Url.Action("Index", "Home")">Home</a>
+                                    <a class="nav-link  @(ViewBag.position == "Home" ? "active" : "")" href="@Url.Action("Index", "Home")">Home</a>
                                 </li>
-                                <li class="nav-item">
-                                    <!-- Link--><a class="nav-link" href="@Url.Action("Index", "Shops")">Shop</a>
+                                <li class="nav-item ">
+                                    <a class="nav-link @(ViewBag.position == "Shops" ? "active" : "")" href="@Url.Action("Index", "Shops")">Shop</a>
                                 </li>
-                                <li class="nav-item">
-                                    <!-- Link--><a class="nav-link" href="@Url.Action("Index", "Products")">Products</a>
+                                <li class="nav-item ">
+                                    <a class="nav-link @(ViewBag.position == "Products" ? "active" : "")" href="@Url.Action("Index", "Products")">Products</a>
                                 </li>
-                                <li class="nav-item">
-                                    <!-- Link--><a class="nav-link" href="@Url.Action("Index", "Cinema")">Cinema</a>
+                                <li class="nav-item ">
+                                    <a class="nav-link @(ViewBag.position == "Cinema" ? "active" : "")" href="@Url.Action("Index", "Cinema")">Cinema</a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+                                <li class="nav-item dropdown ">
+                                    <a class="nav-link dropdown-toggle @(ViewBag.position == "About" || ViewBag.position == "Contact" ? "active" : "")" id="pagesDropdown" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
                                     <div class="dropdown-menu mt-3 shadow-sm" aria-labelledby="pagesDropdown">
-                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index", "Home")">Homepage</a>
-                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("About", "Home")">About</a>
-                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Contact", "Home")">Contact</a>
-
+                                        <a class="dropdown-item border-0 transition-link @(ViewBag.position == "About" ? "active" : "")" href="@Url.Action("About", "Home")">About</a>
+                                        <a class="dropdown-item border-0 transition-link @(ViewBag.position == "Contact" ? "active" : "")" href="@Url.Action("Contact", "Home")">Contact</a>
                                     </div>
                                 </li>
+
                             </ul>
                             <ul class="navbar-nav ms-auto">
                                 @if (Session["customerId"] == null)
