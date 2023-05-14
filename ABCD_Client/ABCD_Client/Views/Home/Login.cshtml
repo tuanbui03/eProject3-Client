@@ -38,19 +38,9 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="inputs">
 
-                    <input type="text" placeholder="user name">
+                    <input name="username" type="text" placeholder="user name">
                     <br>
-                    <input type="password" placeholder="password">
-                </div>
-
-                <br><br>
-
-                <div class="remember-me--forget-password">
-                    <!-- Angular -->
-                    <label>
-                        <input type="checkbox" name="item" checked />
-                        <span class="text-checkbox">Remember me</span>
-                    </label>
+                    <input name="password" type="password" placeholder="password">
                 </div>
 
                 <br>
