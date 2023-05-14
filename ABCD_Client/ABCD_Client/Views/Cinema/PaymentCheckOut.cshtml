@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "PaymentCheckOut";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2>PaymentCheckOut</h2>
+
+
+<div class="form-horizontal">
+    <h4>PaymentMethod</h4>
+    <hr />
+
+    @using (Html.BeginForm("PlaceOrder", "Cinema", FormMethod.Post, new { @class = "payment-form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @foreach (SelectListItem payment in ViewBag.PaymentMethods)
+                {
+                    var paymentId = payment.Text.Replace(" ", "");
+                    <label>
+                        @Html.RadioButton("paymentId", payment.Value, new { @class = "payment-method", data_payment_id = @paymentId })
+                        @payment.Text
+                    </label>
+                    <br />
+                }
+            </div>
+        </div>
+
+        <div class="payment-input" id="payment-CreditCard">
+            <input type="number" name="cardNumber" placeholder="Card number" />
+            <input type="text" name="cardHolderName" placeholder="Card holder name" />
+            <input type="date" name="expirationDate" placeholder="Expiration date" />
+            <input type="number" name="cvv" placeholder="CVV" />
+        </div>
+        <div class="payment-input" id="payment-DebitCard">
+            <input type="number" name="cardNumber" placeholder="Card number" />
+            <input type="text" name="cardHolderName" placeholder="Card holder name" />
+            <input type="date" name="expirationDate" placeholder="Expiration date" />
+            <input type="number" name="cvv" placeholder="CVV" />
+        </div>
+        <div class="payment-input" id="payment-PayPal">
+            <input type="text" name="email" placeholder="Email" />
+        </div>
+        <div class="payment-input" id="payment-Venmo">
+            <input type="text" name="username" placeholder="Username" />
+        </div>
+        <div class="payment-input" id="payment-ApplePay">
+            <input type="number" name="cardNumber" placeholder="Card number" />
+            <input type="text" name="cardHolderName" placeholder="Card holder name" />
+            <input type="date" name="expirationDate" placeholder="Expiration date" />
+            <input type="number" name="cvv" placeholder="CVV" />
+        </div>
+        <div class="payment-input" id="payment-GooglePay">
+            <input type="number" name="cardNumber" placeholder="Card number" />
+            <input type="text" name="cardHolderName" placeholder="Card holder name" />
+            <input type="date" name="expirationDate" placeholder="Expiration date" />
+            <input type="text" name="cvv" placeholder="CVV" />
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
+
+
+    <style>
+        .payment-input {
+            display: none;
+            margin-top: 20px;
+        }
+
+            .payment-input label,
+            .payment-input input {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .payment-input label {
+                font-weight: bold;
+            }
+    </style>
+
+
+</div>
+
+
+
+<script>
+    var paymentRadios = document.querySelectorAll('.payment-method');
+    for (var i = 0; i < paymentRadios.length; i++) {
+        paymentRadios[i].addEventListener('click', function() {
+            var id = this.getAttribute('data-payment-id');
+            var paymentInputs = document.querySelectorAll('.payment-input');
+            for (var j = 0; j < paymentInputs.length; j++) {
+                paymentInputs[j].style.display = 'none';
+            }
+            var selectedPaymentInput = document.querySelector('#payment-' + id);
+            console.log(id);
+            console.log(selectedPaymentInput);
+            selectedPaymentInput.style.display = 'block';
+        });
+    }
+
+    // Initialize the payment input blocks
+    var initialPaymentId = document.querySelector('.payment-method:checked').getAttribute('data-payment-id');
+    var initialPaymentInput = document.querySelector('#payment-' + initialPaymentId);
+    initialPaymentInput.style.display = 'block';
+</script>

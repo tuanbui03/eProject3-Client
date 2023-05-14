@@ -30,6 +30,16 @@
                         </div>
                         <div class="modal-body">
                             <div class="ps-3 pe-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" name="fullName" required="required" placeholder="Enter your Full name" />
+
+                                <label class="form-label">Birth Date</label>
+                                <input type="date" class="form-control" name="birthDate" required="required" placeholder="Select your birthdate" />
+
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" name="email" required="required" placeholder="Enter your email address" />
+
+
                                 <label class="form-label">Username</label>
                                 <input type="text" class="form-control" name="userName" id="userNameInput" required="required" placeholder="Enter your username" />
 
@@ -39,17 +49,6 @@
                                         color: red;
                                     }
                                 </style>
-                                <label class="form-label">Birth Date</label>
-                                <input type="date" class="form-control" name="birthDate" required="required" placeholder="Select your birthdate" />
-
-                                <label class="form-label">Card Number</label>
-                                <input type="text" class="form-control" name="cardNumber" required="required" placeholder="Enter your card number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
-
-                                <label class="form-label">Full Name</label>
-                                <input type="text" class="form-control" name="fullName" required="required" placeholder="Enter your Full name" />
-
-                                <label class="form-label">Email Address</label>
-                                <input type="email" class="form-control" name="email" required="required" placeholder="Enter your email address" />
 
                                 <label class="form-label">Password</label>
                                 <input type="password" class="form-control" name="password" required="required" placeholder="Enter your password" />
@@ -126,7 +125,7 @@
         </script>
         <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
             <div class="container-fluid">
-                <a class="navbar-brand fs-4 p-0 fw-bold text-white text-uppercase" href="index.html"><i class="fa fa-video-camera me-1 col_light fs-1 align-middle"></i>Home</a>
+                <a class="navbar-brand fs-4 p-0 fw-bold text-white text-uppercase" href="@Url.Action("Index", "Home")">ABCD Mall</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -134,7 +133,7 @@
                     <ul class="navbar-nav mb-0">
 
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Cinema")">Home</a>
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Cinema")">Cinema</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="about.html">About </a>
@@ -158,10 +157,6 @@
                             <a class="nav-link" href="team.html">team</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Cart", "Cinema")">Cart</a>
-                        </li>
-
                     </ul>
                     <ul class="navbar-nav mb-0 ms-auto">
 
@@ -181,8 +176,37 @@
 
                         </li>
 
+                        <li class="nav-item ms-3">
+                            <a class="nav-link cart-link" href="@Url.Action("Cart", "Cinema")">
+                                <i class="fas fa-shopping-cart fa-3x align-middle" style="color: black;"></i>
+                                <small class="text-gray fw-normal"></small>
+                            </a>
+                        </li>
+
+
                         <!-- handle search bar -->
                         <script>
+                        function updateCartLinkCount() {
+                            var customerId = @Html.Raw(Json.Encode(Session["customerId"]));
+                            if (customerId) {
+                                var xhr = new XMLHttpRequest();
+                                xhr.onreadystatechange = function() {
+                                    if (xhr.readyState === 4 && xhr.status === 200) {
+                                        var count = parseInt(xhr.responseText);
+                                        document.querySelector('.cart-link small').textContent = '(' + count + ')';
+                                    }
+                                }
+                                xhr.open('GET', '@Url.Action("GetCartCount", "Customers")' + '?customerId=' + customerId, true);
+                                xhr.send(null);
+                            }
+                        }
+
+                        window.addEventListener('load', function() {
+                            updateCartLinkCount();
+                        });
+
+
+
                         document.addEventListener('DOMContentLoaded', function() {
                           var searchBtn = document.querySelector('.search');
                           var moviesSection = document.querySelector('#movies');
@@ -216,7 +240,32 @@
                             }
                             else
                             {
-                                <p>Welcome @Session["customerName"]</p>
+                                <div class="dropdown">
+                                    <a class="nav-link dropdown-toggle button" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Welcome @Session["customerName"]
+                                    </a>
+
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("CustomerProfile", "Customers")">
+                                                <i class="fas fa-user"></i> Profile
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Orders", "Customers")">
+                                                <i class="fas fa-shopping-basket"></i> Orders
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("Logout", "Customers")">
+                                                <i class="fas fa-sign-out-alt"></i> Sign out
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
                             }
                         </li>
                         <!-- /.modal -->
@@ -229,6 +278,11 @@
 
 
     <style>
+
+        .cart-link:hover i {
+            color: red;
+            transform: scale(1.2);
+        }
         #movies {
             position: relative;
         }

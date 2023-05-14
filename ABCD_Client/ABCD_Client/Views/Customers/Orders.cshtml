@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ABCD_Client.Models.Order>
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2>Orders</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.totalPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isConfirm)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isPurchased)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bookingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.userName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentMethod.paymentName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalPrice) vnd
+            </td>
+            <td>
+                @Html.CheckBox("isConfirm", item.isConfirm, new { @disabled = "disabled" })
+            </td>
+            <td>
+                @Html.CheckBox("isPurchased", item.isPurchased, new { @disabled = "disabled" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bookingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.userName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentMethod.paymentName)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "OrderDetails", new { orderId = item.orderId })
+            </td>
+        </tr>
+    }
+
+
+</table>

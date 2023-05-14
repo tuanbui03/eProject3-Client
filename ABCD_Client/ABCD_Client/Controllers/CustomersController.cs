@@ -1,14 +1,19 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using ABCD_Client.Models;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace ABCD_Client.Controllers
 {
     public class CustomersController : Controller
     {
-        private Entities db = new Entities();
+        private Entities1 db = new Entities1();
 
         public ActionResult Login()
         {
@@ -18,7 +23,7 @@ namespace ABCD_Client.Controllers
         [HttpPost]
         public ActionResult Login(string username, string password)
         {
-            Customers customer = db.Customers.FirstOrDefault(c => c.userName == username && c.password == password);
+            Customer customer = db.Customers.FirstOrDefault(c => c.userName == username && c.password == password);
 
             if (customer != null)
             {
@@ -34,47 +39,16 @@ namespace ABCD_Client.Controllers
             }
         }
 
-        // GET: Customers
-        public ActionResult Index()
+        public ActionResult Logout()
         {
-            return View(db.Customers.ToList());
-        }
-
-        // GET: Customers/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Customers customers = db.Customers.Find(id);
-            if (customers == null)
-            {
-                return HttpNotFound();
-            }
-            return View(customers);
-        }
-
-        [HttpGet]
-        public JsonResult CheckUserName(string userName)
-        {
-            bool exists = db.Customers.Any(c => c.userName == userName);
-            return Json(new { exists = exists }, JsonRequestBehavior.AllowGet);
+            Session.Clear();
+            return RedirectToAction("Index", "Cinema");
         }
 
 
-        // GET: Customers/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Customers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "userName,password,email,fullName,birthDate,cardNumber")] Customers customers)
+        public ActionResult Create([Bind(Include = "userName,password,email,fullName,birthDate,cardNumber")] Customer customers)
         {
             if (ModelState.IsValid)
             {
@@ -99,63 +73,144 @@ namespace ABCD_Client.Controllers
         }
 
 
-
-        // GET: Customers/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult CustomerProfile()
         {
-            if (id == null)
+            if (Session["customerId"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Login", "Customers");
             }
-            Customers customers = db.Customers.Find(id);
-            if (customers == null)
-            {
-                return HttpNotFound();
-            }
-            return View(customers);
+            int customerId = (int)Session["customerId"];
+            Customer customer = db.Customers.Find(customerId);
+            return View(customer);
         }
 
-        // POST: Customers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "customerId,userName,password,email,fullName,birthDate,cardNumber")] Customers customers)
+        public ActionResult CustomerProfile(FormCollection form)
         {
-            if (ModelState.IsValid)
+            if (Session["customerId"] == null)
             {
-                db.Entry(customers).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Login", "Customers");
             }
-            return View(customers);
-        }
 
-        // GET: Customers/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Customers customers = db.Customers.Find(id);
-            if (customers == null)
+            int customerId = (int)Session["customerId"];
+            Customer customer = db.Customers.Find(customerId);
+            if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(customers);
+
+            string oldPassword = form["OldPassword"];
+            string newPassword = form["NewPassword"];
+
+            if (customer.password != oldPassword)
+            {
+                ModelState.AddModelError(nameof(oldPassword), "Incorrect old password.");
+                return View(customer);
+            }
+
+            customer.password = newPassword;
+            db.SaveChanges();
+
+            TempData["SuccessMessage"] = "Your password has been successfully changed.";
+
+            return RedirectToAction("CustomerProfile", "Customers");
         }
 
-        // POST: Customers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpGet]
+        public JsonResult CheckUserName(string userName)
         {
-            Customers customers = db.Customers.Find(id);
-            db.Customers.Remove(customers);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            bool exists = db.Customers.Any(c => c.userName == userName);
+            return Json(new { exists = exists }, JsonRequestBehavior.AllowGet);
         }
+
+
+
+
+
+        public ActionResult Orders()
+        {
+            if (Session["customerId"] == null)
+            {
+                return RedirectToAction("Login", "Customers");
+            }
+            int customerId = (int)Session["customerId"];
+            var orders = db.Orders.Include(o => o.Customer).Include(o => o.Employee).Include(o => o.PaymentMethod).Where(o => o.customerId == customerId);
+            return View(orders.ToList());
+        }
+
+        public ActionResult OrderDetails(int orderId)
+        {
+            if (Session["customerId"] == null)
+            {
+                return RedirectToAction("Login", "Customers");
+            }
+
+            int customerId = (int)Session["customerId"];
+
+            var order = db.Orders.FirstOrDefault(o => o.orderId == orderId && o.customerId == customerId);
+
+            if (order == null)
+            {
+                // If the order does not exist or does not belong to this customer, redirect to a error page
+                return RedirectToAction("Error", "Home");
+            }
+
+            var orderDetails = db.OrderDetails.Where(od => od.orderId == orderId).ToList();
+
+            List<Ticket> tickets = new List<Ticket>();
+            foreach (var orderDetail in orderDetails)
+            {
+                var ticket = db.Tickets.FirstOrDefault(t => t.ticketId == orderDetail.ticketId);
+                if (ticket != null)
+                {
+                    tickets.Add(ticket);
+                }
+            }
+
+            //ViewBag.Tickets = tickets;
+
+            return View(tickets);
+        }
+
+        public FileResult ExportPdf(int ticketId)
+        {
+            var ticket = db.Tickets.FirstOrDefault(t => t.ticketId == ticketId);
+
+            // Create a new PDF document with a custom page size
+            var document = new Document(new Rectangle(250f, 150f));
+            var ms = new MemoryStream();
+            PdfWriter.GetInstance(document, ms);
+            document.Open();
+
+            // Add some content to the document
+            var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
+            var fieldFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var padding = new Paragraph(" ");
+
+            document.Add(padding);
+            document.Add(new Paragraph($"Movie Title: {ticket.Movy.movieTitle}", titleFont));
+            document.Add(padding);
+            document.Add(new Paragraph($"Room ID: {ticket.RoomSeat.roomId}   Seat: {ticket.seatName}", fieldFont));
+            document.Add(new Paragraph($"Reserved Time: {ticket.Screening.reservedTime}", fieldFont));
+            document.Add(padding);
+            document.Add(new Paragraph($"Ticket Code: {ticket.TicketCode}", titleFont));
+
+            // Close the document
+            document.Close();
+
+            // Return the PDF data as a FileResult
+            return File(ms.ToArray(), "application/pdf", $"{ticket.TicketCode}.pdf");
+        }
+
+        public ActionResult GetCartCount(int customerId)
+        {
+            int count = db.Carts.Where(c => c.customerId == customerId).Count();
+            return Content(count.ToString());
+        }
+
+
+
 
         protected override void Dispose(bool disposing)
         {

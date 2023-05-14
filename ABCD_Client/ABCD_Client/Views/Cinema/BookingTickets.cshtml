@@ -1,4 +1,4 @@
-﻿@model ABCD_Client.Models.Movies
+﻿@model ABCD_Client.Models.Movy
 
 @{
     ViewBag.Title = "Booking Tickets";
@@ -10,7 +10,7 @@
         font-size: 30px;
         font-weight: bold;
         margin-bottom: 20px;
-    }
+    }   
 
     .movie-details {
         display: flex;
@@ -18,9 +18,9 @@
         justify-content: space-between;
     }
 
-        .movie-details p {
-            margin-bottom: 10px;
-        }
+    .movie-details p {
+        margin-bottom: 10px;
+    }
 
     img {
         max-width: 300px;
@@ -61,48 +61,48 @@
         margin-top: 20px;
     }
 
-        .seat-picker label {
-            display: inline-block;
-            margin-right: 10px;
-        }
+    .seat-picker label {
+        display: inline-block;
+        margin-right: 10px;
+    }
 
-        .seat-picker select {
-            width: 200px;
-        }
+    .seat-picker select {
+        width: 200px;
+    }
 
-        .seat-picker button {
-            margin-left: 10px;
-        }
+    .seat-picker button {
+        margin-left: 10px;
+    }
 
     .available-seats {
         margin-top: 10px;
     }
 
-        .available-seats span {
-            margin-right: 10px;
-        }
+    .available-seats span {
+        margin-right: 10px;
+    }
 
-        .available-seats .seat {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            margin-right: 5px;
-            text-align: center;
-            line-height: 30px;
-            cursor: pointer;
-        }
+    .available-seats .seat {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        margin-right: 5px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+    }
 
-            .available-seats .seat.disabled {
-                background-color: #ccc;
-                cursor: not-allowed;
-            }
+    .available-seats .seat.disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
 
-        .available-seats .selected {
-            background-color: #007bff;
-            color: #fff;
-        }
+    .available-seats .selected {
+        background-color: #007bff;
+        color: #fff;
+    }
 </style>
 
 <h2>@Model.movieTitle</h2>
@@ -141,14 +141,7 @@
                     <td>@screening.roomId</td>
                     <td>@screening.price</td>
                     <td>
-                        <button class="order-ticket-btn">Order Ticket</button>
-
-                        <div class="seat-picker" style="display: none;">
-                            <label for="seat-select-@screening.screeningId">Select a seat:</label>
-                            <select id="seat-select-@screening.screeningId"></select>
-                            <button class="confirm-seat-btn" data-screening-id="@screening.screeningId">Confirm</button>
-                            <div class="available-seats"></div>
-                        </div>
+                        @Html.ActionLink("Order Ticket", "AddToCart", "Cinema", new { roomId = screening.roomId, screeningId = screening.screeningId }, new { @class = "order-ticket-link" })
                     </td>
                 </tr>
             </tbody>

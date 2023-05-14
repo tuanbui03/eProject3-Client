@@ -1,0 +1,294 @@
+﻿@{
+    ViewBag.Title = "AddToCart";
+    Layout = "~/Views/Shared/_LayoutCinema.cshtml";
+}
+
+<div>
+    <h4>RoomSeats</h4>
+    <hr />
+
+    <table class="seat-picker">
+        <tr>
+            <td colspan="13" style="text-align: center;">
+                <div class="seat-square" style="background-color: green; color: white;">N</div><span>Normal Seat</span>
+                <div class="seat-square" style="background-color: red; color: white;">V</div><span>VIP Seat</span>
+                <div class="seat-square" style="background-color: purple; color: white;">S</div><span>Selected Seat</span>
+                <div class="seat-square" style="background-color: gray; color: white;">B</div><span>Booked Seat</span>
+            </td>
+        </tr>
+        @for (int i = 0; i < 10; i++) // loop over the rows (assuming there are 10 rows)
+        {
+            <tr>
+                <td class="row-label">@((char)(i + 65))</td>
+                @for (int j = i * 13; j < (i + 1) * 13 && j < ViewBag.RoomSeats.Count; j++) // loop over the RoomSeats list until the end of the row or the end of the list
+                {
+                    var roomSeat = ViewBag.RoomSeats[j]; // get the corresponding RoomSeats object
+                    bool isAvailable = roomSeat.isAvailable; // determine whether the seat is available or not
+
+                    <td>
+                        <div class="seat-square @(roomSeat.Seat.isVipSeat ? (isAvailable ? "available vip" : "unavailable vip") : (isAvailable ? "available" : "unavailable"))" data-seatname="@roomSeat.Seat.seatName" data-seatid="@roomSeat.Seat.seatId" onclick="toggleSeat(this)">
+                            <span>@roomSeat.Seat.seatName</span>
+                        </div>
+                    </td>
+
+                }
+            </tr>
+        }
+    </table>
+</div>
+
+<table class="cart-table">
+    <thead>
+        <tr>
+            <th>Seat</th>
+            <th>Room</th>
+            <th>Movie Name</th>
+            <th>Reserved Time</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody id="cart-items"></tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" style="text-align: right;">Total:</td>
+            <td id="total-price">0</td>
+        </tr>
+        <tr>
+            <td colspan="5" style="text-align: right;">
+                <button onclick="clearCart()">Clear Cart</button>
+                <button onclick="submitOrder()">Submit Order</button>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+
+
+<script>
+    var tickets = [];
+    function toggleSeat(seat) {
+        if (seat.classList.contains("unavailable")) {
+            return; // do nothing if the seat is unavailable
+        }
+        if (seat.classList.contains("selected")) {
+            seat.classList.remove("selected"); // deselect the seat if it's already selected
+            console.log(seat)
+            if (seat.classList.contains("vip")) {
+                if (seat.classList.contains("available")) {
+                    seat.style.backgroundColor = "red"; // set the background color to red for available VIP seats
+                } else {
+                    seat.style.backgroundColor = "gray"; // set the background color to gray for unavailable VIP seats
+                }
+            } else {
+                seat.style.backgroundColor = ""; // reset the background color for normal seats
+            }
+            removeItemFromCart(seat.getAttribute("data-seatid")); // remove the corresponding item from the cart
+        } else {
+            seat.classList.add("selected"); // select the seat if it's not already selected
+            seat.style.backgroundColor = "purple"; // set the background color to purple for selected seats
+            var isVipSeat = seat.classList.contains("vip"); // determine whether the seat is a VIP seat or not
+            addItemToCart(seat.getAttribute("data-seatname"), "@ViewBag.Screening.roomId", "@ViewBag.Screening.Movy.movieTitle", "@ViewBag.Screening.reservedTime", isVipSeat, seat.getAttribute("data-seatid")); // add the corresponding item to the cart
+        }
+        updateTotalPrice(); // update the total price displayed at the bottom of the cart table
+    }
+
+
+    function addItemToCart(seatName, roomId, movieTitle, reservedTime, isVipSeat, seatId) {
+        var price = isVipSeat ? @ViewBag.Screening.price + 20000 : @ViewBag.Screening.price;
+        var cartItems = document.getElementById("cart-items");
+        var newRow = document.createElement("tr");
+        newRow.setAttribute("data-seatid", seatId); // add the data-seatid attribute with the seatId value
+        newRow.innerHTML = "<td>" + seatName + "</td><td>" + roomId +
+            "</td><td>" + movieTitle + "</td><td>" + reservedTime + "</td><td>" + price.toLocaleString() + "</td>";
+        cartItems.appendChild(newRow);
+        var ticket = {
+            roomId: "@ViewBag.Screening.roomId",
+            screeningId: "@ViewBag.Screening.screeningId",
+            seatName: seatName,
+            seatId: seatId,
+            movieId: "@ViewBag.Screening.Movy.movieId",
+            price: isVipSeat ? @ViewBag.Screening.price + 20000 : @ViewBag.Screening.price
+        };
+        tickets.push(ticket);
+    }
+
+
+    function removeItemFromCart(seatId) {
+        var cartItems = document.getElementById("cart-items");
+        var rows = cartItems.getElementsByTagName("tr");
+        for (var i = 0; i < rows.length; i++) {
+            if (rows[i].getAttribute("data-seatid") === seatId) {
+                cartItems.removeChild(rows[i]); // remove the row from the cart table
+                break;
+            }
+        }
+        // remove the corresponding ticket from the tickets array
+        tickets = tickets.filter(function(ticket) {
+            return ticket.seatId !== seatId;
+        });
+    }
+
+    function updateTotalPrice() {
+        var cartItems = document.getElementById("cart-items");
+        var rows = cartItems.getElementsByTagName("tr");
+        var totalPrice = 0;
+        for (var i = 0; i < rows.length; i++) {
+            var price = parseInt(rows[i].getElementsByTagName("td")[4].innerHTML.replaceAll(",", ""));
+            totalPrice += price;
+        }
+        document.getElementById("total-price").innerHTML = totalPrice.toLocaleString();
+    }
+
+    function clearCart() {
+        var cartItems = document.getElementById("cart-items");
+        cartItems.innerHTML = ""; // remove all items from the cart
+
+        // deselect all selected seats
+        var selectedSeats = document.querySelectorAll(".selected");
+        for (var i = 0; i < selectedSeats.length; i++) {
+            var seat = selectedSeats[i];
+            seat.classList.remove("selected");
+            if (seat.classList.contains("vip")) {
+                seat.style.backgroundColor = "red"; // set the background color to red for VIP seats
+            } else {
+                seat.style.backgroundColor = ""; // reset the background color for normal seats
+            }
+        }
+        tickets = []; // clear the selected tickets array
+
+        updateTotalPrice(); // update the total price displayed at the bottom of the cart table
+    }
+
+    function submitOrder() {
+        var cartItems = document.getElementById("cart-items");
+        var rows = cartItems.getElementsByTagName("tr");
+        if (rows.length === 0) {
+            alert("Please select at least one seat to continue.");
+            return;
+        }
+
+         // Create an array of ticket objects to be sent to the server
+        var ticketsToSubmit = tickets;
+
+        var cartItemsToSubmit = [];
+        for (var i = 0; i < rows.length; i++) {
+            var seatName = rows[i].getElementsByTagName("td")[0].innerHTML;
+            var price = parseInt(rows[i].getElementsByTagName("td")[4].innerHTML.replaceAll(",", ""));
+            var cart = {
+                customerId: "@Session["customerId"]",
+                price: price
+            };
+            cartItemsToSubmit.push(cart);
+        }
+
+        // Send a POST request to the server
+        fetch("/Cinema/CreateMultipleTickets", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ tickets: ticketsToSubmit, carts: cartItemsToSubmit })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Your cart has been submitted successfully.");
+                clearCart();
+                tickets = []; // clear the selected tickets array
+                window.location.href = "@Url.Action("Cart", "Cinema")";
+            } else {
+                throw new Error("Something went wrong: " + response.statusText);
+            }
+        })
+        .catch(error => console.log(error));
+    }
+
+
+</script>
+
+
+<style>
+    .seat-picker {
+        border-collapse: collapse;
+        margin: 20px auto;
+    }
+
+        .seat-picker td {
+            padding: 5px;
+            vertical-align: middle;
+        }
+
+            .seat-picker td:nth-child(-n+6) {
+                padding-left: 20px;
+            }
+
+        .seat-picker .row-label {
+            font-weight: bold;
+            width: 30px;
+            padding-left: 20px;
+        }
+
+    .seat-square {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border: 1px solid black;
+        margin: 1px;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+        .seat-square span {
+            font-size: smaller;
+        }
+
+        .seat-square.available {
+            background-color: green;
+            color: white;
+        }
+
+        .seat-square.unavailable {
+            background-color: gray;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .seat-square.selected {
+            background-color: purple;
+            color: white;
+        }
+
+        .seat-square.vip {
+            background-color: red;
+            color: white;
+        }
+        .seat-square.vip.unavailable {
+            background-color: gray !important; /* Override the background color of VIP seats with the unavailable class */
+        }
+
+    .legend-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .cart-table {
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+        .cart-table th,
+        .cart-table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid black;
+        }
+
+        .cart-table thead th {
+            background-color: lightgray;
+            font-weight: bold;
+        }
+
+    #total-price {
+        font-weight: bold;
+    }
+</style>

@@ -4,52 +4,49 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="11f19a7d0d674266b69e5d2abaf3fcef" Name="Diagram1" ZoomLevel="88">
-        <EntityTypeShape EntityType="Model.Customers" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Employees" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Feedbacks" Width="1.5" PointX="10" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Functions" Width="1.5" PointX="0.75" PointY="30.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Groups" Width="1.5" PointX="3" PointY="30.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Movies" Width="1.5" PointX="0.75" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Orders" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.PaymentMethods" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.ProductImages" Width="1.5" PointX="12.25" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Products" Width="1.5" PointX="10" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Rooms" Width="1.5" PointX="1.5" PointY="21.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.RoomSeats" Width="1.5" PointX="0.75" PointY="18" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Screening" Width="1.5" PointX="0.75" PointY="27" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Seats" Width="1.5" PointX="1.5" PointY="24.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Shops" Width="1.5" PointX="7.75" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Tickets" Width="1.5" PointX="3" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.UserFunctions" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.UserGroups" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Users" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.OrderDetails" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
-        <AssociationConnector Association="Model.FK__Feedbacks__custo__403A8C7D" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Orders__customer__5AEE82B9" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Orders__employee__5BE2A6F2" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Users__employeeI__267ABA7A" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Feedbacks__shopI__412EB0B6" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__UserFunct__funct__35BCFE0A" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__UserGroup__group__398D8EEE" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Screening__movie__6383C8BA" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Tickets__movieId__6754599E" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__OrderDeta__order__6EF57B66" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Orders__paymentI__5CD6CB2B" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__ProductIm__produ__47DBAE45" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Products__shopId__440B1D61" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__RoomSeats__roomI__5535A963" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Screening__roomI__6477ECF3" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__RoomSeats__seatI__5629CD9C" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Tickets__693CA210" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Tickets__screeni__68487DD7" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__OrderDeta__ticke__6FE99F9F" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__UserFunct__userI__34C8D9D1" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__UserFunct__userI__47DBAE45" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__UserGroup__userI__38996AB5" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__UserGroup__userI__4BAC3F29" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.Carts" ManuallyRouted="false" />
+      <Diagram DiagramId="cf22656bf23e47379c31d977befc8c10" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Cart" Width="1.5" PointX="10.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Customer" Width="1.5" PointX="6" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Employee" Width="1.5" PointX="6" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Feedback" Width="1.5" PointX="18" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Function" Width="1.5" PointX="10.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Group" Width="1.5" PointX="13" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Movy" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Order" Width="1.5" PointX="8.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PaymentMethod" Width="1.5" PointX="6" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProductImage" Width="1.5" PointX="17.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Product" Width="1.5" PointX="15" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Room" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RoomSeat" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Screening" Width="1.5" PointX="6" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Seat" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Shop" Width="1.5" PointX="12.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sysdiagram" Width="1.5" PointX="2.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Ticket" Width="1.5" PointX="8.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.User" Width="1.5" PointX="15.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.OrderDetail" Width="1.5" PointX="10.5" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_Cart_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Cart_Ticket" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Feedbacks__custo__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Orders__customer__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Orders__employee__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Users__employeeI__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Feedbacks__shopI__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Screening__movie__787EE5A0" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Tickets__movieId__7C4F7684" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__OrderDeta__order__03F0984C" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Orders__paymentI__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__ProductIm__produ__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Products__shopId__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__RoomSeats__roomI__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Screening__roomI__797309D9" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__RoomSeats__seatI__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Tickets__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Tickets__screeni__7D439ABD" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__OrderDeta__ticke__04E4BC85" ManuallyRouted="false" />
         <AssociationConnector Association="Model.GroupFunctions" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.UserFunctions" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.UserGroups" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
