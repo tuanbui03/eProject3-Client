@@ -6,54 +6,70 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+
+<div class="container">
+    <h2>Products</h2>
 
 
-<div class="product-container row">
-    @{var productIndex = 0; }
-    @foreach (var product in Model.Take(4))
-    {
-        var imageUrl = Url.Content("~/img/product/" + ViewBag.ImagePaths[productIndex]);
-        <div class="col-md-3">
-            <a class="button_2" href="@Url.Action("Details", "Products", new { id = product.productId })">
-                <div class="product-item clearfix position-relative">
-                    <div class="product-image clearfix">
-                        <img src="@Url.Content(imageUrl)" class="w-100" alt="@product.productName">
+    <div class="product-container row">
+        @{var productIndex = 0; }
+        @foreach (var product in Model.Take(4))
+        {
+            var imageUrl = Url.Content("~/img/product/" + ViewBag.ImagePaths[productIndex]);
+            <div class="col-md-3">
+                <a class="button_2" href="@Url.Action("Details", "Products", new { id = product.productId })">
+                    <div class="product-item clearfix position-relative">
+                        <div class="product-image clearfix">
+                            <img src="@Url.Content(imageUrl)" class="w-100" alt="@product.productName">
+                        </div>
                     </div>
-                </div>
-                <div class="product-info bg-white p-3">
-                    <div class="product-title">
-                        <h5><a href="#">@product.productName</a></h5>
-                        <span class="product-price">$@product.price</span>
+                    <div class="product-info bg-white p-3">
+                        <div class="product-title">
+                            <h5><a href="#">@product.productName</a></h5>
+                            <span class="product-price">$@product.price</span>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        productIndex++;
-    }
+                </a>
+            </div>
+            productIndex++;
+        }
+    </div>
+
+    <div class="product-container row mt-4">
+        @foreach (var product in Model.Skip(4).Take(4))
+        {
+            var imageUrl = Url.Content("~/img/product/" + ViewBag.ImagePaths[productIndex]);
+            <div class="col-md-3">
+                <a class="button_2" href="@Url.Action("Details", "Products", new { id = product.productId })">
+                    <div class="product-item clearfix position-relative">
+                        <div class="product-image clearfix">
+                            <img src="@Url.Content(imageUrl)" class="w-25" alt="@product.productName">
+                        </div>
+                    </div>
+                    <div class="product-info bg-white p-3">
+                        <div class="product-title">
+                            <h5><a href="#">@product.productName</a></h5>
+                            <span class="product-price">$@product.price</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            productIndex++;
+        }
+    </div>
+
+    <div class="page-center mt-4">
+        @Html.PagedListPager(Model, i => Url.Action("Index", "Products", new { i }))
+    </div>
+
+    <style>
+        .page-center {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+
+
+
+
 </div>
-
-<div class="product-container row mt-4">
-    @foreach (var product in Model.Skip(4).Take(4))
-    {
-        var imageUrl = Url.Content("~/img/product/" + ViewBag.ImagePaths[productIndex]);
-        <div class="col-md-3">
-            <a class="button_2" href="@Url.Action("Details", "Products", new { id = product.productId })">
-                <div class="product-item clearfix position-relative">
-                    <div class="product-image clearfix">
-                        <img src="@Url.Content(imageUrl)" class="w-25" alt="@product.productName">
-                    </div>
-                </div>
-                <div class="product-info bg-white p-3">
-                    <div class="product-title">
-                        <h5><a href="#">@product.productName</a></h5>
-                        <span class="product-price">$@product.price</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-        productIndex++;
-    }
-</div>
-
-@Html.PagedListPager(Model, i => Url.Action("Index", "Products", new { i }))

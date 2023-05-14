@@ -5,87 +5,70 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Shops</h4>
-    <hr />
-    <img src="@Url.Content("~/img/brands/" + Model.imagePath)" />
-    <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayNameFor(model => model.shopName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.shopName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.shopAddress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.shopAddress)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.phoneNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.phoneNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
-
-    </dl>
+<div class="container">
+    <h2>Details Shops</h2>
 
     <div>
-        <h4>Feedbacks</h4>
-        <hr />
-        <ul>
-            @foreach (var feedback in ViewBag.Feedbacks)
+        <div class="left-column">
+            <hr />
+            <h4>Images</h4>
+
+            <img style="margin-left:-5rem" src="@Url.Content("~/img/brands/" + Model.imagePath)" />
+            <dl class="row">
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.shopName)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.shopName)</dd>
+
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.shopAddress)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.shopAddress)</dd>
+
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.phoneNumber)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.phoneNumber)</dd>
+
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.email)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.email)</dd>
+            </dl>
+        </div>
+
+        <div class="right-column">
+            <h4>Feedbacks</h4>
+            <hr />
+            <ul>
+                @foreach (var feedback in ViewBag.Feedbacks)
+                {
+                    <li>
+                        User:
+                        @feedback.Customer.fullName
+                        <br />
+                        Message:
+                        @feedback.message
+                    </li>
+
+                }
+            </ul>
+        </div>
+        <div>
+            @if (Session["customerId"] != null)
             {
-                <li>
-                    User:
-                    @feedback.Customer.fullName
-                    <br />
-                    Message:
-                    @feedback.message
-                </li>
-
+                <form action="@Url.Action("Create", "Feedbacks")" method="post">
+                    <input type="hidden" name="shopId" value="@Model.shopId" />
+                    <div>
+                        <h4>Leave Feedback</h4>
+                        <hr />
+                        <div class="form-group">
+                            <label for="message" class="control-label">Message:</label>
+                            <textarea name="message" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Submit" class="btn btn-default" />
+                        </div>
+                    </div>
+                </form>
             }
-        </ul>
-    </div>
-    <div>
-        @if (Session["customerId"] != null)
-        {
-            <form action="@Url.Action("Create", "Feedbacks")" method="post">
-                <input type="hidden" name="shopId" value="@Model.shopId" />
-                <div>
-                    <h4>Leave Feedback</h4>
-                    <hr />
-                    <div class="form-group">
-                        <label for="message" class="control-label">Message:</label>
-                        <textarea name="message" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Submit" class="btn btn-default" />
-                    </div>
-                </div>
-            </form>
-        }
-        else
-        {
-            <a href="@Url.Action("Login", "Home")">Login To Leave Feedbacks</a>
-        }
+            else
+            {
+        <strong><a href="@Url.Action("Login", "Home")">Login To Leave Feedbacks</a></strong>
+            }
+        </div>
     </div>
 </div>
-
