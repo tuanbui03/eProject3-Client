@@ -125,7 +125,7 @@
         </script>
         <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
             <div class="container-fluid">
-                <a class="navbar-brand fs-4 p-0 fw-bold text-white text-uppercase" href="@Url.Action("Index", "Cinema")"><i class="fa fa-video-camera me-1 col_light fs-1 align-middle"></i>Home</a>
+                <a class="navbar-brand fs-4 p-0 fw-bold text-white text-uppercase" href="@Url.Action("Index", "Home")">ABCD Mall</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -133,7 +133,7 @@
                     <ul class="navbar-nav mb-0">
 
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Cinema")">Home</a>
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Cinema")">Cinema</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="about.html">About </a>
@@ -178,13 +178,35 @@
 
                         <li class="nav-item ms-3">
                             <a class="nav-link cart-link" href="@Url.Action("Cart", "Cinema")">
-                                <i class="fas fa-shopping-cart fa-3x" style="color: black;"></i>
+                                <i class="fas fa-shopping-cart fa-3x align-middle" style="color: black;"></i>
+                                <small class="text-gray fw-normal"></small>
                             </a>
                         </li>
 
 
                         <!-- handle search bar -->
                         <script>
+                        function updateCartLinkCount() {
+                            var customerId = @Html.Raw(Json.Encode(Session["customerId"]));
+                            if (customerId) {
+                                var xhr = new XMLHttpRequest();
+                                xhr.onreadystatechange = function() {
+                                    if (xhr.readyState === 4 && xhr.status === 200) {
+                                        var count = parseInt(xhr.responseText);
+                                        document.querySelector('.cart-link small').textContent = '(' + count + ')';
+                                    }
+                                }
+                                xhr.open('GET', '@Url.Action("GetCartCount", "Customers")' + '?customerId=' + customerId, true);
+                                xhr.send(null);
+                            }
+                        }
+
+                        window.addEventListener('load', function() {
+                            updateCartLinkCount();
+                        });
+
+
+
                         document.addEventListener('DOMContentLoaded', function() {
                           var searchBtn = document.querySelector('.search');
                           var moviesSection = document.querySelector('#movies');

@@ -250,3 +250,7 @@ C:\Users\Admin\Desktop\eProject3\eProject3-Client\ABCD_Client\ABCD_Client\obj\De
 C:\Users\Admin\Desktop\eProject3\eProject3-Client\ABCD_Client\ABCD_Client\bin\BouncyCastle.Crypto.dll
 C:\Users\Admin\Desktop\eProject3\eProject3-Client\ABCD_Client\ABCD_Client\bin\itextsharp.dll
 C:\Users\Admin\Desktop\eProject3\eProject3-Client\ABCD_Client\ABCD_Client\bin\itextsharp.xml
+C:\Users\Admin\Desktop\eProject3\eProject3-Client\ABCD_Client\ABCD_Client\bin\PagedList.dll
+C:\Users\Admin\Desktop\eProject3\eProject3-Client\ABCD_Client\ABCD_Client\bin\PagedList.Mvc.dll
+C:\Users\Admin\Desktop\eProject3\eProject3-Client\ABCD_Client\ABCD_Client\bin\PagedList.xml
+C:\Users\Admin\Desktop\eProject3\eProject3-Client\ABCD_Client\ABCD_Client\bin\PagedList.Mvc.xml

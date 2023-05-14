@@ -45,7 +45,32 @@ namespace ABCD_Client.Controllers
             return RedirectToAction("Index", "Cinema");
         }
 
-        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "userName,password,email,fullName,birthDate,cardNumber")] Customer customers)
+        {
+            if (ModelState.IsValid)
+            {
+                // Check if username already exists
+                var existingCustomer = db.Customers.FirstOrDefault(c => c.userName == customers.userName);
+                if (existingCustomer != null)
+                {
+                    ModelState.AddModelError("userName", "Username already exists.");
+                    return View(customers);
+                }
+
+                db.Customers.Add(customers);
+                db.SaveChanges();
+
+                Session["customerId"] = customers.customerId;
+                Session["customerName"] = customers.fullName;
+
+                return RedirectToAction("Index", "Cinema");
+            }
+
+            return View(customers);
+        }
 
 
         public ActionResult CustomerProfile()
@@ -92,7 +117,12 @@ namespace ABCD_Client.Controllers
             return RedirectToAction("CustomerProfile", "Customers");
         }
 
-
+        [HttpGet]
+        public JsonResult CheckUserName(string userName)
+        {
+            bool exists = db.Customers.Any(c => c.userName == userName);
+            return Json(new { exists = exists }, JsonRequestBehavior.AllowGet);
+        }
 
 
 
@@ -173,6 +203,11 @@ namespace ABCD_Client.Controllers
             return File(ms.ToArray(), "application/pdf", $"{ticket.TicketCode}.pdf");
         }
 
+        public ActionResult GetCartCount(int customerId)
+        {
+            int count = db.Carts.Where(c => c.customerId == customerId).Count();
+            return Content(count.ToString());
+        }
 
 
 

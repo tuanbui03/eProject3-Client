@@ -59,6 +59,12 @@
       <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -137,8 +143,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CinemaController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ShopsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -225,6 +233,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="css2\css\blog.css" />
     <Content Include="css2\css\bootstrap.min.css" />
     <Content Include="css2\css\event.css" />
@@ -338,6 +347,14 @@
     <Content Include="img\hero-banner.jpg" />
     <Content Include="img\hero-shop.jpg" />
     <Content Include="img\logo-asus-inkythuatso-2-01-26-09-21-11.jpg" />
+    <Content Include="img\movie\forrest_gump.jpg" />
+    <Content Include="img\movie\inception.jpg" />
+    <Content Include="img\movie\lotr_return_of_the_king.jpg" />
+    <Content Include="img\movie\pulp_fiction.jpg" />
+    <Content Include="img\movie\TheDarkKnight.jpg" />
+    <Content Include="img\movie\TheGodfather.jpg" />
+    <Content Include="img\movie\TheShawshankRedemption.jpg" />
+    <Content Include="img\movie\the_matrix.jpg" />
     <Content Include="img\Patek-Philippe-Logo.png" />
     <Content Include="img\product-1.jpg" />
     <Content Include="img\product-10.jpg" />
@@ -685,7 +702,6 @@
     <Content Include="Views\Home\Shop.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Shops\Details.cshtml" />
-    <Content Include="Views\Shops\Edit.cshtml" />
     <Content Include="Views\Shops\Index.cshtml" />
     <Content Include="Views\Customers\Login.cshtml" />
     <Content Include="Views\Cinema\Cart.cshtml" />
@@ -696,10 +712,12 @@
     <Content Include="Views\Customers\OrderDetails.cshtml" />
     <Content Include="Views\Customers\CustomerDetails.cshtml" />
     <Content Include="Views\Customers\CustomerProfile.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="img\movie\" />
     <Folder Include="vendor\choices.js\src\" />
     <Folder Include="vendor\choices.js\types\" />
     <Folder Include="vendor\swiper\angular\angular\src\" />

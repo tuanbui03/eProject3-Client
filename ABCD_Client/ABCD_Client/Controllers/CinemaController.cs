@@ -239,7 +239,7 @@ namespace ABCD_Client.Controllers
             }
             db.SaveChanges();
 
-            return RedirectToAction("Index", "Cinema");
+            return RedirectToAction("Orders", "Customers");
         }
 
 

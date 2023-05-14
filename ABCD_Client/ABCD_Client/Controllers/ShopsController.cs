@@ -32,6 +32,8 @@ namespace ABCD_Client.Controllers
             {
                 return HttpNotFound();
             }
+            var feedBacks = db.Feedbacks.Where(f => f.shopId == id).Include(c => c.Customer).ToList();
+            ViewBag.Feedbacks = feedBacks;
             return View(shops);
         }
 

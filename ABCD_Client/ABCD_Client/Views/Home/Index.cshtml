@@ -2,6 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 
+
 <!-- HERO SECTION-->
 <div class="container">
     <section class="hero pb-3 bg-cover bg-center d-flex align-items-center" style=" background-image: url('/img/hero-banner-alt.jpg');">
@@ -14,52 +15,77 @@
             </div>
         </div>
     </section>
-    <!-- CATEGORIES SECTION-->
-    
-</div>
-            <!-- SERVICES-->
-            <section class="py-5 bg-light">
-                <div class="container">
-                    <div class="row text-center gy-3">
-                        <div class="col-lg-4">
-                            <div class="d-inline-block">
-                                <div class="d-flex align-items-end">
-                                    <svg class="svg-icon svg-icon-big svg-icon-light">
-                                        <use xlink:href="#delivery-time-1"> </use>
-                                    </svg>
-                                    <div class="text-start ms-3">
-                                        <h6 class="text-uppercase mb-1">Free shipping</h6>
-                                        <p class="text-sm mb-0 text-muted">Free shipping worldwide</p>
-                                    </div>
+
+    <!-- SHOPS SECTION -->
+    <section class="shops-section">
+        <div class="container">
+            <h2>Shops</h2>
+            <div class="row">
+                @foreach (var shop in ViewBag.Shops)
+                {
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card h-100">
+                            <a href="@Url.Action("Details", "Shops" , new {id = shop.shopId})">
+                                <img src="@Url.Content("~/img/brands/" + @shop.imagePath)" class="card-img-top" alt="Shop Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">@shop.shopName</h5>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="d-inline-block">
-                                <div class="d-flex align-items-end">
-                                    <svg class="svg-icon svg-icon-big svg-icon-light">
-                                        <use xlink:href="#helpline-24h-1"> </use>
-                                    </svg>
-                                    <div class="text-start ms-3">
-                                        <h6 class="text-uppercase mb-1">24 x 7 service</h6>
-                                        <p class="text-sm mb-0 text-muted">Free shipping worldwide</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="d-inline-block">
-                                <div class="d-flex align-items-end">
-                                    <svg class="svg-icon svg-icon-big svg-icon-light">
-                                        <use xlink:href="#label-tag-1"> </use>
-                                    </svg>
-                                    <div class="text-start ms-3">
-                                        <h6 class="text-uppercase mb-1">Festivaloffers</h6>
-                                        <p class="text-sm mb-0 text-muted">Free shipping worldwide</p>
-                                    </div>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
-                </div>
-            </section>
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS SECTION -->
+    <section class="products-section">
+        <div class="container">
+            <h2>Products</h2>
+            <div class="row">
+                @foreach (var product in ViewBag.Products)
+                {
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card h-100">
+                            <a href="@Url.Action("Details", "Products" , new {id = product.productId})">
+                                @{
+                                    var productIndex = ViewBag.Products.IndexOf(product);
+                                    var imageUrl = Url.Content("~/img/product/" + ViewBag.ImagePaths[productIndex]);
+                                }
+                                <img src="@imageUrl" class="card-img-top" alt="Product Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">@product.productName</h5>
+                                    <p class="card-text">Price: @product.price vnd</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MOVIES SECTION -->
+    <section class="movies-section">
+        <div class="container">
+            <h2>Movies</h2>
+            <div class="row">
+                @foreach (var movie in ViewBag.Movies)
+                {
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card h-100">
+                            <a href="@Url.Action("BookingTickets", "Cinema" , new {id = movie.movieId})">
+                                <img src="@Url.Content("~/img/movie/" + @movie.imagePath)" class="card-img-top" alt="Movie Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">@movie.movieTitle</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+</div>
+

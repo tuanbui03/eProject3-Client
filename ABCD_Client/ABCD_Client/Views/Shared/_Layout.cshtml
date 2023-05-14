@@ -30,100 +30,218 @@
 
 </head>
 <body>
-    <div class="page-holder">
-        <!-- navbar-->
-        <header class="header bg-white">
-            <div class="container px-lg-3">
-                <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0">
-                    <a class="navbar-brand" href="index.html"><span class="fw-bold text-uppercase text-dark">ABCD Mall</span></a>
-                    <button class="navbar-toggler navbar-toggler-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <!-- Link--><a class="nav-link active" href="@Url.Action("Index", "Home")">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <!-- Link--><a class="nav-link" href="@Url.Action("Shop", "Home")">Shop</a>
-                            </li>
-                            <li class="nav-item">
-                                <!-- Link--><a class="nav-link" href="@Url.Action("Index", "Cinema")">Cinema</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                <div class="dropdown-menu mt-3 shadow-sm" aria-labelledby="pagesDropdown">
-                                    <a class="dropdown-item border-0 transition-link" href="index.html">Homepage</a>
-                                <a class="dropdown-item border-0 transition-link" href="@Url.Action("About", "Home")">About</a>
-                                <a class="dropdown-item border-0 transition-link" href="@Url.Action("Contact", "Home")">Contact</a>
-                                
+
+    <section id="header">
+        <div id="signup-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            @using (Html.BeginForm("Create", "Customers", FormMethod.Post, new { id = "signupForm" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">SIGN UP</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="ps-3 pe-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" name="fullName" required="required" placeholder="Enter your Full name" />
+
+                                <label class="form-label">Birth Date</label>
+                                <input type="date" class="form-control" name="birthDate" required="required" placeholder="Select your birthdate" />
+
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" name="email" required="required" placeholder="Enter your email address" />
+
+
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" name="userName" id="userNameInput" required="required" placeholder="Enter your username" />
+
+                                <span id="userNameValidationMessage"></span>
+                                <style>
+                                    #userNameValidationMessage {
+                                        color: red;
+                                    }
+                                </style>
+
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password" required="required" placeholder="Enter your password" />
+
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="acceptTerms" required>
+                                        <label class="form-check-label" for="acceptTerms">I accept <a href="#">Terms and Conditions</a></label>
+                                    </div>
                                 </div>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item"><a class="nav-link" href="cart.html"> <i class="fas fa-dolly-flatbed me-1 text-gray"></i>Cart<small class="text-gray fw-normal">(2)</small></a></li>
-                            <li class="nav-item"><a class="nav-link" href="#!"> <i class="far fa-heart me-1"></i><small class="text-gray fw-normal"> (0)</small></a></li>
-                            <li class="nav-item"><a class="nav-link" href="#!"> <i class="fas fa-user me-1 text-gray fw-normal"></i>Login</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </header>
-        <!--  Modal -->
-        @RenderBody()
-        <!-- Footer-->
-        <footer class="bg-dark text-white">
-            <div class="container py-4">
-                <div class="row py-5">
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <h6 class="text-uppercase mb-3">Customer services</h6>
-                        <ul class="list-unstyled mb-0">
-                            <li><a class="footer-link" href="#!">Help &amp; Contact Us</a></li>
-                            <li><a class="footer-link" href="#!">Online Stores</a></li>
-                            <li><a class="footer-link" href="#!">Terms &amp; Conditions</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <h6 class="text-uppercase mb-3">Company</h6>
-                        <ul class="list-unstyled mb-0">
-                            <li><a class="footer-link" href="#!">What We Do</a></li>
-                            <li><a class="footer-link" href="#!">Available Services</a></li>
-                            <li><a class="footer-link" href="#!">Latest Posts</a></li>
-                            <li><a class="footer-link" href="#!">FAQs</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h6 class="text-uppercase mb-3">Social media</h6>
-                        <ul class="list-unstyled mb-0">
-                            <li><a class="footer-link" href="#!">Twitter</a></li>
-                            <li><a class="footer-link" href="#!">Instagram</a></li>
-                            <li><a class="footer-link" href="#!">Tumblr</a></li>
-                            <li><a class="footer-link" href="#!">Pinterest</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="border-top pt-4" style="border-color: #1d1d1d !important">
-                    <div class="row">
-                        <div class="col-md-6 text-center text-md-start">
-                            <p class="small text-muted mb-0">&copy; 2021 All rights reserved.</p>
+
+                                <div class="mb-3 text-center">
+                                    <button type="submit" class="button_1 d-block" id="signupButton">SIGN UP</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6 text-center text-md-end">
-                            <p class="small text-muted mb-0">Template designed by <a class="text-white reset-anchor" href="https://bootstrapious.com/p/boutique-bootstrap-e-commerce-template">Bootstrapious</a></p>
-                            <!-- If you want to remove the backlink, please purchase the Attribution-Free License. See details in readme.txt or license.txt. Thanks!-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- JavaScript files-->
-        <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="~/vendor/glightbox/js/glightbox.min.js"></script>
-        <script src="~/vendor/nouislider/nouislider.min.js"></script>
-        <script src="~/vendor/swiper/swiper-bundle.min.js"></script>
-        <script src="~/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
-        <script src="~/js/front.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js" integrity="sha512-eP8DK17a+MOcKHXC5Yrqzd8WI5WKh6F1TIk5QZ/8Lbv+8ssblcz7oGC8ZmQ/ZSAPa7ZmsCU4e/hcovqR8jfJqA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            }
+
+        </div>
         <script>
+                var userNameInput = document.getElementById("userNameInput");
+                var userNameValidationMessage = document.getElementById("userNameValidationMessage");
+                var acceptTermsCheckbox = document.getElementById("acceptTerms");
+                var signupButton = document.getElementById("signupButton");
+
+                function updateSignupButtonState() {
+                    if (acceptTermsCheckbox.checked && userNameValidationMessage.textContent === "") {
+                        signupButton.removeAttribute("disabled");
+                    } else {
+                        signupButton.setAttribute("disabled", "disabled");
+                    }
+                }
+
+                userNameInput.addEventListener("input", function() {
+                    var userName = userNameInput.value;
+
+                    fetch(`/Customers/CheckUserName?userName=${userName}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.exists) {
+                                userNameValidationMessage.textContent = "Username already exists.";
+                                userNameValidationMessage.insertAdjacentHTML('beforeend', '<br>');
+                            } else {
+                                userNameValidationMessage.textContent = "";
+                            }
+
+                            // Update the state of the signup button
+                            updateSignupButtonState();
+                        })
+                        .catch(error => console.error(error));
+                });
+
+                acceptTermsCheckbox.addEventListener("change", function() {
+                    updateSignupButtonState();
+                });
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    var signupForm = document.getElementById("signupForm");
+
+                    signupForm.addEventListener("submit", function(event) {
+                        if (!acceptTermsCheckbox.checked) {
+                            event.preventDefault();
+                            alert("Please accept the terms and conditions to continue.");
+                        } else if (userNameValidationMessage.textContent !== "") {
+                            event.preventDefault();
+                            alert("Username already exists. Please choose a different username.");
+                        }
+                    });
+                });
+
+
+        </script>
+        <div class="page-holder">
+            <!-- navbar-->
+            <header class="header bg-white">
+                <div class="container px-lg-3">
+                    <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0">
+                        <a class="navbar-brand" href="@Url.Action("Index", "Home")"><span class="fw-bold text-uppercase text-dark">ABCD Mall</span></a>
+                        <button class="navbar-toggler navbar-toggler-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto">
+                                <li class="nav-item">
+                                    <!-- Link--><a class="nav-link active" href="@Url.Action("Index", "Home")">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <!-- Link--><a class="nav-link" href="@Url.Action("Shop", "Home")">Shop</a>
+                                </li>
+                                <li class="nav-item">
+                                    <!-- Link--><a class="nav-link" href="@Url.Action("Index", "Cinema")">Cinema</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+                                    <div class="dropdown-menu mt-3 shadow-sm" aria-labelledby="pagesDropdown">
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index", "Home")">Homepage</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("About", "Home")">About</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Contact", "Home")">Contact</a>
+
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav ms-auto">
+                                @if (Session["customerId"] == null)
+                                {
+                                    <a class="nav-link button" data-bs-toggle="modal" data-bs-target="#signup-modal" href="#">SIGN UP</a>
+                                    <a class="nav-link" href="@Url.Action("login", "Home")"><i class="fas fa-user me-1 text-gray fw-normal"></i>Login</a>
+                                }
+                                else
+                                {
+                                    <div class="dropdown">
+                                        <a class="nav-link dropdown-toggle button" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Welcome @Session["customerName"]
+                                        </a>
+                                    </div>
+                                }
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+            <!--  Modal -->
+            @RenderBody()
+            <!-- Footer-->
+            <footer class="bg-dark text-white">
+                <div class="container py-4">
+                    <div class="row py-5">
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <h6 class="text-uppercase mb-3">Customer services</h6>
+                            <ul class="list-unstyled mb-0">
+                                <li><a class="footer-link" href="#!">Help &amp; Contact Us</a></li>
+                                <li><a class="footer-link" href="#!">Online Stores</a></li>
+                                <li><a class="footer-link" href="#!">Terms &amp; Conditions</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <h6 class="text-uppercase mb-3">Company</h6>
+                            <ul class="list-unstyled mb-0">
+                                <li><a class="footer-link" href="#!">What We Do</a></li>
+                                <li><a class="footer-link" href="#!">Available Services</a></li>
+                                <li><a class="footer-link" href="#!">Latest Posts</a></li>
+                                <li><a class="footer-link" href="#!">FAQs</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="text-uppercase mb-3">Social media</h6>
+                            <ul class="list-unstyled mb-0">
+                                <li><a class="footer-link" href="#!">Twitter</a></li>
+                                <li><a class="footer-link" href="#!">Instagram</a></li>
+                                <li><a class="footer-link" href="#!">Tumblr</a></li>
+                                <li><a class="footer-link" href="#!">Pinterest</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="border-top pt-4" style="border-color: #1d1d1d !important">
+                        <div class="row">
+                            <div class="col-md-6 text-center text-md-start">
+                                <p class="small text-muted mb-0">&copy; 2021 All rights reserved.</p>
+                            </div>
+                            <div class="col-md-6 text-center text-md-end">
+                                <p class="small text-muted mb-0">Template designed by <a class="text-white reset-anchor" href="https://bootstrapious.com/p/boutique-bootstrap-e-commerce-template">Bootstrapious</a></p>
+                                <!-- If you want to remove the backlink, please purchase the Attribution-Free License. See details in readme.txt or license.txt. Thanks!-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- JavaScript files-->
+            <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="~/vendor/glightbox/js/glightbox.min.js"></script>
+            <script src="~/vendor/nouislider/nouislider.min.js"></script>
+            <script src="~/vendor/swiper/swiper-bundle.min.js"></script>
+            <script src="~/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+            <script src="~/js/front.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js" integrity="sha512-eP8DK17a+MOcKHXC5Yrqzd8WI5WKh6F1TIk5QZ/8Lbv+8ssblcz7oGC8ZmQ/ZSAPa7ZmsCU4e/hcovqR8jfJqA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script>
             $('.responsive').slick({
                 dots: true,
                 infinite: false,
@@ -159,10 +277,10 @@
                     // instead of a settings object
                 ]
             });
-        </script>
+            </script>
 
 
-        <script>
+            <script>
             // ------------------------------------------------------- //
             //   Inject SVG Sprite -
             //   see more here
@@ -186,9 +304,9 @@
             // pls don't forget to change to your domain :)
             injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
 
-        </script>
-        <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    </div>
+            </script>
+            <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        </div>
 </body>
 </html>

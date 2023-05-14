@@ -191,10 +191,10 @@
         })
         .then(response => {
             if (response.ok) {
-                alert("Your order has been submitted successfully.");
+                alert("Your cart has been submitted successfully.");
                 clearCart();
                 tickets = []; // clear the selected tickets array
-                location.reload(); // reload the current page
+                window.location.href = "@Url.Action("Cart", "Cinema")";
             } else {
                 throw new Error("Something went wrong: " + response.statusText);
             }
