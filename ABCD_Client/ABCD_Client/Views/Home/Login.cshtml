@@ -1,51 +1,64 @@
 ﻿@model ABCD_Client.Models.Customer
+
 @{
-    ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <title>Login Page in HTML with CSS Code Example</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/login.css">
+
 </head>
 <body>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <h4>Customers</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.userName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+        <!-- partial:index.partial.html -->
+        <div class="box-form">
+            <div class="left">
+                <div class="overlay">
+                    <h1>ABCD Mall</h1>
+                    <h4>Welcome back to our mall.</h4>
+                    <h4>Hope you find what you need</h4>
+                    
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <div class="right">
+                <h5>Login</h5>
+                <p>Don't have an account? <a href="#">Creat Your Account</a> it takes less than a minute</p>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="inputs">
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Login" class="btn btn-default" />
-                    <a data-bs-toggle="modal" data-bs-target="#signup-modal" href="#">SIGN UP</a>
+                    <input type="text" placeholder="user name">
+                    <br>
+                    <input type="password" placeholder="password">
                 </div>
+
+                <br><br>
+
+                <div class="remember-me--forget-password">
+                    <!-- Angular -->
+                    <label>
+                        <input type="checkbox" name="item" checked />
+                        <span class="text-checkbox">Remember me</span>
+                    </label>
+                </div>
+
+                <br>
+                <button>Login</button>
             </div>
 
         </div>
+        <!-- partial -->
     }
-
-</body>
+    </body>
 </html>
-
