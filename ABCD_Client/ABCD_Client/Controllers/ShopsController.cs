@@ -18,6 +18,7 @@ namespace ABCD_Client.Controllers
         // GET: Shops
         public ActionResult Index(int? i)
         {
+            ViewBag.position = "Shops";
             return View(db.Shops.ToList().ToPagedList(i ?? 1, 8));
         }
 
@@ -35,6 +36,7 @@ namespace ABCD_Client.Controllers
             }
             var feedBacks = db.Feedbacks.Where(f => f.shopId == id).Include(c => c.Customer).ToList();
             ViewBag.Feedbacks = feedBacks;
+            ViewBag.position = "Shops";
             return View(shops);
         }
 

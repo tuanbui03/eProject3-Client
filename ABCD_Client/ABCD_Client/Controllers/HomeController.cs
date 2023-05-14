@@ -13,6 +13,7 @@ namespace ABCD_Client.Controllers
 
           public ActionResult Login()
         {
+            ViewBag.position = "Home";
             return View();
         }
 
@@ -31,6 +32,7 @@ namespace ABCD_Client.Controllers
             else
             {
                 ModelState.AddModelError("", "Invalid username or password.");
+                ViewBag.position = "Home";
                 return View();
             }
         }
@@ -50,6 +52,7 @@ namespace ABCD_Client.Controllers
             ViewBag.Products = products;
             ViewBag.Movies = movies;
             ViewBag.ImagePaths = imagePathsList;
+            ViewBag.position = "Home";
             return View();
         }
 
@@ -57,22 +60,19 @@ namespace ABCD_Client.Controllers
         public ActionResult Shop()
         {
             var shops = db.Shops.ToList();
+            ViewBag.position = "Home";
             return View(shops);
-        }
-
-        public ActionResult Test()
-        {
-            return View();
         }
 
         public ActionResult About()
         {
-
+            ViewBag.position = "About";
             return View();
         }
 
         public ActionResult Contact()
         {
+            ViewBag.position = "Contact";
             ViewBag.Message = "Your contact page.";
 
             return View();
