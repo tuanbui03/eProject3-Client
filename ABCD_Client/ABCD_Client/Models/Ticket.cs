@@ -11,7 +11,8 @@ namespace ABCD_Client.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Ticket
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,13 +23,24 @@ namespace ABCD_Client.Models
         }
     
         public int ticketId { get; set; }
+        [DisplayName("Room ID")]
         public int roomId { get; set; }
+
+        [DisplayName("Seat ID")]
         public int seatId { get; set; }
+
+        [DisplayName("Seat Name")]
         public string seatName { get; set; }
+
+        [DisplayName("Movie ID")]
         public int movieId { get; set; }
+
+        [DisplayName("Screening ID")]
         public int screeningId { get; set; }
+
+        [DisplayName("Ticket Code")]
         public string TicketCode { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
         public virtual Movy Movy { get; set; }
