@@ -1,5 +1,6 @@
-﻿@model IEnumerable<ABCD_Client.Models.Shop>
-
+﻿@model IPagedList<ABCD_Client.Models.Shop>
+@using PagedList;
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,52 +8,60 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.shopName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.shopAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.phoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.imagePath)
-        </th>
-        <th></th>
-    </tr>
+<div class="shop-container row">
+    @{var shopIndex = 0; }
+    @foreach (var shop in Model.Take(4))
+    {
+        var imageUrl = Url.Content("~/img/brands/" + shop.imagePath);
+        <div class="col-md-3">
+            <a class="button_2" href="@Url.Action("Details", "Shops", new { id = shop.shopId })">
+                <div class="shop-item clearfix position-relative">
+                    <div class="shop-image clearfix">
+                        <img src="@imageUrl" class="w-100" alt="@shop.shopName">
+                    </div>
+                </div>
+                <div class="shop-info bg-white p-3">
+                    <div class="shop-title text-center">
+                        <h5><a href="#">@shop.shopName</a></h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+        shopIndex++;
+    }
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.shopName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.shopAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.phoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.imagePath)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.shopId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.shopId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.shopId })
-        </td>
-    </tr>
-}
+<div class="shop-container row mt-4">
+    @foreach (var shop in Model.Skip(4).Take(4))
+    {
+        var imageUrl = Url.Content("~/img/brands/" + shop.imagePath);
+        <div class="col-md-3">
+            <a class="button_2" href="@Url.Action("Details", "Shops", new { id = shop.shopId })">
+                <div class="shop-item clearfix position-relative">
+                    <div class="shop-image clearfix">
+                        <img src="@imageUrl" class="w-100" alt="@shop.shopName">
+                    </div>
+                </div>
+                <div class="shop-info bg-white p-3">
+                    <div class="shop-title text-center">
+                        <h5><a href="#">@shop.shopName</a></h5>
+                        <span class="shop-address">@shop.shopAddress</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        shopIndex++;
+    }
+</div>
 
-</table>
+<div class="page-center mt-4">
+    @Html.PagedListPager(Model, i => Url.Action("Index", "Shops", new { i }))
+</div>
+<style>
+    .page-center {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
+

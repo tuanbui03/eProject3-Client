@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ABCD_Client.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace ABCD_Client.Controllers
 {
@@ -15,10 +17,16 @@ namespace ABCD_Client.Controllers
         private Entities1 db = new Entities1();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(int? i)
         {
             var products = db.Products.Include(p => p.Shop);
-            return View(products.ToList());
+            var imagePathsList = new List<string>();
+            foreach (var product in products)
+            {
+                imagePathsList.Add(product.ProductImages.First().imagePath);
+            }
+            ViewBag.ImagePaths = imagePathsList;
+            return View(products.ToList().ToPagedList(i ?? 1,8));
         }
 
         // GET: Products/Details/5
