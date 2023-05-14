@@ -12,9 +12,10 @@
 
 
     <div class="product-container row">
-        @{var productIndex = 0; }
+        @{var productList = ViewBag.Products; }
         @foreach (var product in Model.Take(4))
         {
+            var productIndex = productList.IndexOf(product);
             var imageUrl = Url.Content("~/img/product/" + ViewBag.ImagePaths[productIndex]);
             <div class="col-md-3">
                 <a class="button_2" href="@Url.Action("Details", "Products", new { id = product.productId })">
@@ -31,19 +32,19 @@
                     </div>
                 </a>
             </div>
-            productIndex++;
         }
     </div>
 
     <div class="product-container row mt-4">
         @foreach (var product in Model.Skip(4).Take(4))
         {
+            var productIndex = productList.IndexOf(product);
             var imageUrl = Url.Content("~/img/product/" + ViewBag.ImagePaths[productIndex]);
             <div class="col-md-3">
                 <a class="button_2" href="@Url.Action("Details", "Products", new { id = product.productId })">
                     <div class="product-item clearfix position-relative">
                         <div class="product-image clearfix">
-                            <img src="@Url.Content(imageUrl)" class="w-25" alt="@product.productName">
+                            <img src="@Url.Content(imageUrl)" class="w-100" alt="@product.productName">
                         </div>
                     </div>
                     <div class="product-info bg-white p-3">
@@ -54,7 +55,6 @@
                     </div>
                 </a>
             </div>
-            productIndex++;
         }
     </div>
 
@@ -66,6 +66,20 @@
         .page-center {
             display: flex;
             justify-content: center;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li.active a {
+            background-color: #007bff;
+            color: #fff;
         }
     </style>
 

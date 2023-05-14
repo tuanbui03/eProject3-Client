@@ -26,6 +26,7 @@ namespace ABCD_Client.Controllers
                 imagePathsList.Add(product.ProductImages.First().imagePath);
             }
             ViewBag.ImagePaths = imagePathsList;
+            ViewBag.Products = products.ToList();
             ViewBag.position = "Products";
             return View(products.ToList().ToPagedList(i ?? 1,8));
         }
