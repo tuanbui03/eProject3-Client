@@ -3,91 +3,87 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<h2>PaymentCheckOut</h2>
-
-
-<div class="form-horizontal">
+<div class="container">
     <h4>PaymentMethod</h4>
-    <hr />
+    <div>
+        <hr />
+        @using (Html.BeginForm("PlaceOrder", "Cinema", FormMethod.Post, new { @class = "payment-form" }))
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm("PlaceOrder", "Cinema", FormMethod.Post, new { @class = "payment-form" }))
-    {
-        @Html.AntiForgeryToken()
+            <div class="d-flex align-items-center my-2">
+                <div class="col-md-6" style="margin-left:3cm">
+                    @foreach (SelectListItem payment in ViewBag.PaymentMethods)
+                    {
+                        var paymentId = payment.Text.Replace(" ", "");
+                        <label>
+                            @Html.RadioButton("paymentId", payment.Value, new { @class = "payment-method", data_payment_id = @paymentId })
+                            <strong>@payment.Text</strong>
+                        </label>
+                        <br />
+                    }
+                </div>
 
-        <div class="form-group">
-            <div class="col-md-10">
-                @foreach (SelectListItem payment in ViewBag.PaymentMethods)
-                {
-                    var paymentId = payment.Text.Replace(" ", "");
-                    <label>
-                        @Html.RadioButton("paymentId", payment.Value, new { @class = "payment-method", data_payment_id = @paymentId })
-                        @payment.Text
-                    </label>
-                    <br />
-                }
+                <div>
+                    <div class="payment-input" id="payment-CreditCard">
+                        <input type="number" name="cardNumber" placeholder="Card number" />
+                        <input type="text" name="cardHolderName" placeholder="Card holder name" />
+                        <input type="date" name="expirationDate" placeholder="Expiration date" />
+                        <input type="number" name="cvv" placeholder="CVV" />
+                    </div>
+                    <div class="payment-input" id="payment-DebitCard">
+                        <input type="number" name="cardNumber" placeholder="Card number" />
+                        <input type="text" name="cardHolderName" placeholder="Card holder name" />
+                        <input type="date" name="expirationDate" placeholder="Expiration date" />
+                        <input type="number" name="cvv" placeholder="CVV" />
+                    </div>
+                    <div class="payment-input" id="payment-PayPal">
+                        <input type="text" name="email" placeholder="Email" />
+                    </div>
+                    <div class="payment-input" id="payment-Venmo">
+                        <input type="text" name="username" placeholder="Username" />
+                    </div>
+                    <div class="payment-input" id="payment-ApplePay">
+                        <input type="number" name="cardNumber" placeholder="Card number" />
+                        <input type="text" name="cardHolderName" placeholder="Card holder name" />
+                        <input type="date" name="expirationDate" placeholder="Expiration date" />
+                        <input type="number" name="cvv" placeholder="CVV" />
+                    </div>
+                    <div class="payment-input" id="payment-GooglePay">
+                        <input type="number" name="cardNumber" placeholder="Card number" />
+                        <input type="text" name="cardHolderName" placeholder="Card holder name" />
+                        <input type="date" name="expirationDate" placeholder="Expiration date" />
+                        <input type="text" name="cvv" placeholder="CVV" />
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Agree" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="payment-input" id="payment-CreditCard">
-            <input type="number" name="cardNumber" placeholder="Card number" />
-            <input type="text" name="cardHolderName" placeholder="Card holder name" />
-            <input type="date" name="expirationDate" placeholder="Expiration date" />
-            <input type="number" name="cvv" placeholder="CVV" />
-        </div>
-        <div class="payment-input" id="payment-DebitCard">
-            <input type="number" name="cardNumber" placeholder="Card number" />
-            <input type="text" name="cardHolderName" placeholder="Card holder name" />
-            <input type="date" name="expirationDate" placeholder="Expiration date" />
-            <input type="number" name="cvv" placeholder="CVV" />
-        </div>
-        <div class="payment-input" id="payment-PayPal">
-            <input type="text" name="email" placeholder="Email" />
-        </div>
-        <div class="payment-input" id="payment-Venmo">
-            <input type="text" name="username" placeholder="Username" />
-        </div>
-        <div class="payment-input" id="payment-ApplePay">
-            <input type="number" name="cardNumber" placeholder="Card number" />
-            <input type="text" name="cardHolderName" placeholder="Card holder name" />
-            <input type="date" name="expirationDate" placeholder="Expiration date" />
-            <input type="number" name="cvv" placeholder="CVV" />
-        </div>
-        <div class="payment-input" id="payment-GooglePay">
-            <input type="number" name="cardNumber" placeholder="Card number" />
-            <input type="text" name="cardHolderName" placeholder="Card holder name" />
-            <input type="date" name="expirationDate" placeholder="Expiration date" />
-            <input type="text" name="cvv" placeholder="CVV" />
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    }
-
-
-
-    <style>
-        .payment-input {
-            display: none;
-            margin-top: 20px;
         }
-
-            .payment-input label,
-            .payment-input input {
-                display: block;
-                margin-bottom: 10px;
-            }
-
-            .payment-input label {
-                font-weight: bold;
-            }
-    </style>
-
-
+    </div>
 </div>
 
+        <style>
+            .payment-input {
+                display: none;
+                margin-top: 20px;
+            }
+
+                .payment-input label,
+                .payment-input input {
+                    display: block;
+                    margin-bottom: 10px;
+                }
+
+                .payment-input label {
+                    font-weight: bold;
+                }
+        </style>
 
 
 <script>

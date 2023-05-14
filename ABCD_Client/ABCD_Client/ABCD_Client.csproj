@@ -240,9 +240,11 @@
     <Content Include="css2\css\font-awesome.min.css" />
     <Content Include="css2\css\global.css" />
     <Content Include="css2\css\index.css" />
+    <Content Include="css\cartCinema.css" />
     <Content Include="css\custom.css" />
     <Content Include="css\login.css" />
     <Content Include="css\login2.css" />
+    <Content Include="css\seats.css" />
     <Content Include="css\style.blue.css" />
     <Content Include="css\style.blue.min.css" />
     <Content Include="css\style.default.css" />
@@ -624,11 +626,9 @@
     <Content Include="vendor\nouislider\nouislider.mjs" />
     <Content Include="vendor\swiper\svelte\swiper-slide.svelte" />
     <Content Include="vendor\swiper\svelte\swiper.svelte" />
-    <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Shared\_LayoutCinema.cshtml" />
     <Content Include="Views\Cinema\Index.cshtml" />
     <Content Include="Views\Cinema\BookingTickets.cshtml" />
-    <Content Include="Views\Home\Shop.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Shops\Details.cshtml" />
     <Content Include="Views\Shops\Index.cshtml" />

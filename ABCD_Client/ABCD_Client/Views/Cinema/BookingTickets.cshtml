@@ -5,149 +5,71 @@
     Layout = "~/Views/Shared/_LayoutCinema.cshtml";
 }
 
-<style>
-    h2 {
-        font-size: 30px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }   
+<link href="~/css/seats.css" rel="stylesheet" />
+<hr />
+<div class="container">
+    <h1>Details Film</h1>
 
-    .movie-details {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+    <div style="margin: auto">
+        <div class="movie-details" style="margin-left: 5rem">
+            <div>
+                <h4>@Model.movieTitle</h4>
+                <img style="margin:auto" src="@Url.Content("~/img/movie/" + Model.imagePath)" alt="@Model.movieTitle" />
 
-    .movie-details p {
-        margin-bottom: 10px;
-    }
+                <dl class="row">
+                    <dt class="col-sm-2">Movie Description:</dt>
+                    <dd class="col-sm-10">@Model.movieDescription</dd>
 
-    img {
-        max-width: 300px;
-        margin-left: 50px;
-    }
+                    <dt class="col-sm-2">Release Date:</dt>
+                    <dd class="col-sm-10">@Model.releaseDate.ToShortDateString()</dd>
 
-    button {
-        background-color: #007bff;
-        color: #fff;
-        padding: 10px 20px;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-    }
+                    <dt class="col-sm-2">Duration</dt>
+                    <dd class="col-sm-10">@Model.duration minutes</dd>
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        margin-top: 30px;
-    }
+                    <dt class="col-sm-2">Rating</dt>
+                    <dd class="col-sm-10">@Model.rating out of 5</dd>
+                </dl>
 
-    th,
-    td {
-        text-align: left;
-        padding: 8px;
-    }
-
-    th {
-        background-color: #007bff;
-        color: #fff;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    .seat-picker {
-        margin-top: 20px;
-    }
-
-    .seat-picker label {
-        display: inline-block;
-        margin-right: 10px;
-    }
-
-    .seat-picker select {
-        width: 200px;
-    }
-
-    .seat-picker button {
-        margin-left: 10px;
-    }
-
-    .available-seats {
-        margin-top: 10px;
-    }
-
-    .available-seats span {
-        margin-right: 10px;
-    }
-
-    .available-seats .seat {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        margin-right: 5px;
-        text-align: center;
-        line-height: 30px;
-        cursor: pointer;
-    }
-
-    .available-seats .seat.disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-    }
-
-    .available-seats .selected {
-        background-color: #007bff;
-        color: #fff;
-    }
-</style>
-
-<h2>@Model.movieTitle</h2>
-
-<div class="movie-details">
-    <div>
-        <img src="@Url.Content("~/img/movie/" + Model.imagePath)" alt="@Model.movieTitle" />
-        <p>@Model.movieDescription</p>
-        <p><strong>Release Date:</strong> @Model.releaseDate.ToShortDateString()</p>
-        <p><strong>Duration:</strong> @Model.duration minutes</p>
-        <p><strong>Rating:</strong> @Model.rating out of 5</p>
-        <a href="@Model.trailerLink" target="_blank"><button>Watch Trailer</button></a>
+                <a href="@Model.trailerLink" target="_blank"><button>Watch Trailer</button></a>
+            </div>
+        </div>
     </div>
 </div>
 
-<h3>Screenings</h3>
-
-@if (ViewBag.Screenings != null)
-{
-    foreach (var screening in ViewBag.Screenings)
-    {
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Room</th>
-                    <th>Price</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@screening.reservedTime.ToShortDateString()</td>
-                    <td>@screening.reservedTime.ToShortTimeString()</td>
-                    <td>@screening.roomId</td>
-                    <td>@screening.price</td>
-                    <td>
-                        @Html.ActionLink("Order Ticket", "AddToCart", "Cinema", new { roomId = screening.roomId, screeningId = screening.screeningId }, new { @class = "order-ticket-link" })
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    }
-}
-
-
-
+<div>
+        <h1>Screenings</h1>
+        <div class="row">
+            <div class="col-lg-12">
+                @if (ViewBag.Screenings != null)
+                {
+                    foreach (var screening in ViewBag.Screenings)
+                    {
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Room</th>
+                                        <th>Price</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@screening.reservedTime.ToShortDateString()</td>
+                                        <td>@screening.reservedTime.ToShortTimeString()</td>
+                                        <td>@screening.roomId</td>
+                                        <td>@screening.price</td>
+                                        <td>
+                                            @Html.ActionLink("Order Ticket", "AddToCart", "Cinema", new { roomId = screening.roomId, screeningId = screening.screeningId }, new { @class = "order-ticket-link" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+  </div>

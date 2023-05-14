@@ -5,16 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<hr />
 <div class="container">
     <h2>Details Shops</h2>
 
-    <div>
+    <div style="margin: auto">
         <div class="left-column">
             <hr />
             <h4>Images</h4>
 
-            <img style="margin-left:-5rem" src="@Url.Content("~/img/brands/" + Model.imagePath)" />
+            <img style="margin:auto" src="@Url.Content("~/img/brands/" + Model.imagePath)" />
             <dl class="row">
                 <dt class="col-sm-2">@Html.DisplayNameFor(model => model.shopName)</dt>
                 <dd class="col-sm-10">@Html.DisplayFor(model => model.shopName)</dd>

@@ -2,7 +2,7 @@
     ViewBag.Title = "AddToCart";
     Layout = "~/Views/Shared/_LayoutCinema.cshtml";
 }
-
+<link href="~/css/cartCinema.css" rel="stylesheet" />
 <div>
     <h4>RoomSeats</h4>
     <hr />
@@ -37,34 +37,41 @@
     </table>
 </div>
 
-<table class="cart-table">
-    <thead>
-        <tr>
-            <th>Seat</th>
-            <th>Room</th>
-            <th>Movie Name</th>
-            <th>Reserved Time</th>
-            <th>Price</th>
-        </tr>
-    </thead>
-    <tbody id="cart-items"></tbody>
-    <tfoot>
-        <tr>
-            <td colspan="4" style="text-align: right;">Total:</td>
-            <td id="total-price">0</td>
-        </tr>
-        <tr>
-            <td colspan="5" style="text-align: right;">
-                <button onclick="clearCart()">Clear Cart</button>
-                <button onclick="submitOrder()">Submit Order</button>
-            </td>
-        </tr>
-    </tfoot>
-</table>
+<div style="margin-left: 300px">
+    <div class="col-lg-9 mb-4 mb-lg-0">
+        <div class="table-responsive mb-4">
+            <table class="table text-nowrap">
+                <thead class="bg-info">
+                    <tr>
+                        <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Seat Name</strong></th>
+                        <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Room</strong></th>
+                        <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Reserved Time</strong></th>
+                        <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Movie Title</strong></th>
+                        <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Price </strong></th>
+                        <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase"></strong></th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" style="text-align: right;">Total:</td>
+                            <td id="total-price">0</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" style="text-align: right;">
+                                <button style="border:none" onclick="clearCart()">Clear Cart</button>
+                                <button style="border:none" onclick="submitOrder()">Submit Order</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 
-
-<script>
+        <script>
     var tickets = [];
     function toggleSeat(seat) {
         if (seat.classList.contains("unavailable")) {
@@ -203,92 +210,6 @@
     }
 
 
-</script>
+        </script>
 
 
-<style>
-    .seat-picker {
-        border-collapse: collapse;
-        margin: 20px auto;
-    }
-
-        .seat-picker td {
-            padding: 5px;
-            vertical-align: middle;
-        }
-
-            .seat-picker td:nth-child(-n+6) {
-                padding-left: 20px;
-            }
-
-        .seat-picker .row-label {
-            font-weight: bold;
-            width: 30px;
-            padding-left: 20px;
-        }
-
-    .seat-square {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        border: 1px solid black;
-        margin: 1px;
-        text-align: center;
-        vertical-align: middle;
-        cursor: pointer;
-    }
-
-        .seat-square span {
-            font-size: smaller;
-        }
-
-        .seat-square.available {
-            background-color: green;
-            color: white;
-        }
-
-        .seat-square.unavailable {
-            background-color: gray;
-            color: white;
-            cursor: not-allowed;
-        }
-
-        .seat-square.selected {
-            background-color: purple;
-            color: white;
-        }
-
-        .seat-square.vip {
-            background-color: red;
-            color: white;
-        }
-        .seat-square.vip.unavailable {
-            background-color: gray !important; /* Override the background color of VIP seats with the unavailable class */
-        }
-
-    .legend-container {
-        display: flex;
-        justify-content: center;
-    }
-
-    .cart-table {
-        margin-top: 20px;
-        border-collapse: collapse;
-    }
-
-        .cart-table th,
-        .cart-table td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid black;
-        }
-
-        .cart-table thead th {
-            background-color: lightgray;
-            font-weight: bold;
-        }
-
-    #total-price {
-        font-weight: bold;
-    }
-</style>

@@ -1,0 +1,97 @@
+﻿h2 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.movie-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+    .movie-details p {
+        margin-bottom: 10px;
+    }
+
+img {
+    max-width: 300px;
+    margin-left: 50px;
+}
+
+button {
+    background-color: #257205;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 30px;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #257205;
+    color: #fff;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.seat-picker {
+    margin-top: 20px;
+}
+
+    .seat-picker label {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .seat-picker select {
+        width: 200px;
+    }
+
+    .seat-picker button {
+        margin-left: 10px;
+    }
+
+.available-seats {
+    margin-top: 10px;
+}
+
+    .available-seats span {
+        margin-right: 10px;
+    }
+
+    .available-seats .seat {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        margin-right: 5px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+    }
+
+        .available-seats .seat.disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+    .available-seats .selected {
+        background-color: #007bff;
+        color: #fff;
+    }
