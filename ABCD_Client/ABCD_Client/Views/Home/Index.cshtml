@@ -21,6 +21,7 @@
         <div class="container">
             <h2>Shops</h2>
             <div class="row">
+                <strong style="margin-left: 8in"><a href="@Url.Action("Index", "Shops")">See all shops...</a></strong>
                 @foreach (var shop in ViewBag.Shops)
                 {
                     <div class="col-md-6 col-lg-3 mb-4">
@@ -34,7 +35,6 @@
                         </div>
                     </div>
                 }
-                <a href="@Url.Action("Index", "Shops")">More...</a>
             </div>
         </div>
     </section>
@@ -44,6 +44,7 @@
         <div class="container">
             <h2>Products</h2>
             <div class="row">
+                <strong style="margin-left: 8in"><a href="@Url.Action("Index", "Products")">See all products...</a></strong>
                 @foreach (var product in ViewBag.Products)
                 {
                     <div class="col-md-6 col-lg-3 mb-4">
@@ -62,7 +63,6 @@
                         </div>
                     </div>
                 }
-                <a href="@Url.Action("Index", "Products")">More...</a>
             </div>
         </div>
     </section>
@@ -72,6 +72,7 @@
         <div class="container">
             <h2>Movies</h2>
             <div class="row">
+                <strong style="margin-left: 8in"><a href="@Url.Action("Index", "Cinema")">See all movie...</a></strong>
                 @foreach (var movie in ViewBag.Movies)
                 {
                     <div class="col-md-6 col-lg-3 mb-4">
@@ -85,7 +86,6 @@
                         </div>
                     </div>
                 }
-                <a href="@Url.Action("Index", "Cinema")">More...</a>
             </div>
         </div>
     </section>
