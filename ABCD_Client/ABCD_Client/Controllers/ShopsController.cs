@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ABCD_Client.Models;
+using PagedList;
 
 namespace ABCD_Client.Controllers
 {
@@ -15,9 +16,9 @@ namespace ABCD_Client.Controllers
         private Entities1 db = new Entities1();
 
         // GET: Shops
-        public ActionResult Index()
+        public ActionResult Index(int? i)
         {
-            return View(db.Shops.ToList());
+            return View(db.Shops.ToList().ToPagedList(i ?? 1, 8));
         }
 
         // GET: Shops/Details/5
